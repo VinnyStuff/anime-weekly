@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Stack from '@mui/material/Stack';
+import Chip from '@mui/material/Chip';
 
 import styles from "../styles/AnimeCard.module.css";
 
@@ -72,6 +73,11 @@ export default function AnimeCard() {
           <Typography variant="h5" component="div">
             Yamada-kun to Lv999 no Koi wo Suru
           </Typography>
+
+          <div>
+            <Chip label="Chip Filled" />
+            <Chip label="Chip Outlined" variant="outlined" color="primary"/>
+          </div>
 
           <Rating name="half-rating-read" value={value} precision={0.1} readOnly /> {/* defaultValue can be better - test after */}
 
