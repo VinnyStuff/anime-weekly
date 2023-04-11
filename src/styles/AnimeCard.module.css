@@ -1,0 +1,56 @@
+.bla{
+    background-color: blue;
+}
+
+
+.animeCard{
+    background-color: red;
+    
+    position: relative;
+    display: flex;
+
+    min-height: 320px;
+    height: max-content;
+    max-height: 600px;
+
+    min-width: 320px;
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
+.imageContainer{
+    height: 90vh;
+    max-height: 600px;
+
+    width: max-content;
+
+    background-color: yellow;
+}
+.image{
+    height: 100%;
+}
+
+.animeInformationsContainer{
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex-grow: 1;
+
+    background-color: purple;
+}
+.subtitle{
+    flex-grow: 1;
+    height: 0;
+    background-color: red;
+    overflow: hidden;
+}
+
+
+@media only screen and (max-width: 900px) { /* 865px */
+    .imageContainer{
+        height: 67vw;
+        min-height: 320px;
+    }
+}
