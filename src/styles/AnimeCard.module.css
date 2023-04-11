@@ -3,47 +3,79 @@
     display: flex;
 
     min-height: 210px;
-    height: max-content;
+    height: 90vh;
     max-height: 600px;
 
     min-width: 320px;
     max-width: 1200px;
 
     margin: 0 auto;
-    background-color: purple;
-}
-
-.imageContainer{
-    display: flex;
-    height: 90vh;
-    max-height: 600px;
-
-    width: max-content;
-    background-color: blue;
 }
 .image{
     height: 100%;
+    width: max-content;
 }
-
 .animeInformationsContainer{
-    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 14px;
+}
 
+.title{
+    padding-bottom: 6px;
+}
+
+.chipsContainer{
+    white-space: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.chipsContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.ratingContainer{
     display: flex;
-    flex-direction: column;
-    background-color: yellow;
-
-    overflow: hidden;
+    padding-bottom: 6px;
 }
-.subtitle{
-    flex-grow: 1;
-    height: 0;
-    overflow: hidden;
-    background-color: green;
+.ratingContainer > p{
+    margin-top: 2px;
+    padding-left: 8px;
 }
 
-@media only screen and (max-width: 900px) { /* 865px */
-    .imageContainer{
+
+.seeMoreButton{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+    border-radius: 0;
+}
+
+@media only screen and (max-width: 865px) { /* 865px */
+    .animeCard{
         min-height: 210px;
-        height: 67vw;
+        height: 70vw;
+    }
+}
+@media only screen and (max-width: 565px) { /* 865px */
+    .title{
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+@media only screen and (max-width: 374px) { /* 865px */
+    .ratingContainer{
+        display: initial;
+        text-align: center;
+    }
+    .ratingContainer > p{
+        margin-top: 0;
+        padding-left: 0;
+        width: 120px;
     }
 }

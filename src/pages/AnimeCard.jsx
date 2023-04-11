@@ -61,27 +61,28 @@ export default function AnimeCard() {
         />
       </div> */}
 
-      <div className={styles.animeCard}>
-        <div className={styles.imageContainer}>
+      <Card  className={styles.animeCard}>
           <img
             className={styles.image}
             src="https://cdn.myanimelist.net/images/anime/1298/134178l.jpg"
             alt="anime image"
           />
-        </div>
         <div className={styles.animeInformationsContainer}>
-          <Typography variant="h5" component="div">
-            Yamada-kun to Lv999 no Koi wo Suru
+
+          <Typography variant="h5" className={styles.title}>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, quisquam?
           </Typography>
 
-          <div>
-            <Chip label="Chip Filled" />
-            <Chip label="Chip Outlined" variant="outlined" color="primary"/>
+          <div className={styles.chipsContainer}>
+            <Chip label="Chip Outlined" variant="outlined"/>
+          </div> 
+
+          <div className={styles.ratingContainer}>
+            <Rating name="half-rating-read" value={value} precision={0.1} readOnly /> {/* defaultValue can be better - test after */}
+            <Typography color="text.primary">{value}</Typography>
           </div>
 
-          <Rating name="half-rating-read" value={value} precision={0.1} readOnly /> {/* defaultValue can be better - test after */}
-
-          <Typography className={styles.subtitle} color="text.secondary">
+          <Typography color="text.secondary" align='justify'>
             After her boyfriend cheats on her with another girl he met in-game,
             Akane Kinoshita learns the hard way that gamer boyfriends can be
             just as bad as the offline variety. As she vents her anger by
@@ -94,8 +95,12 @@ export default function AnimeCard() {
             Akane shake the heart of Yamada, a final boss-level high school boy?
             [Written by MAL Rewrite]
           </Typography>
+
+          <Button className={styles.seeMoreButton} variant="contained">Read More</Button>
+        
+
         </div>
-      </div>
+      </Card >
     </>
   );
 }
