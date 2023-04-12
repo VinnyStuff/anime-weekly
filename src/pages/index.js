@@ -1,20 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import AnimeCard from './AnimeCard'
+import AnimeCard from "./AnimeCard";
 import React, { useState, useEffect, useMemo } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import SellIcon from "@mui/icons-material/Sell";
 import styles from "../styles/AnimeCard.module.css";
-
-
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -39,9 +29,10 @@ export default function Home() {
   };
 
   const filteredData = useMemo(() => {
-    return data.filter((anime) => anime.title.toLowerCase().includes(searchText.toLowerCase()));
+    return data.filter((anime) =>
+      anime.title.toLowerCase().includes(searchText.toLowerCase())
+    );
   }, [data, searchText]);
-
 
   return (
     <>
@@ -52,8 +43,19 @@ export default function Home() {
           <AnimeCardComponent anime={anime} />
         </div>
       ))}
+
+{/*       {data.map((anime) => (
+        <>
+          {anime.title.toLowerCase().includes(searchText.toLowerCase()) ? (
+            <div key={anime.title}>
+              <AnimeCardComponent anime={anime} key={anime.title}/>
+            </div>
+          ) : null}
+        </>
+      ))} */}
+
     </>
-  )
+  );
 }
 
 function AnimeCardComponent({ anime }) {
@@ -64,6 +66,7 @@ function AnimeCardComponent({ anime }) {
   let subtitle = "";
 
   if (anime) {
+    console.log('a')
     image = anime.images.jpg.large_image_url;
     title = anime.title;
     genres = anime.genres;
@@ -100,4 +103,3 @@ function AnimeCardComponent({ anime }) {
     </Card>
   );
 }
-

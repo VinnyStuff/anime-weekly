@@ -1,15 +1,9 @@
-import Button from "@mui/material/Button";
 import React, { useState, useEffect, useMemo } from "react";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
-import Rating from "@mui/material/Rating";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import SellIcon from "@mui/icons-material/Sell";
-
-import styles from "../styles/AnimeCard.module.css";
 
 export default function AnimeCard({ onTextChange }) {
   const [text, setText] = useState("");
