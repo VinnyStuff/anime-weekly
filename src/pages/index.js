@@ -33,20 +33,23 @@ export default function Home() {
 
   function handleValueEmit(filteredAnimes) {
     setFilteredAnimes(filteredAnimes);
-    for (let i = 0; i < filteredAnimes.length; i++) {
-      console.log(filteredAnimes[i].title)
-    }
   }
 
   return (
     <>
       <div>
-        <AnimeCard animes={data} onValueEmit={handleValueEmit}/>
+        <AnimeCard animes={data}/>
       </div>
 
-      {data.map((anime) => (
-        <MemoizedAnimeCardComponent anime={anime} key={anime.title}/>
-      ))}
+     {/*  {data.map((anime) => (
+         <>
+         {anime.title.toLowerCase().includes(filteredAnimes.toLowerCase()) ? (
+           <div key={anime.title}>
+             <AnimeCardComponent anime={anime} key={anime.title}/>
+           </div>
+         ) : null}
+       </>
+      ))} */}
     </>
   );
 }
