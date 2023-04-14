@@ -5,13 +5,19 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import SellIcon from "@mui/icons-material/Sell";
 
-export default function AnimeCard({ onTextChange }) {
+export default function AnimeCard({ animes, onValueEmit}) {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    onTextChange(text);
-  }, [text, onTextChange]);
+    setText(text);
 
+    //console.log(animes.filter(anime => anime.title.toLowerCase().includes(text.toLowerCase())));
+    //console.log(animes);
+
+    onValueEmit(animes.filter(anime => anime.title.toLowerCase().includes(text.toLowerCase())));
+  }, [text]);
+
+  
   return (
     <>
       <Paper
@@ -27,12 +33,14 @@ export default function AnimeCard({ onTextChange }) {
           placeholder="Search Animes"
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onClick={() =>  onValueEmit(animes)}
         />
 
         <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
           <SearchIcon />
         </IconButton>
       </Paper>
+      {text}
     </>
   );
 }

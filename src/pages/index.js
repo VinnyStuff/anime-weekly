@@ -1,5 +1,12 @@
 import AnimeCard from "./AnimeCard";
-import React, { useState, useEffect, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useLayoutEffect,
+  memo,
+} from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -15,45 +22,31 @@ export default function Home() {
         "https://api.jikan.moe/v4/seasons/now?limit=25&page=1"
       );
       const jsonData = await response.json();
-      console.log(jsonData.data);
+      //console.log(jsonData.data);
       setData(jsonData.data);
     }
 
     fetchData();
   }, []);
 
-  const [searchText, setSearchText] = useState("");
+  const [filteredAnimes, setFilteredAnimes] = useState(data)
 
-  const handleTextChange = (text) => {
-    setSearchText(text);
-  };
-
-  const filteredData = useMemo(() => {
-    return data.filter((anime) =>
-      anime.title.toLowerCase().includes(searchText.toLowerCase())
-    );
-  }, [data, searchText]);
+  function handleValueEmit(filteredAnimes) {
+    setFilteredAnimes(filteredAnimes);
+    for (let i = 0; i < filteredAnimes.length; i++) {
+      console.log(filteredAnimes[i].title)
+    }
+  }
 
   return (
     <>
-      <AnimeCard onTextChange={handleTextChange} />
+      <div>
+        <AnimeCard animes={data} onValueEmit={handleValueEmit}/>
+      </div>
 
-      {filteredData.map((anime) => (
-        <div key={anime.title}>
-          <AnimeCardComponent anime={anime} />
-        </div>
+      {data.map((anime) => (
+        <MemoizedAnimeCardComponent anime={anime} key={anime.title}/>
       ))}
-
-{/*       {data.map((anime) => (
-        <>
-          {anime.title.toLowerCase().includes(searchText.toLowerCase()) ? (
-            <div key={anime.title}>
-              <AnimeCardComponent anime={anime} key={anime.title}/>
-            </div>
-          ) : null}
-        </>
-      ))} */}
-
     </>
   );
 }
@@ -64,9 +57,9 @@ function AnimeCardComponent({ anime }) {
   let genres = "";
   let rating = "";
   let subtitle = "";
+  console.log('a');
 
   if (anime) {
-    console.log('a')
     image = anime.images.jpg.large_image_url;
     title = anime.title;
     genres = anime.genres;
@@ -85,7 +78,7 @@ function AnimeCardComponent({ anime }) {
         <div className={styles.ratingContainer}>
           <Rating
             name="half-rating-read"
-            defaultValue={rating / 2}
+            value={rating / 2}
             precision={0.1}
             readOnly
           />
@@ -103,3 +96,4 @@ function AnimeCardComponent({ anime }) {
     </Card>
   );
 }
+const MemoizedAnimeCardComponent = memo(AnimeCardComponent);
