@@ -18,6 +18,15 @@ export default function AnimeCard({ animes }) {
 
     //console.log(animes);
 
+    const bla = animes.map(anime => anime.genres); //get all genres
+    console.log(bla);
+
+    const bla2 = bla.flatMap(arr => arr.map(obj => obj.name)); //put all genres in a single array
+    console.log(bla2);
+
+    const bla3 = bla2.filter((value, index) => bla2.indexOf(value) === index); //remove duplicate genres
+    console.log(bla3);
+
     setAnimesToShow(
       animes.filter((anime) =>
         anime.title.toLowerCase().includes(text.toLowerCase())
