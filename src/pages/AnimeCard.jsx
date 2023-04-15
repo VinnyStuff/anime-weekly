@@ -9,16 +9,30 @@ import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 
 export default function AnimeCard({ animes }) {
+
   const [animesToShow, setAnimesToShow] = useState([]);
-
   const [genres, setGenres] = useState([]);
+  useEffect(() => {
+    setAnimesToShow(animes);
+    setGenres([...new Set(animes.flatMap((anime) => anime.genres.map((genre) => genre.name))),]);
+  }, [animes]);
+  
 
-  const [genreColors, setGenreColors] = useState({});
+  const [activeChips, setActiveChips] = useState({});
 
-  const handleClick = (genre) => {
-    setGenreColors((prevState) => ({
+  const activeChip = (genre) => {
+    //ENTENDER DEPOIS ISSO CERTINHO
+/*     const newactiveChips = {};
+    for (const key in activeChips) {
+      newactiveChips[key] = activeChips[key];
+    }
+    newactiveChips[genre] =
+      newactiveChips[genre] === "primary" ? "default" : "primary";
+    setActiveChips(newactiveChips); */
+
+    setActiveChips((prevState) => ({
       ...prevState,
-      [genre]: prevState[genre] === "primary" ? 'default' : "primary",
+      [genre]: prevState[genre] === "primary" ? "default" : "primary",
     }));
   };
 
@@ -26,12 +40,13 @@ export default function AnimeCard({ animes }) {
   useEffect(() => {
     setText(text);
 
+    console.log()
     setAnimesToShow(
       animes.filter((anime) =>
         anime.title.toLowerCase().includes(text.toLowerCase())
       )
     );
-    console.log(genreColors);
+    console.log(activeChips);
   }, [text]);
 
   return (
@@ -42,19 +57,7 @@ export default function AnimeCard({ animes }) {
             sx={{ ml: 1, flex: 1, pl: 2 }}
             placeholder="Search Animes..."
             value={text}
-            //onChange={(e) => setText(e.target.value)}
             onChange={(e) => setText(e.target.value)}
-            onClick={() => {
-              setAnimesToShow(animes);
-              setGenres([
-                ...new Set(
-                  animes.flatMap((anime) =>
-                    anime.genres.map((genre) => genre.name)
-                  )
-                ),
-              ]);
-            }}
-            //onBlur={() => {setAnimesToShow([]); setGenres([])}}
           />
 
           <Divider
@@ -79,8 +82,8 @@ export default function AnimeCard({ animes }) {
                 label={genre}
                 key={genre}
                 sx={{ mx: 0.3, mb: 0.8 }}
-                color={genreColors[genre] || "default"}
-                onClick={() => handleClick(genre)}
+                color={activeChips[genre] || "default"}
+                onClick={() => activeChip(genre)}
               />
             ))}
           </div>
