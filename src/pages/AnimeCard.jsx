@@ -14,39 +14,52 @@ export default function AnimeCard({ animes }) {
   const [genres, setGenres] = useState([]);
   useEffect(() => {
     setAnimesToShow(animes);
-    setGenres([...new Set(animes.flatMap((anime) => anime.genres.map((genre) => genre.name))),]);
+    setGenres([
+      ...new Set(
+        animes.flatMap((anime) => anime.genres.map((genre) => genre.name))
+      ),
+    ]);
   }, [animes]);
-  
 
-  const [activeChips, setActiveChips] = useState({});
-
-  const activeChip = (genre) => {
+  const [genreColors, setGenreColors] = useState({});
+  const [activeGenres, setActiveGenres] = useState([]);
+  const [animesFilteredByGenre, setAnimesFilteredByGenre] = useState([])
+  const genresControl = (genre) => {
     //ENTENDER DEPOIS ISSO CERTINHO
-/*     const newactiveChips = {};
-    for (const key in activeChips) {
-      newactiveChips[key] = activeChips[key];
-    }
-    newactiveChips[genre] =
-      newactiveChips[genre] === "primary" ? "default" : "primary";
-    setActiveChips(newactiveChips); */
+    const newgenreColors = {};
 
-    setActiveChips((prevState) => ({
+    for (const key in genreColors) {
+      newgenreColors[key] = genreColors[key];
+    }
+
+    if (newgenreColors[genre] === "primary") {
+      newgenreColors[genre] = "default";
+      setActiveGenres(activeGenres.filter(currentGenre => currentGenre !== genre));
+    } else {
+      newgenreColors[genre] = "primary";
+      setActiveGenres([...activeGenres, genre]);
+    }
+    setGenreColors(newgenreColors);
+
+    //criar aqui os animes filtrados pela tag
+
+    /*     setGenreColors((prevState) => ({
       ...prevState,
       [genre]: prevState[genre] === "primary" ? "default" : "primary",
-    }));
+    })); */
   };
+  const animeFiltereByGenre = () =>{
+  }
 
   const [text, setText] = useState("");
   useEffect(() => {
     setText(text);
 
-    console.log()
     setAnimesToShow(
       animes.filter((anime) =>
         anime.title.toLowerCase().includes(text.toLowerCase())
       )
     );
-    console.log(activeChips);
   }, [text]);
 
   return (
@@ -82,12 +95,12 @@ export default function AnimeCard({ animes }) {
                 label={genre}
                 key={genre}
                 sx={{ mx: 0.3, mb: 0.8 }}
-                color={activeChips[genre] || "default"}
-                onClick={() => activeChip(genre)}
+                color={genreColors[genre] || "default"}
+                onClick={() => genresControl(genre)}
               />
             ))}
           </div>
-
+          
           {animesToShow.map((currentAnime) => (
             <AnimeCardSearch anime={currentAnime} key={currentAnime.title} />
           ))}
@@ -140,7 +153,7 @@ const AnimeCardSearch = (anime) => {
             {genres.map((genre, index) => (
               <Typography color="text.secondary" key={genre.name}>
                 {genre.name}
-                {index === genres.length - 1 ? "" : ",\u00A0"}
+                {index !== genres.length - 1 ? ",\u00A0" :  ""}
               </Typography>
             ))}
           </div>
