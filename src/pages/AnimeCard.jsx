@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -9,8 +9,9 @@ import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 
 export default function AnimeCard({ animes }) {
-
   const [animesToShow, setAnimesToShow] = useState([]);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
+
   const [genres, setGenres] = useState([]);
   useEffect(() => {
     setAnimesToShow(animes);
@@ -21,45 +22,52 @@ export default function AnimeCard({ animes }) {
     ]);
   }, [animes]);
 
-  const [genreColors, setGenreColors] = useState({});
   const [activeGenres, setActiveGenres] = useState([]);
-  const [animesFilteredByGenre, setAnimesFilteredByGenre] = useState([])
+  const [animesFilteredByTags, setAnimesFilteredByTags] = useState([]);
   const genresControl = (genre) => {
-    //ENTENDER DEPOIS ISSO CERTINHO
-    const newgenreColors = {};
-
-    for (const key in genreColors) {
-      newgenreColors[key] = genreColors[key];
-    }
-
-    if (newgenreColors[genre] === "primary") {
-      newgenreColors[genre] = "default";
-      setActiveGenres(activeGenres.filter(currentGenre => currentGenre !== genre));
-    } else {
-      newgenreColors[genre] = "primary";
+    if (!activeGenres.includes(genre)) {
+      //put
       setActiveGenres([...activeGenres, genre]);
+    } else {
+      //remove
+      setActiveGenres(
+        activeGenres.filter((currentGenre) => currentGenre !== genre)
+      );
     }
-    setGenreColors(newgenreColors);
-
-    //criar aqui os animes filtrados pela tag
-
-    /*     setGenreColors((prevState) => ({
-      ...prevState,
-      [genre]: prevState[genre] === "primary" ? "default" : "primary",
-    })); */
   };
-  const animeFiltereByGenre = () =>{
-  }
+  useEffect(() => {
+    let animesFiltered = animes;
+    for (let i = 0; i < activeGenres.length; i++) {
+      animesFiltered = animesFiltered.filter((anime) =>
+        anime.genres.some((genre) =>
+          genre.name.toLowerCase().includes(activeGenres[i].toLowerCase())
+        )
+      );
+    }
+    setAnimesFilteredByTags(animesFiltered);
+    setAnimesToShow(animesFiltered);
+  }, [activeGenres]);
 
   const [text, setText] = useState("");
   useEffect(() => {
     setText(text);
 
-    setAnimesToShow(
-      animes.filter((anime) =>
-        anime.title.toLowerCase().includes(text.toLowerCase())
-      )
-    );
+    if (activeGenres.length === 0) {
+      //search without tags
+      setAnimesToShow(
+        animes.filter((anime) =>
+          anime.title.toLowerCase().includes(text.toLowerCase())
+        )
+      );
+    } else {
+      //search animes with current tag
+      setAnimesToShow(
+        animesFilteredByTags.filter((anime) =>
+          anime.title.toLowerCase().includes(text.toLowerCase())
+        )
+      );
+    }
+    console.log(animesToShow.length);
   }, [text]);
 
   return (
@@ -95,15 +103,19 @@ export default function AnimeCard({ animes }) {
                 label={genre}
                 key={genre}
                 sx={{ mx: 0.3, mb: 0.8 }}
-                color={genreColors[genre] || "default"}
+                color={activeGenres.includes(genre) ? "primary" : "default"}
                 onClick={() => genresControl(genre)}
               />
             ))}
           </div>
-          
+
           {animesToShow.map((currentAnime) => (
             <AnimeCardSearch anime={currentAnime} key={currentAnime.title} />
           ))}
+
+          {animesToShow <= 0 ? <div>
+            <Typography color="text.secondary" sx={{textAlign: 'center', p: '10px', pb: '20px'}}>No options</Typography>
+          </div> : null}
         </div>
       </div>
     </>
@@ -153,7 +165,7 @@ const AnimeCardSearch = (anime) => {
             {genres.map((genre, index) => (
               <Typography color="text.secondary" key={genre.name}>
                 {genre.name}
-                {index !== genres.length - 1 ? ",\u00A0" :  ""}
+                {index !== genres.length - 1 ? ",\u00A0" : ""}
               </Typography>
             ))}
           </div>
