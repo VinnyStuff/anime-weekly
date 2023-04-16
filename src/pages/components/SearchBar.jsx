@@ -68,7 +68,6 @@ export default function SearchBar({ animes }) {
         )
       );
     }
-    console.log(animesToShow.length);
   }, [text]);
 
 
