@@ -1,14 +1,15 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import styles from "../styles/AnimeCard.module.css";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
 
-export default function AnimeCard({ animes }) {
+import styles from "../../styles/SearchBar.module.css";
+
+export default function SearchBar({ animes }) {
   const [animesToShow, setAnimesToShow] = useState([]);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
 
@@ -19,7 +20,7 @@ export default function AnimeCard({ animes }) {
       ...new Set(
         animes.flatMap((anime) => anime.genres.map((genre) => genre.name))
       ),
-    ]);
+    ]); //this get all genres presents in current animes
   }, [animes]);
 
   const [activeGenres, setActiveGenres] = useState([]);
@@ -69,6 +70,8 @@ export default function AnimeCard({ animes }) {
     }
     console.log(animesToShow.length);
   }, [text]);
+
+
 
   return (
     <>

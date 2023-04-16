@@ -1,4 +1,3 @@
-import AnimeCard from "./AnimeCard";
 import React, {
   useState,
   useEffect,
@@ -12,6 +11,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import styles from "../styles/AnimeCard.module.css";
+import SearchBar from "./components/SearchBar.jsx";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -29,27 +29,9 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const [filteredAnimes, setFilteredAnimes] = useState(data)
-
-  function handleValueEmit(filteredAnimes) {
-    setFilteredAnimes(filteredAnimes);
-  }
-
   return (
     <>
-      <div>
-        <AnimeCard animes={data}/>
-      </div>
-
-     {/*  {data.map((anime) => (
-         <>
-         {anime.title.toLowerCase().includes(filteredAnimes.toLowerCase()) ? (
-           <div key={anime.title}>
-             <AnimeCardComponent anime={anime} key={anime.title}/>
-           </div>
-         ) : null}
-       </>
-      ))} */}
+      <SearchBar animes={data}/>
     </>
   );
 }
@@ -99,4 +81,3 @@ function AnimeCardComponent({ anime }) {
     </Card>
   );
 }
-const MemoizedAnimeCardComponent = memo(AnimeCardComponent);
