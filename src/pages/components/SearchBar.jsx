@@ -140,8 +140,8 @@ const AnimeCardSearch = (anime) => {
     image = anime.anime.images.jpg.large_image_url;
     title = anime.anime.title;
     genres = anime.anime.genres;
-    score = anime.anime.score;
-    release = anime.anime.broadcast.day;
+    score = anime.anime.score.toFixed(2);
+    release = anime.anime.release.release_in_brazil_streamings.day;
   }
 
   return (

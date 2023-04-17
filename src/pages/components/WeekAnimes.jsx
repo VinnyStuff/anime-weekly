@@ -6,55 +6,30 @@ import Rating from "@mui/material/Rating";
 
 import styles from "../../styles/WeekAnimes.module.css";
 
-export default function WeekAnimes({ animes }) {
-  const [animesToShow, setAnimesToShow] = useState([]);
-  useEffect(() => {
-    setAnimesToShow(animes);
-    //console.log(animes);
-  }, [animes]);
+export default function WeekAnimes({ props }) {
+  console.log(props);
 
   return (
     <>
       <div>
+        {props.weekDays.map((day) => (
+          <div className={styles.weekAnimes} key={day}>
+            <Typography variant="h5" className={styles.weekAnimesTitle}>
+              {day}
+            </Typography>
+
+            <div>
+              {/* {props.data.filter((anime) => anime.release.release_in_brazil_streamings.day === day)
+                .map((anime) => (
+                 <AnimeCardComponent anime={anime}/>
+                ))} */}
+            </div>
+          </div>
+        ))}
+
         {/*         {animesToShow.map((anime) => (
             <AnimeCardComponent anime={anime} />
         ))} */}
-
-        <div className={styles.weekAnimes}>
-          <Typography variant="h5" className={styles.weekAnimesTitle}>Sundays</Typography>
-          <div>
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-          </div>
-        </div>
-
-        <div className={styles.weekAnimes}>
-          <h1 className={styles.weekAnimesTitle}>Mondays</h1>
-          <div>
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-          </div>
-        </div>
-
-        <div className={styles.weekAnimes}>
-          <h1 className={styles.weekAnimesTitle}>Tuesdays</h1>
-          <div>
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-            <AnimeCardComponent anime={animesToShow[0]} />
-          </div>
-        </div>
       </div>
     </>
   );

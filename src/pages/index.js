@@ -40,83 +40,79 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (data.length > 1){
-      getAnimesReleaseDate();
-    }
+    for (let i = 0; i < data.length; i++) {
+      data[i].release = getAnimesReleaseDate(data[i], weekDays);
+    }     
   }, [data]);
 
   return (
     <>
-      {/* <SearchBar animes={data}/> */}
+      {/* <SearchBar animes={{data}}/> */}
 
-      <WeekAnimes animes={data} />
+      <WeekAnimes props={{data, weekDays}} />
     </>
   );
+}
 
-  function getAnimesReleaseDate(){
-    const animes = data;
-    const endOfTheDay = moment("00:00", "HH:mm");
+function getAnimesReleaseDate(anime, weekDays){
+  const release = {};
+
+  const endOfTheDay = moment("00:00", "HH:mm");
   
-    if (data.length > 1) {
-      const release = {};
-      release.release_in_tokyo_timezone = {
-        day: animes[0].broadcast.day,
-        hour: animes[0].broadcast.time,
-      };
-  
-      //tokyo time zone
-      const releaseHourInTokyoTimeZone = moment(animes[0].broadcast.time,"HH:mm");
-      const releaseDayInInTokyoTimeZone = animes[0].broadcast.day;
-  
-      const releaseHourSimulcastInTokyoTimeZone =
-        releaseHourInTokyoTimeZone.add(1, "hour"); //simulcast in the rest of the world happens 1 hour after the episodes are released
-      let releaseDaySimulcastInTokyoTimeZone = "";
-  
-      if (releaseHourSimulcastInTokyoTimeZone.isAfter(endOfTheDay)) {
-        const currentDayOfWeek = releaseDayInInTokyoTimeZone;
-        const currentDayIndex = weekDays.indexOf(currentDayOfWeek);
-  
-        const nextDayIndex = (currentDayIndex + 1) % weekDays.length;
-        const nextDayOfWeek = weekDays[nextDayIndex];
-  
-        releaseDaySimulcastInTokyoTimeZone = nextDayOfWeek;
-      } else {
-        releaseDaySimulcastInTokyoTimeZone = releaseDayInInTokyoTimeZone;
-      }
-  
-      release.simulcast_tokyo_timezone = {
-        day: releaseDaySimulcastInTokyoTimeZone,
-        hour: releaseHourSimulcastInTokyoTimeZone.format("HH:mm"),
-      };
-  
-      //Brazil time zone - use simulcast hour from tokyo
-      const releaseHourSimulcastInBrazilTimeZone = releaseHourSimulcastInTokyoTimeZone.subtract(12, "hour").add(2, "hour"); //it takes 2 hours to reach the streamings
-      let releaseDaySimulcastInBrazilTimeZone = "";
-  
-      if (releaseHourSimulcastInBrazilTimeZone.isBefore(endOfTheDay)) {
-        const currentDayOfWeek = releaseDayInInTokyoTimeZone;
-        const currentDayIndex = weekDays.indexOf(currentDayOfWeek);
-  
-        const nextDayIndex = (currentDayIndex - 1) % weekDays.length;
-        const nextDayOfWeek = weekDays[nextDayIndex];
-  
-        releaseDaySimulcastInBrazilTimeZone = nextDayOfWeek;
-      } else {
-        releaseDaySimulcastInBrazilTimeZone = releaseDayInInTokyoTimeZone;
-      }
-  
-      //o simulcast acontece 1 hora depois de sair no japão, porem só chega 2 horas depois do simulcast nos streamings
-      release.release_in_brazil_streamings = {
-        day: releaseDaySimulcastInBrazilTimeZone,
-        hour: releaseHourSimulcastInTokyoTimeZone.format("HH:mm"),
-      };
-      release.simulcast_brazil_timezone = {
-        day: releaseDaySimulcastInBrazilTimeZone,
-        hour: releaseHourSimulcastInTokyoTimeZone.subtract(2, "hour").format("HH:mm"),
-      };
-  
-      data[0].release = release;
-      console.log(data[0]);
-    }
+  release.release_in_tokyo_timezone = {
+    day: anime.broadcast.day,
+    hour: anime.broadcast.time,
+  };
+
+  //tokyo time zone
+  const releaseHourInTokyoTimeZone = moment(anime.broadcast.time,"HH:mm");
+  const releaseDayInInTokyoTimeZone = anime.broadcast.day;
+
+  const releaseHourSimulcastInTokyoTimeZone = releaseHourInTokyoTimeZone.add(1, "hour"); //simulcast in the rest of the world happens 1 hour after the episodes are released
+  let releaseDaySimulcastInTokyoTimeZone = "";
+
+  if (releaseHourSimulcastInTokyoTimeZone.isAfter(endOfTheDay)) {
+    const currentDayOfWeek = releaseDayInInTokyoTimeZone;
+    const currentDayIndex = weekDays.indexOf(currentDayOfWeek);
+
+    const nextDayIndex = (currentDayIndex + 1) % weekDays.length;
+    const nextDayOfWeek = weekDays[nextDayIndex];
+
+    releaseDaySimulcastInTokyoTimeZone = nextDayOfWeek;
+  } else {
+    releaseDaySimulcastInTokyoTimeZone = releaseDayInInTokyoTimeZone;
   }
+
+  release.simulcast_tokyo_timezone = {
+    day: releaseDaySimulcastInTokyoTimeZone,
+    hour: releaseHourSimulcastInTokyoTimeZone.format("HH:mm"),
+  };
+
+  //Brazil time zone - use simulcast hour from tokyo
+  const releaseHourSimulcastInBrazilTimeZone = releaseHourSimulcastInTokyoTimeZone.subtract(12, "hour").add(2, "hour"); //it takes 2 hours to reach the streamings
+  let releaseDaySimulcastInBrazilTimeZone = "";
+
+  if (releaseHourSimulcastInBrazilTimeZone.isBefore(endOfTheDay)) {
+    const currentDayOfWeek = releaseDayInInTokyoTimeZone;
+    const currentDayIndex = weekDays.indexOf(currentDayOfWeek);
+
+    const nextDayIndex = (currentDayIndex - 1) % weekDays.length;
+    const nextDayOfWeek = weekDays[nextDayIndex];
+
+    releaseDaySimulcastInBrazilTimeZone = nextDayOfWeek;
+  } else {
+    releaseDaySimulcastInBrazilTimeZone = releaseDayInInTokyoTimeZone;
+  }
+
+  //o simulcast acontece 1 hora depois de sair no japão, porem só chega 2 horas depois do simulcast nos streamings
+  release.release_in_brazil_streamings = {
+    day: releaseDaySimulcastInBrazilTimeZone,
+    hour: releaseHourSimulcastInTokyoTimeZone.format("HH:mm"),
+  };
+  release.simulcast_brazil_timezone = {
+    day: releaseDaySimulcastInBrazilTimeZone,
+    hour: releaseHourSimulcastInTokyoTimeZone.subtract(2, "hour").format("HH:mm"),
+  };
+
+  return release;
 }
