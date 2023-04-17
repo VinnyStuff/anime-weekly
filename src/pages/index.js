@@ -39,7 +39,7 @@ export default function Home() {
 
   return (
     <>
-      <SearchBar animes={data}/>
+      <SearchBar props={{data}}/>
       {/* <WeekAnimes props={{data, weekDays}}/> */}
       {/* <TodayAnimes props={{data}}/> */}
     </>

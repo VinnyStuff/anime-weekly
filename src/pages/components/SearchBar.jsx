@@ -9,19 +9,19 @@ import Chip from "@mui/material/Chip";
 
 import styles from "../../styles/SearchBar.module.css";
 
-export default function SearchBar({ animes }) {
+export default function SearchBar({ props }) {
   const [animesToShow, setAnimesToShow] = useState([]);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
 
   const [genres, setGenres] = useState([]);
   useEffect(() => {
-    setAnimesToShow(animes);
+    setAnimesToShow(props.data);
     setGenres([
       ...new Set(
-        animes.flatMap((anime) => anime.genres.map((genre) => genre.name))
+        props.data.flatMap((anime) => anime.genres.map((genre) => genre.name))
       ),
     ]); //this get all genres presents in current animes
-  }, [animes]);
+  }, [props.data]);
 
   const [activeGenres, setActiveGenres] = useState([]);
   const [animesFilteredByTags, setAnimesFilteredByTags] = useState([]);
@@ -37,7 +37,7 @@ export default function SearchBar({ animes }) {
     }
   };
   useEffect(() => {
-    let animesFiltered = animes;
+    let animesFiltered = props.data;
     for (let i = 0; i < activeGenres.length; i++) {
       animesFiltered = animesFiltered.filter((anime) =>
         anime.genres.some((genre) =>
@@ -56,7 +56,7 @@ export default function SearchBar({ animes }) {
     if (activeGenres.length === 0) {
       //search without tags
       setAnimesToShow(
-        animes.filter((anime) =>
+        props.data.filter((anime) =>
           anime.title.toLowerCase().includes(text.toLowerCase())
         )
       );
