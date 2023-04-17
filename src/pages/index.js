@@ -1,17 +1,10 @@
 import React, {
   useState,
   useEffect,
-  useMemo,
-  useRef,
-  useLayoutEffect,
-  memo,
 } from "react";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
-import Rating from "@mui/material/Rating";
 import SearchBar from "./components/SearchBar.jsx";
 import WeekAnimes from "./components/WeekAnimes.jsx";
+import TodayAnimes from "./components/TodayAnimes.jsx";
 import moment from "moment";
 
 export default function Home() {
@@ -32,24 +25,23 @@ export default function Home() {
         "https://api.jikan.moe/v4/seasons/now?limit=25&page=1"
       );
       const jsonData = await response.json();
-      //console.log(jsonData.data);
-      setData(jsonData.data);
+      const apiData = jsonData.data;
+
+      //putting my values
+      for (let i = 0; i < apiData.length; i++) {
+        apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
+      }     
+      setData(apiData);
     }
 
     fetchData();
   }, []);
 
-  useEffect(() => {
-    for (let i = 0; i < data.length; i++) {
-      data[i].release = getAnimesReleaseDate(data[i], weekDays);
-    }     
-  }, [data]);
-
   return (
     <>
-      {/* <SearchBar animes={{data}}/> */}
-
-      <WeekAnimes props={{data, weekDays}} />
+      <SearchBar animes={data}/>
+      {/* <WeekAnimes props={{data, weekDays}}/> */}
+      {/* <TodayAnimes props={{data}}/> */}
     </>
   );
 }

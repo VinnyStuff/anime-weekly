@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -7,8 +6,6 @@ import Rating from "@mui/material/Rating";
 import styles from "../../styles/WeekAnimes.module.css";
 
 export default function WeekAnimes({ props }) {
-  console.log(props);
-
   return (
     <>
       <div>
@@ -19,17 +16,13 @@ export default function WeekAnimes({ props }) {
             </Typography>
 
             <div>
-              {/* {props.data.filter((anime) => anime.release.release_in_brazil_streamings.day === day)
+              {props.data.filter((anime) => anime.release.release_in_brazil_streamings.day === day)
                 .map((anime) => (
-                 <AnimeCardComponent anime={anime}/>
-                ))} */}
+                 <AnimeCardComponent anime={anime} key={anime.title}/>
+                ))}
             </div>
           </div>
         ))}
-
-        {/*         {animesToShow.map((anime) => (
-            <AnimeCardComponent anime={anime} />
-        ))} */}
       </div>
     </>
   );
@@ -41,6 +34,7 @@ function AnimeCardComponent({ anime }) {
   let genres = "";
   let rating = "";
   let subtitle = "";
+  let release = "";
 
   if (anime) {
     image = anime.images.jpg.large_image_url;
@@ -48,12 +42,14 @@ function AnimeCardComponent({ anime }) {
     genres = anime.genres;
     rating = anime.score;
     subtitle = anime.synopsis;
+    release = anime.release.release_in_brazil_streamings.day
   }
 
   return (
     <Card className={styles.animeCard}>
       <img className={styles.image} src={image} alt="current anime image" />
       <div className={styles.animeInformationsContainer}>
+        <p>{release}</p>
         <Typography variant="h5" className={styles.title}>
           {title}
         </Typography>
