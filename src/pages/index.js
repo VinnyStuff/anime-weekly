@@ -1,14 +1,16 @@
-import React, {
-  useState,
-  useEffect,
-} from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import WeekAnimes from "./components/WeekAnimes.jsx";
 import TodayAnimes from "./components/TodayAnimes.jsx";
 import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
 import moment from "moment";
 
-export default function Home() {
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+
+export default function Index() {
   const weekDays = [
     "Sundays",
     "Mondays",
@@ -32,7 +34,7 @@ export default function Home() {
       //putting my values
       for (let i = 0; i < apiData.length; i++) {
         apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
-      }     
+      }
       //console.log(apiData);
       setData(apiData);
     }
@@ -44,31 +46,47 @@ export default function Home() {
     //console.log(anime);
   };
 
+  const [foo, setFoo] = useState(0)
+  useEffect(() => {
+    console.log(foo);
+  }, [foo]);
+
   return (
     <>
+      <button onClick={() => setFoo(0)}>1</button>
+      <button onClick={() => setFoo(1)}>2</button>
       {/* <AnimeCardExpand props={{data}} /> */}
-      {/* <SearchBar props={{data}} getAnimeCardClick={getAnimeCardClick} /> */}
-      {/* <WeekAnimes props={{data, weekDays}}/> */}
+      {/* <SearchBar props={{data}} getAnimeCardClick={getAnimeCardClick}/> */}
+      {/* <WeekAnimes props={{data, weekDays}}/>  */}
       {/* <TodayAnimes props={{data, today}}/> */}
+
+      {foo === 0 ? 
+        <WeekAnimes props={{data, weekDays}}/> 
+        : 
+        <TodayAnimes props={{data, today}}/>
+      }
     </>
   );
 }
 
-function getAnimesReleaseDate(anime, weekDays){
+function getAnimesReleaseDate(anime, weekDays) {
   const release = {};
 
   const endOfTheDay = moment("00:00", "HH:mm");
-  
+
   release.release_in_tokyo_timezone = {
     day: anime.broadcast.day,
     hour: anime.broadcast.time,
   };
 
   //tokyo time zone
-  const releaseHourInTokyoTimeZone = moment(anime.broadcast.time,"HH:mm");
+  const releaseHourInTokyoTimeZone = moment(anime.broadcast.time, "HH:mm");
   const releaseDayInInTokyoTimeZone = anime.broadcast.day;
 
-  const releaseHourSimulcastInTokyoTimeZone = releaseHourInTokyoTimeZone.add(1, "hour"); //simulcast in the rest of the world happens 1 hour after the episodes are released
+  const releaseHourSimulcastInTokyoTimeZone = releaseHourInTokyoTimeZone.add(
+    1,
+    "hour"
+  ); //simulcast in the rest of the world happens 1 hour after the episodes are released
   let releaseDaySimulcastInTokyoTimeZone = "";
 
   if (releaseHourSimulcastInTokyoTimeZone.isAfter(endOfTheDay)) {
@@ -89,7 +107,8 @@ function getAnimesReleaseDate(anime, weekDays){
   };
 
   //Brazil time zone - use simulcast hour from tokyo
-  const releaseHourSimulcastInBrazilTimeZone = releaseHourSimulcastInTokyoTimeZone.subtract(12, "hour").add(2, "hour"); //it takes 2 hours to reach the streamings
+  const releaseHourSimulcastInBrazilTimeZone =
+    releaseHourSimulcastInTokyoTimeZone.subtract(12, "hour").add(2, "hour"); //it takes 2 hours to reach the streamings
   let releaseDaySimulcastInBrazilTimeZone = "";
 
   if (releaseHourSimulcastInBrazilTimeZone.isBefore(endOfTheDay)) {
@@ -111,7 +130,9 @@ function getAnimesReleaseDate(anime, weekDays){
   };
   release.simulcast_brazil_timezone = {
     day: releaseDaySimulcastInBrazilTimeZone,
-    hour: releaseHourSimulcastInTokyoTimeZone.subtract(2, "hour").format("HH:mm"),
+    hour: releaseHourSimulcastInTokyoTimeZone
+      .subtract(2, "hour")
+      .format("HH:mm"),
   };
 
   return release;

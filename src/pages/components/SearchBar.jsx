@@ -134,7 +134,7 @@ export default function SearchBar({ props, getAnimeCardClick }) {
   );
 }
 
-const AnimeCardSearch = (anime) => {
+function AnimeCardSearch(anime){
   let image = "";
   let title = "";
   let genres = "";
