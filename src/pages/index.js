@@ -5,11 +5,6 @@ import TodayAnimes from "./components/TodayAnimes.jsx";
 import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
 import moment from "moment";
 
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-
 export default function Index() {
   const weekDays = [
     "Sundays",
