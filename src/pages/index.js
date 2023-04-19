@@ -1,9 +1,15 @@
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import WeekAnimes from "./components/WeekAnimes.jsx";
 import TodayAnimes from "./components/TodayAnimes.jsx";
 import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
 import moment from "moment";
+
+import styles from "../styles/Index.module.css";
 
 export default function Index() {
   const weekDays = [
@@ -41,24 +47,36 @@ export default function Index() {
     //console.log(anime);
   };
 
-  const [foo, setFoo] = useState(0)
-  useEffect(() => {
-    console.log(foo);
-  }, [foo]);
+  const [currentTab, setCurrentTab] = useState('animes');
+
+  const changeTab = (event, newValue) => {
+    setCurrentTab(newValue);
+  };
 
   return (
     <>
-      <button onClick={() => setFoo(0)}>1</button>
-      <button onClick={() => setFoo(1)}>2</button>
+      <Tabs value={currentTab} onChange={changeTab}>
+        <Tab value="animes" label="Today"/>
+        <Tab value="all week" label="All Week"/>
+      </Tabs>
+
+      <div style={{ display: currentTab === "animes" ? "block" : "none" }}>
+        <WeekAnimes props={{ data, weekDays }} />
+      </div>
+      <div style={{ display: currentTab === "all week" ? "block" : "none" }}>
+        <TodayAnimes props={{ data, today }}/>
+      </div>
+
+     {/*  {currentTab === "animes" ? (
+        <WeekAnimes props={{ data, weekDays }} />
+      ) : (
+        <TodayAnimes props={{ data, today }} />
+      )} */}
+
+
       {/* <SearchBar props={{data}}/> */}
       {/* <WeekAnimes props={{data, weekDays}}/>  */}
-      <TodayAnimes props={{data, today}}/>
-
-     {/*  {foo === 0 ? 
-        <WeekAnimes props={{data, weekDays}}/> 
-        : 
-        <TodayAnimes props={{data, today}}/>
-      } */}
+      {/* <TodayAnimes props={{data, today}}/> */}
     </>
   );
 }
