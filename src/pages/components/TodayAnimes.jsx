@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -6,13 +7,20 @@ import Rating from "@mui/material/Rating";
 import styles from "../../styles/TodayAnimes.module.css";
 
 export default function TodayAnimes({ props }) {
+  const [animes, setAnimes] = useState([]);
+  const [today, setToday] = useState();
+  useEffect(() => {
+    setAnimes(props.data);
+    setToday(props.today)
+  }, [props]);
+
   return (
     <>
       <div>
           <div className={styles.weekAnimes}>
-            <Typography variant="h5" className={styles.weekAnimesTitle}>{props.today}</Typography>
+            <Typography variant="h5" className={styles.weekAnimesTitle}>{today}</Typography>
             <div>
-              {props.data.filter((anime) => anime.release.release_in_brazil_streamings.day === props.today)
+              {animes.filter((anime) => anime.release.release_in_brazil_streamings.day === today)
                 .map((anime) => (
                  <AnimeCardComponent anime={anime} key={anime.title}/>
                 ))}

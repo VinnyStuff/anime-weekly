@@ -9,20 +9,22 @@ import Chip from "@mui/material/Chip";
 
 import styles from "../../styles/SearchBar.module.css";
 
-export default function SearchBar({ props, getAnimeCardClick }) {
+export default function SearchBar({ props }) {
+  const [animes, setAnimes] = useState([]);
+  useEffect(() => {
+    setAnimes(props.data);
+  }, [props]);
+
   const [animesToShow, setAnimesToShow] = useState([]);
-
-  const [showAutocomplete, setShowAutocomplete] = useState(false);
-
   const [genres, setGenres] = useState([]);
   useEffect(() => {
-    setAnimesToShow(props.data);
+    setAnimesToShow(animes);
     setGenres([
       ...new Set(
-        props.data.flatMap((anime) => anime.genres.map((genre) => genre.name))
+        animes.flatMap((anime) => anime.genres.map((genre) => genre.name))
       ),
     ]); //this get all genres presents in current animes
-  }, [props.data]);
+  }, [animes]);
 
   const [activeGenres, setActiveGenres] = useState([]);
   const [animesFilteredByTags, setAnimesFilteredByTags] = useState([]);
@@ -38,7 +40,7 @@ export default function SearchBar({ props, getAnimeCardClick }) {
     }
   };
   useEffect(() => {
-    let animesFiltered = props.data;
+    let animesFiltered = animes;
     for (let i = 0; i < activeGenres.length; i++) {
       animesFiltered = animesFiltered.filter((anime) =>
         anime.genres.some((genre) =>
@@ -57,7 +59,7 @@ export default function SearchBar({ props, getAnimeCardClick }) {
     if (activeGenres.length === 0) {
       //search without tags
       setAnimesToShow(
-        props.data.filter((anime) =>
+        animes.filter((anime) =>
           anime.title.toLowerCase().includes(text.toLowerCase())
         )
       );
@@ -70,10 +72,6 @@ export default function SearchBar({ props, getAnimeCardClick }) {
       );
     }
   }, [text]);
-
-  const animeCardClick = (anime) =>{
-    getAnimeCardClick(anime);
-  }
 
   return (
     <>
@@ -116,7 +114,7 @@ export default function SearchBar({ props, getAnimeCardClick }) {
 
 
           {animesToShow.map((anime) => (
-            <div key={anime.title} onClick={() => animeCardClick(anime)}>
+            <div key={anime.title}>
               <Divider/>
               <AnimeCardSearch anime={anime}/>
             </div>

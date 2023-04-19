@@ -50,16 +50,15 @@ export default function Index() {
     <>
       <button onClick={() => setFoo(0)}>1</button>
       <button onClick={() => setFoo(1)}>2</button>
-      {/* <AnimeCardExpand props={{data}} /> */}
-      {/* <SearchBar props={{data}} getAnimeCardClick={getAnimeCardClick}/> */}
+      {/* <SearchBar props={{data}}/> */}
       {/* <WeekAnimes props={{data, weekDays}}/>  */}
-      {/* <TodayAnimes props={{data, today}}/> */}
+      <TodayAnimes props={{data, today}}/>
 
-      {foo === 0 ? 
+     {/*  {foo === 0 ? 
         <WeekAnimes props={{data, weekDays}}/> 
         : 
         <TodayAnimes props={{data, today}}/>
-      }
+      } */}
     </>
   );
 }
