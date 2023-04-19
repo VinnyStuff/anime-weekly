@@ -5,6 +5,7 @@ import React, {
 import SearchBar from "./components/SearchBar.jsx";
 import WeekAnimes from "./components/WeekAnimes.jsx";
 import TodayAnimes from "./components/TodayAnimes.jsx";
+import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
 import moment from "moment";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
     "Fridays",
     "Saturdays",
   ];
+  const today = weekDays[new Date().getDay()];
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -31,17 +33,23 @@ export default function Home() {
       for (let i = 0; i < apiData.length; i++) {
         apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
       }     
+      //console.log(apiData);
       setData(apiData);
     }
 
     fetchData();
   }, []);
 
+  const getAnimeCardClick = (anime) => {
+    //console.log(anime);
+  };
+
   return (
     <>
-      <SearchBar props={{data}}/>
+      {/* <AnimeCardExpand props={{data}} /> */}
+      {/* <SearchBar props={{data}} getAnimeCardClick={getAnimeCardClick} /> */}
       {/* <WeekAnimes props={{data, weekDays}}/> */}
-      {/* <TodayAnimes props={{data}}/> */}
+      {/* <TodayAnimes props={{data, today}}/> */}
     </>
   );
 }

@@ -9,8 +9,9 @@ import Chip from "@mui/material/Chip";
 
 import styles from "../../styles/SearchBar.module.css";
 
-export default function SearchBar({ props }) {
+export default function SearchBar({ props, getAnimeCardClick }) {
   const [animesToShow, setAnimesToShow] = useState([]);
+
   const [showAutocomplete, setShowAutocomplete] = useState(false);
 
   const [genres, setGenres] = useState([]);
@@ -70,7 +71,9 @@ export default function SearchBar({ props }) {
     }
   }, [text]);
 
-
+  const animeCardClick = (anime) =>{
+    getAnimeCardClick(anime);
+  }
 
   return (
     <>
@@ -111,13 +114,20 @@ export default function SearchBar({ props }) {
             ))}
           </div>
 
-          {animesToShow.map((currentAnime) => (
-            <AnimeCardSearch anime={currentAnime} key={currentAnime.title} />
+
+          {animesToShow.map((anime) => (
+            <div key={anime.title} onClick={() => animeCardClick(anime)}>
+              <Divider/>
+              <AnimeCardSearch anime={anime}/>
+            </div>
           ))}
 
-          {animesToShow <= 0 ? <div>
+          {animesToShow <= 0 ? 
+          <div>
             <Typography color="text.secondary" sx={{textAlign: 'center', p: '10px', pb: '20px'}}>No options</Typography>
-          </div> : null}
+          </div> : 
+          null
+          }
         </div>
       </div>
     </>
@@ -146,7 +156,6 @@ const AnimeCardSearch = (anime) => {
 
   return (
     <>
-      <Divider />
       <div className={styles.animeCardSearch}>
         <img
           className={styles.animeCardSearchImage}
