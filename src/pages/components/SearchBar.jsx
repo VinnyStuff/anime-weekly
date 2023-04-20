@@ -79,12 +79,10 @@ export default function SearchBar({ props }) {
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [showTags, setShowTags] = useState(true);
   const searchBar = useRef(null);
-  const closeSearchBar = useRef(null);
   const searchInput = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchBar.current && !searchBar.current.contains(event.target)) {
-        console.log("click outside");
         setShowAutocomplete(false);
       }
     };
@@ -101,7 +99,10 @@ export default function SearchBar({ props }) {
       <div
         className={styles.searchBarContainer}
         ref={searchBar}
-        onClick={() => setShowAutocomplete(true)}
+        onClick={() => {
+          setShowAutocomplete(true);
+          searchInput.current.focus();
+        }}
       >
         <Paper className={styles.searchBar}>
           <IconButton
@@ -127,6 +128,7 @@ export default function SearchBar({ props }) {
             disabled={animes.length === 0}
             className={styles.searchInput}
             ref={searchInput}
+            inputRef={searchInput}
           />
 
           <IconButton
@@ -139,13 +141,10 @@ export default function SearchBar({ props }) {
             onClick={(e) => {
               e.stopPropagation();
               setShowTags(!showTags);
+              setActiveGenres([]);
             }}
           >
-            {showTags ? (
-              <RemoveIcon />
-            ) : (
-              <AddIcon />
-            )}
+            {showTags ? <RemoveIcon /> : <AddIcon />}
           </IconButton>
 
           <Divider
@@ -170,7 +169,13 @@ export default function SearchBar({ props }) {
               showAutocomplete && animes.length >= 1 ? "inherit" : "none",
           }}
         >
-          <div className={styles.chipsContainer} >
+          <div
+            className={styles.chipsContainer}
+            style={{
+              display:
+              showTags ? "inherit" : "none",
+            }}
+          >
             {genres.map((genre) => (
               <Chip
                 label={genre}
@@ -180,12 +185,13 @@ export default function SearchBar({ props }) {
                 onClick={() => genresControl(genre)}
               />
             ))}
+            <Divider />
           </div>
 
           {animesToShow.slice(0, 5).map((anime) => (
             <div key={anime.title}>
+              <AnimeCardSearch anime={anime}/>
               <Divider />
-              <AnimeCardSearch anime={anime} />
             </div>
           ))}
 
@@ -193,7 +199,7 @@ export default function SearchBar({ props }) {
             <div>
               <Typography
                 color="text.secondary"
-                sx={{ textAlign: "center", p: "10px", pb: "20px" }}
+                sx={{ textAlign: "center", p: "10px", py: "20px" }}
               >
                 No options
               </Typography>
