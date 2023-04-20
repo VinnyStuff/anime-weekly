@@ -70,7 +70,7 @@ export default function AnimeCard({ anime }) {
           </div>
           <div className={styles.animeInformationsContainer}>
             <Typography variant="h5" className={styles.title}>
-              <Skeleton animation="wave" />
+              <Skeleton animation="wave"/>
             </Typography>
 
             <div className={styles.ratingContainer}>
@@ -79,8 +79,8 @@ export default function AnimeCard({ anime }) {
             </div>
 
             <Typography>
-              <Skeleton animation="wave" />
-              <Skeleton animation="wave" />
+              <Skeleton animation="wave"/>
+              <Skeleton animation="wave"/>
             </Typography>
           </div>
         </Card>

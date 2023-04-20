@@ -1,11 +1,11 @@
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
+import Button from '@mui/material/Button'
 
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import WeekAnimes from "./components/WeekAnimes.jsx";
 import TodayAnimes from "./components/TodayAnimes.jsx";
+import AnimeCard from "./components/AnimeCard.jsx";
 import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
 import moment from "moment";
 
@@ -49,10 +49,6 @@ export default function Index() {
 
   const [currentTab, setCurrentTab] = useState("today");
 
-  const changeTab = (event, newValue) => {
-    setCurrentTab(newValue);
-  };
-
   const tabActive = {
     backgroundColor: '#0f0f0f',
     color: '#F2F2F2',
@@ -74,6 +70,7 @@ export default function Index() {
     <>
       <div className={styles.navbarContainer}>
         <SearchBar props={{data}}/>
+        <Skeleton variant="circular" width={40} height={40} className={styles.foo}/>
       </div>
 
       <div className={styles.tabsContainer}>
@@ -82,25 +79,20 @@ export default function Index() {
         <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("favorites")}>Favorites</Button>
       </div>
 
-{/*       <div>
-        <div style={{ display: currentTab === "today" ? "block" : "none" }}>
-          <TodayAnimes props={{ data, today }} />
-        </div>
-        <div style={{ display: currentTab === "all week" ? "block" : "none" }}>
-          <WeekAnimes props={{ data, weekDays }} />
-        </div>
-        <div style={{ display: currentTab === "favorites" ? "block" : "none" }}>
-        
-        </div>
-      </div> */}
-
+      <div className={styles.contentContainer}>
         {currentTab === "today" ? (
+          //<TodayAnimes props={{ data, today }} />
           <TodayAnimes props={{ data, today }} />
         ) : currentTab === "all week" ? (
           <WeekAnimes props={{ data, weekDays }} />
         ) : (
-          null
+          <div>
+            <AnimeCard/>
+            <AnimeCard/>
+            <AnimeCard/>
+          </div>
         )}
+      </div>
     </>
   );
 }

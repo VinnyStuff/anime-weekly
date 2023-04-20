@@ -1,15 +1,20 @@
+.navbarContainer{
+    padding: 14px 20px;
+    padding-bottom: 10px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
 .tabsContainer{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.navbarContainer{
-    padding: 8px 20px;
-    padding-bottom: 12px;
-}
 .tabsContainer{
-    padding: 12px 0;
+    padding: 10px 0;
 }
 .tabs{
     margin: 0 6px;
@@ -17,4 +22,14 @@
 }
 .tabs:hover{
     box-shadow: none;
+}
+.contentContainer{
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+}
+.foo{
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
 }
