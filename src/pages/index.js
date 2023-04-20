@@ -47,7 +47,7 @@ export default function Index() {
     //console.log(anime);
   };
 
-  const [currentTab, setCurrentTab] = useState('animes');
+  const [currentTab, setCurrentTab] = useState("today");
 
   const changeTab = (event, newValue) => {
     setCurrentTab(newValue);
@@ -55,24 +55,27 @@ export default function Index() {
 
   return (
     <>
-      <Tabs value={currentTab} onChange={changeTab}>
-        <Tab value="animes" label="Today"/>
-        <Tab value="all week" label="All Week"/>
-      </Tabs>
+      <SearchBar props={{data}}/>
 
-      <div style={{ display: currentTab === "animes" ? "block" : "none" }}>
-        <WeekAnimes props={{ data, weekDays }} />
+      {/* <div className={styles.tabsContainer}>
+        <Tabs value={currentTab} onChange={changeTab}>
+          <Tab value="today" label="Today" />
+          <Tab value="all week" label="All Week" />
+        </Tabs>
+      </div>
+
+      <div style={{ display: currentTab === "today" ? "block" : "none" }}>
+        <TodayAnimes props={{ data, today }} />
       </div>
       <div style={{ display: currentTab === "all week" ? "block" : "none" }}>
-        <TodayAnimes props={{ data, today }}/>
-      </div>
+        <WeekAnimes props={{ data, weekDays }} />
+      </div> */}
 
-     {/*  {currentTab === "animes" ? (
+      {/*  {currentTab === "animes" ? (
         <WeekAnimes props={{ data, weekDays }} />
       ) : (
         <TodayAnimes props={{ data, today }} />
       )} */}
-
 
       {/* <SearchBar props={{data}}/> */}
       {/* <WeekAnimes props={{data, weekDays}}/>  */}

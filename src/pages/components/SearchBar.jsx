@@ -75,7 +75,7 @@ export default function SearchBar({ props }) {
 
   return (
     <>
-      <div className={styles.searchBarContainer}>
+      <div className={styles.searchBarContainer} onClick={() => console.log('click')}>
         <Paper className={styles.searchBar}>
           <InputBase
             sx={{ ml: 1, flex: 1, pl: 2 }}
@@ -132,62 +132,51 @@ export default function SearchBar({ props }) {
   );
 }
 
-function AnimeCardSearch(anime){
-  let image = "";
-  let title = "";
-  let genres = "";
-  let score = "";
-  let release = "";
-
+function AnimeCardSearch({anime}){
   if (anime) {
-    /*     image = anime.images.jpg.large_image_url;
-    title = anime.title;
-    score = anime.score;
-    release = anime.broadcast.day; */
+    const image = anime.images.jpg.large_image_url;
+    const title = anime.title;
+    const genres = anime.genres;
+    const score = anime.score.toFixed(2);
+    const release = anime.release.release_in_brazil_streamings.day;
 
-    image = anime.anime.images.jpg.large_image_url;
-    title = anime.anime.title;
-    genres = anime.anime.genres;
-    score = anime.anime.score.toFixed(2);
-    release = anime.anime.release.release_in_brazil_streamings.day;
-  }
-
-  return (
-    <>
-      <div className={styles.animeCardSearch}>
-        <img
-          className={styles.animeCardSearchImage}
-          src={image}
-          alt="current anime image"
-        />
-
-        <div className={styles.animeCardSearchInformations}>
-          <Typography
-            color="text.primary"
-            variant="h6"
-            className={styles.animeCardSearchTitle}
-          >
-            {title}
-          </Typography>
-
-          <div className={styles.animeCardGenresContainer}>
-            {genres.map((genre, index) => (
-              <Typography color="text.secondary" key={genre.name}>
-                {genre.name}
-                {index !== genres.length - 1 ? ",\u00A0" : ""}
-              </Typography>
-            ))}
+    return (
+      <>
+        <div className={styles.animeCardSearch}>
+          <img
+            className={styles.animeCardSearchImage}
+            src={image}
+            alt="current anime image"
+          />
+  
+          <div className={styles.animeCardSearchInformations}>
+            <Typography
+              color="text.primary"
+              variant="h6"
+              className={styles.animeCardSearchTitle}
+            >
+              {title}
+            </Typography>
+  
+            <div className={styles.animeCardGenresContainer}>
+              {genres.map((genre, index) => (
+                <Typography color="text.secondary" key={genre.name}>
+                  {genre.name}
+                  {index !== genres.length - 1 ? ",\u00A0" : ""}
+                </Typography>
+              ))}
+            </div>
+  
+            <Typography color="text.secondary" sx={{ mt: "-4px" }}>
+              Score: {score}
+            </Typography>
+  
+            <Typography color="text.secondary" sx={{ mt: "-4px" }}>
+              Release: {release}
+            </Typography>
           </div>
-
-          <Typography color="text.secondary" sx={{ mt: "-4px" }}>
-            Score: {score}
-          </Typography>
-
-          <Typography color="text.secondary" sx={{ mt: "-4px" }}>
-            Release: {release}
-          </Typography>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
 };
