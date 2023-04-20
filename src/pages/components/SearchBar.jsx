@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -6,6 +6,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Chip from "@mui/material/Chip";
+import CloseIcon from "@mui/icons-material/Close";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
 
 import styles from "../../styles/SearchBar.module.css";
 
@@ -73,16 +76,77 @@ export default function SearchBar({ props }) {
     }
   }, [text]);
 
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
+  const [showTags, setShowTags] = useState(true);
+  const searchBar = useRef(null);
+  const closeSearchBar = useRef(null);
+  const searchInput = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchBar.current && !searchBar.current.contains(event.target)) {
+        console.log("click outside");
+        setShowAutocomplete(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [searchBar]);
+
   return (
     <>
-      <div className={styles.searchBarContainer} onClick={() => console.log('click')}>
+      <div
+        className={styles.searchBarContainer}
+        ref={searchBar}
+        onClick={() => setShowAutocomplete(true)}
+      >
         <Paper className={styles.searchBar}>
+          <IconButton
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowAutocomplete(false);
+            }}
+            type="button"
+            sx={{ ml: "8px", mr: "-15px" }}
+            style={{
+              display:
+                showAutocomplete && animes.length >= 1 ? "inherit" : "none",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+
           <InputBase
-            sx={{ ml: 1, flex: 1, pl: 2 }}
+            sx={{ ml: "8px", flex: 1, pl: 2 }}
             placeholder="Search Animes..."
             value={text}
             onChange={(e) => setText(e.target.value)}
+            disabled={animes.length === 0}
+            className={styles.searchInput}
+            ref={searchInput}
           />
+
+          <IconButton
+            style={{
+              display: showAutocomplete ? "inherit" : "none",
+            }}
+            type="button"
+            sx={{ p: "10px", mr: "6px" }}
+            aria-label="search"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowTags(!showTags);
+            }}
+          >
+            {showTags ? (
+              <RemoveIcon />
+            ) : (
+              <AddIcon />
+            )}
+          </IconButton>
 
           <Divider
             sx={{ height: 25, mt: 1.1, mr: 0.5 }}
@@ -91,16 +155,22 @@ export default function SearchBar({ props }) {
 
           <IconButton
             type="button"
-            disabled
             sx={{ p: "10px", pr: "18px" }}
             aria-label="search"
+            disabled
           >
             <SearchIcon />
           </IconButton>
         </Paper>
 
-        <div className={styles.autoCompleteContainer}>
-          <div className={styles.chipsContainer}>
+        <Paper
+          className={styles.autoCompleteContainer}
+          style={{
+            display:
+              showAutocomplete && animes.length >= 1 ? "inherit" : "none",
+          }}
+        >
+          <div className={styles.chipsContainer} >
             {genres.map((genre) => (
               <Chip
                 label={genre}
@@ -112,27 +182,30 @@ export default function SearchBar({ props }) {
             ))}
           </div>
 
-
-          {animesToShow.map((anime) => (
+          {animesToShow.slice(0, 5).map((anime) => (
             <div key={anime.title}>
-              <Divider/>
-              <AnimeCardSearch anime={anime}/>
+              <Divider />
+              <AnimeCardSearch anime={anime} />
             </div>
           ))}
 
-          {animesToShow <= 0 ? 
-          <div>
-            <Typography color="text.secondary" sx={{textAlign: 'center', p: '10px', pb: '20px'}}>No options</Typography>
-          </div> : 
-          null
-          }
-        </div>
+          {animesToShow <= 0 && animes.length >= 1 ? (
+            <div>
+              <Typography
+                color="text.secondary"
+                sx={{ textAlign: "center", p: "10px", pb: "20px" }}
+              >
+                No options
+              </Typography>
+            </div>
+          ) : null}
+        </Paper>
       </div>
     </>
   );
 }
 
-function AnimeCardSearch({anime}){
+function AnimeCardSearch({ anime }) {
   if (anime) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
@@ -148,7 +221,7 @@ function AnimeCardSearch({anime}){
             src={image}
             alt="current anime image"
           />
-  
+
           <div className={styles.animeCardSearchInformations}>
             <Typography
               color="text.primary"
@@ -157,7 +230,7 @@ function AnimeCardSearch({anime}){
             >
               {title}
             </Typography>
-  
+
             <div className={styles.animeCardGenresContainer}>
               {genres.map((genre, index) => (
                 <Typography color="text.secondary" key={genre.name}>
@@ -166,11 +239,11 @@ function AnimeCardSearch({anime}){
                 </Typography>
               ))}
             </div>
-  
+
             <Typography color="text.secondary" sx={{ mt: "-4px" }}>
               Score: {score}
             </Typography>
-  
+
             <Typography color="text.secondary" sx={{ mt: "-4px" }}>
               Release: {release}
             </Typography>
@@ -179,4 +252,4 @@ function AnimeCardSearch({anime}){
       </>
     );
   }
-};
+}

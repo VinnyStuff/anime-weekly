@@ -55,9 +55,11 @@ export default function Index() {
 
   return (
     <>
-      <SearchBar props={{data}}/>
+      <div className={styles.navbarContainer}>
+        <SearchBar props={{data}}/>
+      </div>
 
-      {/* <div className={styles.tabsContainer}>
+      <div className={styles.tabsContainer}>
         <Tabs value={currentTab} onChange={changeTab}>
           <Tab value="today" label="Today" />
           <Tab value="all week" label="All Week" />
@@ -69,7 +71,7 @@ export default function Index() {
       </div>
       <div style={{ display: currentTab === "all week" ? "block" : "none" }}>
         <WeekAnimes props={{ data, weekDays }} />
-      </div> */}
+      </div>
 
       {/*  {currentTab === "animes" ? (
         <WeekAnimes props={{ data, weekDays }} />
