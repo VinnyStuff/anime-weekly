@@ -185,13 +185,12 @@ export default function SearchBar({ props }) {
                 onClick={() => genresControl(genre)}
               />
             ))}
-            <Divider />
           </div>
 
           {animesToShow.slice(0, 5).map((anime) => (
             <div key={anime.title}>
+              <Divider variant="middle"/>
               <AnimeCardSearch anime={anime}/>
-              <Divider />
             </div>
           ))}
 
