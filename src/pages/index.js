@@ -1,6 +1,6 @@
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
+import Button from '@mui/material/Button';
 
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
@@ -53,6 +53,23 @@ export default function Index() {
     setCurrentTab(newValue);
   };
 
+  const tabActive = {
+    backgroundColor: '#0f0f0f',
+    color: '#F2F2F2',
+    transition: 'none', // remove a transição
+    ':hover': {
+      backgroundColor: '#3C3C3C',
+    }
+  };
+  const tabInactive = {
+    backgroundColor: '#F2F2F2',
+    color: '#0f0f0f',
+    transition: 'none', // remove a transição
+    ':hover': {
+      backgroundColor: '#E5E5E5',
+    }
+  };
+
   return (
     <>
       <div className={styles.navbarContainer}>
@@ -60,28 +77,30 @@ export default function Index() {
       </div>
 
       <div className={styles.tabsContainer}>
-        <Tabs value={currentTab} onChange={changeTab}>
-          <Tab value="today" label="Today" />
-          <Tab value="all week" label="All Week" />
-        </Tabs>
+        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "today" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("today")}>Today</Button>
+        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "all week" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("all week")}>All Week</Button>
+        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("favorites")}>Favorites</Button>
       </div>
 
-      <div style={{ display: currentTab === "today" ? "block" : "none" }}>
-        <TodayAnimes props={{ data, today }} />
-      </div>
-      <div style={{ display: currentTab === "all week" ? "block" : "none" }}>
-        <WeekAnimes props={{ data, weekDays }} />
-      </div>
+{/*       <div>
+        <div style={{ display: currentTab === "today" ? "block" : "none" }}>
+          <TodayAnimes props={{ data, today }} />
+        </div>
+        <div style={{ display: currentTab === "all week" ? "block" : "none" }}>
+          <WeekAnimes props={{ data, weekDays }} />
+        </div>
+        <div style={{ display: currentTab === "favorites" ? "block" : "none" }}>
+        
+        </div>
+      </div> */}
 
-      {/*  {currentTab === "animes" ? (
-        <WeekAnimes props={{ data, weekDays }} />
-      ) : (
-        <TodayAnimes props={{ data, today }} />
-      )} */}
-
-      {/* <SearchBar props={{data}}/> */}
-      {/* <WeekAnimes props={{data, weekDays}}/>  */}
-      {/* <TodayAnimes props={{data, today}}/> */}
+        {currentTab === "today" ? (
+          <TodayAnimes props={{ data, today }} />
+        ) : currentTab === "all week" ? (
+          <WeekAnimes props={{ data, weekDays }} />
+        ) : (
+          null
+        )}
     </>
   );
 }

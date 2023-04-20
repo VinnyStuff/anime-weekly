@@ -5,5 +5,16 @@
 }
 
 .navbarContainer{
-    padding: 8px 0px;
+    padding: 8px 20px;
+    padding-bottom: 12px;
+}
+.tabsContainer{
+    padding: 12px 0;
+}
+.tabs{
+    margin: 0 6px;
+    box-shadow: none;
+}
+.tabs:hover{
+    box-shadow: none;
 }
