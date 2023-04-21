@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 import AnimeCard from "./AnimeCard";
 
-import styles from "../../styles/AllWeek.module.css";
+import styles from "../../styles/TabsPage.module.css";
 
 export default function AllWeek({ props }) {
   const [animes, setAnimes] = useState([]);

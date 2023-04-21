@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 import AnimeCard from "./AnimeCard";
 
-import styles from "../../styles/Today.module.css";
+import styles from "../../styles/TabsPage.module.css";
 
 export default function Today({ props }) {
   const [animes, setAnimes] = useState([]);
