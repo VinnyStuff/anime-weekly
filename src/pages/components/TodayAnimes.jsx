@@ -19,7 +19,7 @@ export default function TodayAnimes({ props }) {
       <>
         <div>
           <div className={styles.weekAnimes}>
-            <Typography variant="h5" className={styles.weekAnimesTitle}>
+            <Typography variant="h3" color="text.primary" sx={{ pb: '20px'}}>
               {today}
             </Typography>
 

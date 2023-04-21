@@ -1,12 +1,4 @@
 .weekAnimes{
     max-width: 1200px;
-}
-.weekAnimesTitle{
-    background-color: rgba(246, 246, 246, 1);
-    color: #6D6D73;
-    position: sticky;
-    top: 0;
-    z-index: 99;
-    text-align: center;
-    width: 100%;
+    padding: 0 25px;
 }

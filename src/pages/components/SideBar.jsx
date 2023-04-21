@@ -70,7 +70,7 @@ export default function SideBar({props , getCurrentTab}) {
         <Divider sx={{mt: '10px'}}/>
         <div className={styles.favoritesQuickViewContainer}>
           <Paper sx={{position: 'sticky', top: '0', boxShadow: 'none'}}>
-            <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites</Typography>
+            <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
           </Paper>
 
           {animes.map((anime) =>(

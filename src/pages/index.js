@@ -1,5 +1,5 @@
-import Skeleton from '@mui/material/Skeleton';
-import Button from '@mui/material/Button'
+import Skeleton from "@mui/material/Skeleton";
+import Button from "@mui/material/Button";
 
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
@@ -51,51 +51,52 @@ export default function Index() {
   const [currentTab, setCurrentTab] = useState("Today");
 
   const tabActive = {
-    backgroundColor: '#0f0f0f',
-    color: '#F2F2F2',
-    transition: 'none', // remove a transição
-    ':hover': {
-      backgroundColor: '#3C3C3C',
-    }
+    backgroundColor: "#0f0f0f",
+    color: "#F2F2F2",
+    transition: "none", // remove a transição
+    ":hover": {
+      backgroundColor: "#3C3C3C",
+    },
   };
   const tabInactive = {
-    backgroundColor: '#F2F2F2',
-    color: '#0f0f0f',
-    transition: 'none', // remove a transição
-    ':hover': {
-      backgroundColor: '#E5E5E5',
-    }
+    backgroundColor: "#F2F2F2",
+    color: "#0f0f0f",
+    transition: "none", // remove a transição
+    ":hover": {
+      backgroundColor: "#E5E5E5",
+    },
   };
 
   return (
     <>
-      <div>
-        <SideBar props={{data}} getCurrentTab={(e) => setCurrentTab(e)}/>
+      <div className={styles.sideBarContainer}>
+        <SideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)} />
       </div>
+      <div className={styles.pageContainer}>
+        <div className={styles.navbarContainer}>
+          <SearchBar props={{ data }} />
+        </div>
 
-      <div className={styles.navbarContainer}>
-        <SearchBar props={{data}}/>
-      </div>
+        {/*  <div className={styles.tabsContainer}>
+          <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Today" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Today")}>Today</Button>
+          <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "All Week" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("All Week")}>All Week</Button>
+          <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Favorites")}>Favorites</Button>
+        </div> */}
 
-      <div className={styles.tabsContainer}>
-        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Today" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Today")}>Today</Button>
-        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "All Week" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("All Week")}>All Week</Button>
-        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Favorites")}>Favorites</Button>
-      </div>
-
-      <div className={styles.contentContainer}>
-        {currentTab === "Today" ? (
-          //<TodayAnimes props={{ data, today }} />
-          <TodayAnimes props={{ data, today }} />
-        ) : currentTab === "All Week" ? (
-          <WeekAnimes props={{ data, weekDays }} />
-        ) : (
-          <div>
-            <AnimeCard/>
-            <AnimeCard/>
-            <AnimeCard/>
-          </div>
-        )}
+        <div className={styles.contentContainer}>
+          {currentTab === "Today" ? (
+            //<TodayAnimes props={{ data, today }} />
+            <TodayAnimes props={{ data, today }} />
+          ) : currentTab === "All Week" ? (
+            <WeekAnimes props={{ data, weekDays }} />
+          ) : (
+            <div>
+              <AnimeCard />
+              <AnimeCard />
+              <AnimeCard />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
