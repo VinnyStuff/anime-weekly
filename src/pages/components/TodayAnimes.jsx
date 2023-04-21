@@ -14,14 +14,21 @@ export default function TodayAnimes({ props }) {
     setToday(props.today);
   }, [props]);
 
+  const [currentTab, setCurrentTab] = useState('All')
+
   if (animes.length >= 1) {
     return (
       <>
         <div>
           <div className={styles.weekAnimes}>
-            <Typography variant="h3" color="text.primary" sx={{ pb: '20px'}}>
+            <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
               {today}
             </Typography>
+
+            <div className={styles.tabContainer}>
+              <Typography variant="h5" color="text.primary" sx={{ pb: '10px'}} className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
+              <Typography variant="h5" color="text.primary" sx={{ pb: '10px', ml: '30px'}} className={`${styles.tab} ${currentTab === 'Favorites' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('Favorites')}>Favorites</Typography>
+            </div>
 
             <div>
               {animes.length >= 1 ? (

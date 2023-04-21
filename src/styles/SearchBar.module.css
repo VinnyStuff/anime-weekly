@@ -1,7 +1,7 @@
 .searchBarContainer{
     position: relative;
     max-width: 650px;
-    width: 100%;
+    width: 90%;
 }
 .searchBar{
     display: flex;

@@ -2,3 +2,30 @@
     max-width: 1200px;
     padding: 0 25px;
 }
+
+.tabContainer{
+    display: flex;
+    padding-bottom: 6px;
+}
+
+.tab{
+    cursor: pointer;
+}
+.tab:hover{
+    color: rgb(83, 83, 83);
+}
+
+.tabActive{
+    position: relative;
+    font-weight: bold;
+}
+
+.tabActive:before{
+    content: "";
+    clear: both;
+    position: absolute;
+    width: 100%;
+    border-bottom: 3px solid;
+    bottom: 0;
+    margin: 9px 0;
+}
