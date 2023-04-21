@@ -26,10 +26,6 @@
     justify-content: center;
     align-items: center;
 }
-
-.tabsContainer{
-    padding: 10px 0;
-}
 .tabs{
     margin: 0 6px;
     box-shadow: none;
@@ -37,11 +33,6 @@
 .tabs:hover{
     box-shadow: none;
 }
-.contentContainer{
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
 .horizontalSideBarContainer{
     display: none;
     padding-top: 8px;

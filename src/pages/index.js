@@ -64,17 +64,15 @@ export default function Index() {
           <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
         </div>
 
-        <div className={styles.contentContainer}>
-          {currentTab === "Today" ? (
-            <Today props={{ data, today }} />
-          ) : currentTab === "All Week" ? (
-            <AllWeek props={{ data, weekDays }} />
-          ) : (
-            <div>
+        {currentTab === "Today" ? (
+          <Today props={{ data, today }} />
+        ) : currentTab === "All Week" ? (
+          <AllWeek props={{ data, weekDays }} />
+        ) : (
+          <div>
 
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );
