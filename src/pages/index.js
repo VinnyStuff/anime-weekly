@@ -90,9 +90,7 @@ export default function Index() {
             <WeekAnimes props={{ data, weekDays }} />
           ) : (
             <div>
-              <AnimeCard />
-              <AnimeCard />
-              <AnimeCard />
+              
             </div>
           )}
         </div>
