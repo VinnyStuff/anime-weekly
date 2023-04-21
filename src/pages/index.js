@@ -7,6 +7,7 @@ import WeekAnimes from "./components/WeekAnimes.jsx";
 import TodayAnimes from "./components/TodayAnimes.jsx";
 import AnimeCard from "./components/AnimeCard.jsx";
 import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
+import SideBar from "./components/SideBar.jsx";
 import moment from "moment";
 
 import styles from "../styles/Index.module.css";
@@ -47,7 +48,7 @@ export default function Index() {
     //console.log(anime);
   };
 
-  const [currentTab, setCurrentTab] = useState("today");
+  const [currentTab, setCurrentTab] = useState("Today");
 
   const tabActive = {
     backgroundColor: '#0f0f0f',
@@ -68,22 +69,25 @@ export default function Index() {
 
   return (
     <>
+      <div>
+        <SideBar props={{data}} getCurrentTab={(e) => setCurrentTab(e)}/>
+      </div>
+
       <div className={styles.navbarContainer}>
         <SearchBar props={{data}}/>
-        <Skeleton variant="circular" width={40} height={40} className={styles.foo}/>
       </div>
 
       <div className={styles.tabsContainer}>
-        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "today" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("today")}>Today</Button>
-        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "all week" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("all week")}>All Week</Button>
-        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("favorites")}>Favorites</Button>
+        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Today" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Today")}>Today</Button>
+        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "All Week" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("All Week")}>All Week</Button>
+        <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Favorites")}>Favorites</Button>
       </div>
 
       <div className={styles.contentContainer}>
-        {currentTab === "today" ? (
+        {currentTab === "Today" ? (
           //<TodayAnimes props={{ data, today }} />
           <TodayAnimes props={{ data, today }} />
-        ) : currentTab === "all week" ? (
+        ) : currentTab === "All Week" ? (
           <WeekAnimes props={{ data, weekDays }} />
         ) : (
           <div>

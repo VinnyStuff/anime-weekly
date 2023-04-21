@@ -48,9 +48,9 @@ export default function AnimeCard({ anime }) {
               {subtitle}
             </Typography>
 
-            <Button className={styles.seeMoreButton} variant="contained">
+           {/*  <Button className={styles.seeMoreButton} variant="contained">
               Read More
-            </Button>
+            </Button> */}
           </div>
         </Card>
       </>
