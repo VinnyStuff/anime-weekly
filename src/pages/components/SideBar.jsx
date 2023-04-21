@@ -77,6 +77,7 @@ export default function SideBar({props , getCurrentTab}) {
               <div className={styles.favoritedAnimeCard} key={anime.title}>
                 <img src={anime.images.jpg.large_image_url} alt="Anime Image" className={styles.favoritedAnimeCardImage}/>
                 <Typography variant="subtitle1" className={styles.favoritedAnimeCardTitle}>{anime.title}</Typography>
+                <div className={styles.overlay}></div>
               </div>
             ))}
         </div>

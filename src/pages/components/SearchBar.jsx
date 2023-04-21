@@ -253,6 +253,7 @@ function AnimeCardSearch({ anime }) {
               Release: {release}
             </Typography>
           </div>
+          <div className={styles.overlay}></div>
         </div>
       </>
     );
