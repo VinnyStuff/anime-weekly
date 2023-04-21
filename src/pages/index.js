@@ -6,6 +6,7 @@ import SearchBar from "./components/SearchBar.jsx";
 import AllWeek from "./components/AllWeek.jsx";
 import Today from "./components/Today.jsx";
 import SideBar from "./components/SideBar.jsx";
+import HorizontalSideBar from './components/HorizontalSideBar.jsx';
 import moment from "moment";
 
 import styles from "../styles/Index.module.css";
@@ -48,38 +49,20 @@ export default function Index() {
 
   const [currentTab, setCurrentTab] = useState("Today");
 
-  const tabActive = {
-    backgroundColor: "#0f0f0f",
-    color: "#F2F2F2",
-    transition: "none", // remove a transição
-    ":hover": {
-      backgroundColor: "#3C3C3C",
-    },
-  };
-  const tabInactive = {
-    backgroundColor: "#F2F2F2",
-    color: "#0f0f0f",
-    transition: "none", // remove a transição
-    ":hover": {
-      backgroundColor: "#E5E5E5",
-    },
-  };
-
   return (
     <>
       <div className={styles.sideBarContainer}>
         <SideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)} />
       </div>
+
       <div className={styles.pageContainer}>
         <div className={styles.navbarContainer}>
           <SearchBar props={{ data }} />
         </div>
 
-        {/*  <div className={styles.tabsContainer}>
-          <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Today" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Today")}>Today</Button>
-          <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "All Week" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("All Week")}>All Week</Button>
-          <Button className={styles.tabs} sx={{...{textTransform: 'none'}, ...currentTab === "Favorites" ? tabActive : tabInactive}} variant="contained" onClick={() => setCurrentTab("Favorites")}>Favorites</Button>
-        </div> */}
+        <div className={styles.horizontalSideBarContainer}>
+          <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
+        </div>
 
         <div className={styles.contentContainer}>
           {currentTab === "Today" ? (

@@ -1,0 +1,69 @@
+.buttonsContainer{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 430px;
+}
+.tab{
+    display: flex;
+    align-items: center;
+    width: 33%;
+    height: 40px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    position: relative;
+    padding: 0 14px;
+    margin-right: 8px;
+    white-space: nowrap; 
+}
+.tab:last-child{
+    margin-right: 0;
+}
+.tabActive .tabOverlay{
+    visibility: visible;
+}
+.tabOverlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    background-color: currentColor;
+    opacity: 0.075;
+    border-radius: 5px;
+}
+.tab:hover .tabOverlay{    
+    visibility: visible;
+    cursor: pointer;
+}
+.title{
+    margin-left: 15px;
+}
+
+@media only screen and (max-width: 480px) {
+    .buttonsContainer{
+        width: max-content;
+    }
+    .tab{
+        width: 30vw;
+        border-radius: 10px;
+        padding: 0;
+        margin-right: 2px;
+        justify-content: center;
+    }
+    .title{
+        margin-left: 3vw;
+    }
+}
+@media only screen and (max-width: 435px) {
+    .title{
+        margin-left: 1.5vw;
+    }
+}
+@media only screen and (max-width: 350px) {
+    .icon{
+        display: none;
+    }
+}
+    

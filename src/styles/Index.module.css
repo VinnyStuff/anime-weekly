@@ -41,3 +41,25 @@
     margin: 0 auto;
     padding: 0 20px;
 }
+
+.horizontalSideBarContainer{
+    display: none;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 745px) {
+    .sideBarContainer{
+        display: none;
+    }
+    .pageContainer{
+        margin-left: 0;
+    }
+    .navbarContainer{
+        max-width: 475px;
+    }
+    .horizontalSideBarContainer{
+        display: initial;
+    }
+}
