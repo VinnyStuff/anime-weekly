@@ -1,12 +1,38 @@
-.weekAnimes{
-    max-width: 1200px;
+.tabContainer{
+    display: flex;
+    padding-bottom: 6px;
+    padding-bottom: 15px;
 }
-.weekAnimesTitle{
-    background-color: rgba(246, 246, 246, 1);
-    color: #6D6D73;
-    position: sticky;
-    top: 0;
-    z-index: 99;
-    text-align: center;
+
+.tab{
+    cursor: pointer;
+    margin-right: 25px;
+    padding-bottom: 10px;
+    opacity: 0.66;
+}
+.tab:last-child{
+    margin-right: 0;
+}
+.tab:hover{
+    opacity: 1;
+}
+
+.tabActive{
+    position: relative;
+    font-weight: bold;
+    transform: scale(1.15);
+    opacity: 1;
+}
+.tabActive:hover{
+    color: currentColor;
+}
+
+.tabActive:before{
+    content: "";
+    clear: both;
+    position: absolute;
     width: 100%;
+    border-bottom: 3px solid;
+    bottom: 0;
+    margin: 9px 0;
 }

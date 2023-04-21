@@ -19,38 +19,34 @@ export default function TodayAnimes({ props }) {
   if (animes.length >= 1) {
     return (
       <>
+        <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
+          {today}
+        </Typography>
+
+        <div className={styles.tabContainer}>
+          <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
+          <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'Favorites' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('Favorites')}>Favorites</Typography>
+        </div>
+
         <div>
-          <div className={styles.weekAnimes}>
-            <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
-              {today}
-            </Typography>
-
-            <div className={styles.tabContainer}>
-              <Typography variant="h5" color="text.primary" sx={{ pb: '10px'}} className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
-              <Typography variant="h5" color="text.primary" sx={{ pb: '10px', ml: '30px'}} className={`${styles.tab} ${currentTab === 'Favorites' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('Favorites')}>Favorites</Typography>
-            </div>
-
+          {animes.length >= 1 ? (
             <div>
-              {animes.length >= 1 ? (
-                <div>
-                  {animes
-                    .filter(
-                      (anime) =>
-                        anime.release.release_in_brazil_streamings.day === today
-                    )
-                    .map((anime) => (
-                      <AnimeCard anime={anime} key={anime.title} />
-                    ))}
-                </div>
-              ) : (
-                <div>
-                  <AnimeCard />
-                  <AnimeCard />
-                  <AnimeCard />
-                </div>
-              )}
+              {animes
+                .filter(
+                  (anime) =>
+                    anime.release.release_in_brazil_streamings.day === today
+                )
+                .map((anime) => (
+                  <AnimeCard anime={anime} key={anime.title} />
+                ))}
             </div>
-          </div>
+          ) : (
+            <div>
+              <AnimeCard />
+              <AnimeCard />
+              <AnimeCard />
+            </div>
+          )}
         </div>
       </>
     );
