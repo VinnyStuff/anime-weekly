@@ -34,6 +34,7 @@ export default function SideBar({props , getCurrentTab}) {
       <div className={`${styles.tab} ${currentTab === children ? styles.tabActive : ''}`} onClick={() => setCurrentTab(children)}>
         <Icon component={currentTab === children ? iconActive : iconInactive} sx={{ml: '15px'}} />
         <Typography variant="subtitle1" sx={{ml: '25px', fontWeight: currentTab === children ? 'bold' : ''}}>{children}</Typography>
+        <div className={styles.tabOverlay}></div>
       </div>
     </>
     );

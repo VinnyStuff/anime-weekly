@@ -5,8 +5,6 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import WeekAnimes from "./components/WeekAnimes.jsx";
 import TodayAnimes from "./components/TodayAnimes.jsx";
-import AnimeCard from "./components/AnimeCard.jsx";
-import AnimeCardExpand from "./components/AnimeCardExpand.jsx";
 import SideBar from "./components/SideBar.jsx";
 import moment from "moment";
 
@@ -90,7 +88,7 @@ export default function Index() {
             <WeekAnimes props={{ data, weekDays }} />
           ) : (
             <div>
-              
+
             </div>
           )}
         </div>

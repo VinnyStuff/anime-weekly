@@ -28,13 +28,25 @@
     height: 40px;
     border-radius: 10px;
     margin-bottom: 2px;
+    position: relative;
 }
-.tab:hover{
-    background-color: #F2F2F2;
+.tabActive .tabOverlay{
+    visibility: visible;
+}
+.tabOverlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    background-color: currentColor;
+    opacity: 0.075;
+    border-radius: 5px;
+}
+.tab:hover .tabOverlay{    
+    visibility: visible;
     cursor: pointer;
-}
-.tabActive{
-    background-color: #F2F2F2;
 }
 .favoritesQuickViewContainer{
     margin-top: 10px;
