@@ -7,7 +7,6 @@ import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';
 import Icon from '@mui/material/Icon'
 import PropTypes from 'prop-types';
-import ExpandMoreSharpIcon from '@mui/icons-material/ExpandMoreSharp';
 import Divider from '@mui/material/Divider';
 
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
