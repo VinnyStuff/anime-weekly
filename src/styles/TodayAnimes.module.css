@@ -1,5 +1,6 @@
 .tabContainer{
     display: flex;
+    padding-bottom: 6px;
     padding-bottom: 15px;
 }
 
@@ -21,8 +22,11 @@
     font-weight: bold;
     transform: scale(1.15);
     opacity: 1;
-    
 }
+.tabActive:hover{
+    color: currentColor;
+}
+
 .tabActive:before{
     content: "";
     clear: both;
