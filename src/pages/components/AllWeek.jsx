@@ -4,9 +4,9 @@ import Skeleton from "@mui/material/Skeleton";
 
 import AnimeCard from "./AnimeCard";
 
-import styles from "../../styles/WeekAnimes.module.css";
+import styles from "../../styles/AllWeek.module.css";
 
-export default function WeekAnimes({ props }) {
+export default function AllWeek({ props }) {
   const [animes, setAnimes] = useState([]);
   const [week, setWeek] = useState(props.weekDays);
 

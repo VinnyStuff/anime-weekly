@@ -3,8 +3,8 @@ import Button from "@mui/material/Button";
 
 import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
-import WeekAnimes from "./components/WeekAnimes.jsx";
-import TodayAnimes from "./components/TodayAnimes.jsx";
+import AllWeek from "./components/AllWeek.jsx";
+import Today from "./components/Today.jsx";
 import SideBar from "./components/SideBar.jsx";
 import moment from "moment";
 
@@ -83,9 +83,9 @@ export default function Index() {
 
         <div className={styles.contentContainer}>
           {currentTab === "Today" ? (
-            <TodayAnimes props={{ data, today }} />
+            <Today props={{ data, today }} />
           ) : currentTab === "All Week" ? (
-            <WeekAnimes props={{ data, weekDays }} />
+            <AllWeek props={{ data, weekDays }} />
           ) : (
             <div>
 

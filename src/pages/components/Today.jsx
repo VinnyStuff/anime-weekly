@@ -4,9 +4,9 @@ import Skeleton from "@mui/material/Skeleton";
 
 import AnimeCard from "./AnimeCard";
 
-import styles from "../../styles/TodayAnimes.module.css";
+import styles from "../../styles/Today.module.css";
 
-export default function TodayAnimes({ props }) {
+export default function Today({ props }) {
   const [animes, setAnimes] = useState([]);
   const [today, setToday] = useState(props.today);
   useEffect(() => {
