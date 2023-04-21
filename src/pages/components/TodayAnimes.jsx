@@ -34,24 +34,28 @@ export default function TodayAnimes({ props }) {
           <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'Favorites' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('Favorites')}>Favorites</Typography>
         </div>
 
-        {animes.length >= 1 ? (
-          <div className={styles.animeCardContainer}>
-            {animes
-              .filter(
-                (anime) =>
-                  anime.release.release_in_brazil_streamings.day === today
-              )
-              .map((anime) => (
-                <AnimeCard anime={anime} key={anime.title} />
-              ))}
+        {currentTab === 'All' ? (
+          <div>
+            {animes.length >= 1 ? (
+              <div className={styles.animeCardContainer}>
+                {animes.filter((anime) => anime.release.release_in_brazil_streamings.day === today)
+                  .map((anime) => (
+                    <AnimeCard anime={anime} key={anime.title} />
+                  ))}
+              </div>
+            ) : (
+              <div className={styles.animeCardContainer}>
+                <AnimeCard />
+                <AnimeCard />
+                <AnimeCard />
+              </div>
+            )}
           </div>
-        ) : (
-          <div className={styles.animeCardContainer}>
-            <AnimeCard />
-            <AnimeCard />
-            <AnimeCard />
+        ) : currentTab === 'Favorites' ? (
+          <div>
+           
           </div>
-        )}
+        ) : null}
       </div>
     </>
   );
