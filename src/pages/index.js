@@ -85,7 +85,6 @@ export default function Index() {
 
         <div className={styles.contentContainer}>
           {currentTab === "Today" ? (
-            //<TodayAnimes props={{ data, today }} />
             <TodayAnimes props={{ data, today }} />
           ) : currentTab === "All Week" ? (
             <WeekAnimes props={{ data, weekDays }} />

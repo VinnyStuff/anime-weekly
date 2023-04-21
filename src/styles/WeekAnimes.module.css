@@ -10,6 +10,9 @@
     padding-bottom: 10px;
     opacity: 0.66;
 }
+.tab:first-child{
+    margin-left: 8px;
+}
 .tab:last-child{
     margin-right: 0;
 }

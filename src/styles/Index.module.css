@@ -38,5 +38,6 @@
     box-shadow: none;
 }
 .contentContainer{
-    padding: 5px 0;
+    margin: 0 auto;
+    padding: 0 20px;
 }
