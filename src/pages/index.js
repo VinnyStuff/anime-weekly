@@ -24,6 +24,7 @@ export default function Index() {
   ];
   const today = weekDays[new Date().getDay()];
   const [data, setData] = useState([]);
+  const [currentTab, setCurrentTab] = useState("Today");
 
   useEffect(() => {
     async function fetchData() {
@@ -44,12 +45,6 @@ export default function Index() {
     fetchData();
   }, []);
 
-  const getAnimeCardClick = (anime) => {
-    //console.log(anime);
-  };
-
-  const [currentTab, setCurrentTab] = useState("Today");
-
   return (
     <>
       <div className={styles.sideBarContainer}>
@@ -59,10 +54,10 @@ export default function Index() {
       <div className={styles.pageContainer}>
         <div className={styles.navbarContainer}>
           <SearchBar props={{ data }} />
-        </div>
 
-        <div className={styles.horizontalSideBarContainer}>
-          <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
+          <div className={styles.horizontalSideBarContainer}>
+            <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
+          </div>
         </div>
 
         {currentTab === "Today" ? (

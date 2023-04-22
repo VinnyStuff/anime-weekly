@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Skeleton from "@mui/material/Skeleton";
 
+import SaveButton from './SaveButton'
+
 import styles from "../../styles/AnimeCard.module.css";
 
 export default function AnimeCard({ anime }) {
@@ -37,6 +39,7 @@ export default function AnimeCard({ anime }) {
               ))}
             </Typography>
           </div>
+          <SaveButton props={{anime}}/>
 
           <div className={styles.overlay}></div>
         </Card>
