@@ -9,6 +9,9 @@
     padding-bottom: 15px;
     overflow-y: auto;
 }
+.tabContainer::-webkit-scrollbar {
+    height: 0;
+}
 
 .tab{
     cursor: pointer;
@@ -64,6 +67,9 @@
     .wrapper{
         max-width: 895px;
     }
+    .tabContainer{
+        overflow: visible;
+    }
 }
 @media only screen and (max-width: 1220px) {
     .animeCardContainer{
@@ -75,10 +81,6 @@
     }
     .tabContainer{
         overflow-y: auto;
-        position: relative;
-    }
-    .tabContainer::-webkit-scrollbar {
-        height: 0;
     }
 }
 @media only screen and (max-width: 475px) {
