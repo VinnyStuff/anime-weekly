@@ -10,16 +10,18 @@ import styles from "../../styles/TabsPage.module.css";
 export default function Favorites({ props }) {
   const [animes, setAnimes] = useState([]);
   const [week, setWeek] = useState(props.weekDays);
+  const [currentTab, setCurrentTab] = useState('All')
+  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
+
   useEffect(() => {
     setAnimes(props.data);
     setWeek(props.weekDays)
+    setLocalStorageAnimes(props.data.filter((anime) => localStorage.getItem(anime.title)))
   }, [props]);
-
-  const [currentTab, setCurrentTab] = useState('All')
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} onClick={() => setLocalStorageAnimes(animes.filter((anime) => localStorage.getItem(anime.title)))}>
         <div className={styles.titleContainer}>
           {animes.length >= 1 ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
@@ -40,7 +42,27 @@ export default function Favorites({ props }) {
           </div>
         
         <div className={styles.animeCardContainer}>
-            <EmptyStateCard/>
+            {currentTab === "All" ? (
+              <>
+                 {localStorageAnimes.length >= 1 ? (
+                    localStorageAnimes.map((anime) => (
+                      <AnimeCard anime={anime} key={anime.title}/>
+                    ))
+                  ) : (
+                    <EmptyStateCard/>
+                  )}
+              </>
+            ) : (
+              <>
+                {localStorageAnimes.filter((anime) => anime.release.release_in_brazil_streamings.day === currentTab).length >= 1 ? (
+                  localStorageAnimes.filter((anime) => anime.release.release_in_brazil_streamings.day === currentTab).map((anime) => (
+                    <AnimeCard anime={anime} key={anime.title}/>
+                  ))
+                ) : (
+                  <EmptyStateCard/>
+                )}
+              </>
+            )}
         </div>
       </div>
     </>
