@@ -30,10 +30,10 @@ export default function AnimeCard({ anime }) {
 
             <Typography color="text.secondary" sx={{mr: '8px'}}>
               {genres.map((genre, index) => (
-                <>
+                 <span key={genre.name}>
                   {genre.name}
                   {index !== genres.length - 1 ? ", " : ""}
-                </>
+                </span>
               ))}
             </Typography>
           </div>
