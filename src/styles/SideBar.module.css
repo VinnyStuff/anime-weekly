@@ -84,7 +84,9 @@
 }
 .favoritedAnimeCardImage{
     height: 80px;
+    max-width: 58px;
     border-radius: 5px;
+    object-fit: cover;
 }
 .favoritedAnimeCardTitle{
     line-height: 20px;
