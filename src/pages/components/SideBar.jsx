@@ -53,12 +53,12 @@ export default function SideBar({props , getCurrentTab}) {
     <>
       <Paper className={styles.sideBarContainer}>
         <div className={styles.iconsContainer}>
-          <IconButton type="button" sx={{ p: "10px", ml: "5px" }}>
+          <IconButton type="button" sx={{ p: "10px", ml: "5px", mt: '16px' }}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
           </IconButton>
           <img
             className={styles.logo}
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
+            src="/images/logo.fw.png"
             alt="Anime Week"
           />
         </div>

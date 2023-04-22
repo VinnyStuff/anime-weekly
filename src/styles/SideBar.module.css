@@ -12,9 +12,11 @@
 .iconsContainer{
     display: flex;
     align-items: center;
+    margin-top: -4px;
+    margin-bottom: -8px;
 }
 .logo{
-    height: 20px;
+    height: 50px;
     margin-left: 18px;
 }
 
