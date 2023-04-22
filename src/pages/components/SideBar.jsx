@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../styles/SideBar.module.css";
 import MenuIcon from "@mui/icons-material/Menu";
-import Logo from "../images/logo.png";
 import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';

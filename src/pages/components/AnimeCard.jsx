@@ -24,7 +24,7 @@ export default function AnimeCard({ anime }) {
             />
           </div>
           <div className={styles.animeInformationsContainer}>
-            <Typography variant="h5" className={styles.title}>
+            <Typography color="text.primary" variant="h5" className={styles.title}>
               {title}
             </Typography>
 

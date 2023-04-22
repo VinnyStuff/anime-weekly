@@ -71,7 +71,7 @@
         overflow: visible;
     }
 }
-@media only screen and (max-width: 1220px) {
+@media only screen and (max-width: 1270px) { /* depois colocar um botão para as tabs da sections e tiras o overflow visible */
     .animeCardContainer{
         grid-template-columns: repeat(1, 1fr);    
     }

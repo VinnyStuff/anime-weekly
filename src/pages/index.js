@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import AllWeek from "./components/AllWeek.jsx";
 import Today from "./components/Today.jsx";
+import Favorites from './components/Favorites.jsx'
 import SideBar from "./components/SideBar.jsx";
 import HorizontalSideBar from './components/HorizontalSideBar.jsx';
 import moment from "moment";
@@ -69,9 +70,7 @@ export default function Index() {
         ) : currentTab === "All Week" ? (
           <AllWeek props={{ data, weekDays }} />
         ) : (
-          <div>
-
-          </div>
+          <Favorites props={{ data, weekDays }} />
         )}
       </div>
     </>

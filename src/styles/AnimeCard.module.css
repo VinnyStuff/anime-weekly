@@ -32,10 +32,9 @@
     object-fit: cover;
 }
 .animeInformationsContainer{
-    padding: 6px 12px;
+    padding: 8px 16px;
     min-height: 95px;
     height: max-content;
-    margin-top: auto;
 }
 .title{
     display: -webkit-box;
