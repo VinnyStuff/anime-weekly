@@ -20,23 +20,24 @@ export default function AllWeek({ props }) {
   return (
     <>
       <div className={styles.wrapper}>
-        {animes.length >= 1 ? (
-          <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
-            {animes[0].season.charAt(0).toUpperCase() + animes[0].season.slice(1).toLowerCase()}
-          </Typography>
-        ) :  (
-          <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
-            <Skeleton animation="wave" width={'30%'}/>
-          </Typography> 
-        )}
+        <div className={styles.titleContainer}>
+          {animes.length >= 1 ? (
+            <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
+              {animes[0].season.charAt(0).toUpperCase() + animes[0].season.slice(1).toLowerCase()}
+            </Typography>
+          ) :  (
+            <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
+              <Skeleton animation="wave" width={'30%'}/>
+            </Typography> 
+          )}
 
-
-
-        <div className={styles.tabContainer}>
-          {week.map((day) => (
-            <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
-          ))}
+          <div className={styles.tabContainer}>
+            {week.map((day) => (
+              <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
+            ))}
+          </div>
         </div>
+
 
         {animes.length >= 1 ? (
           <div className={styles.animeCardContainer}>

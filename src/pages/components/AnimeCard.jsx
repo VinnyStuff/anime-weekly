@@ -28,14 +28,14 @@ export default function AnimeCard({ anime }) {
               {title}
             </Typography>
 
-            <div className={styles.genresContainer}>
+            <Typography color="text.secondary" sx={{mr: '8px'}}>
               {genres.map((genre, index) => (
-                <Typography color="text.secondary" key={genre.name}>
+                <>
                   {genre.name}
-                  {index !== genres.length - 1 ? ",\u00A0" : ""}
-                </Typography>
+                  {index !== genres.length - 1 ? ", " : ""}
+                </>
               ))}
-            </div>
+            </Typography>
           </div>
 
           <div className={styles.overlay}></div>

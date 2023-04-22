@@ -1,3 +1,8 @@
+.wrapper{
+    max-width: 1315px;
+    position: relative;
+}
+
 .tabContainer{
     display: flex;
     padding-bottom: 6px;
@@ -52,17 +57,12 @@
     margin-bottom: 35px;
 }
 
-.wrapper{
-    width: 1315px;
-    position: relative;
-}
-
 @media only screen and (max-width: 1635px) {
     .animeCardContainer{
         grid-template-columns: repeat(2, 1fr); 
     }
     .wrapper{
-        width: 895px;
+        max-width: 895px;
     }
 }
 @media only screen and (max-width: 1220px) {
@@ -70,7 +70,8 @@
         grid-template-columns: repeat(1, 1fr);    
     }
     .wrapper{
-        width: 425px;
+        max-width: 425px;
+        width: 100vw;
     }
     .tabContainer{
         overflow-y: auto;
@@ -80,4 +81,8 @@
         height: 0;
     }
 }
-
+@media only screen and (max-width: 475px) {
+    .titleContainer{
+        padding: 0 15px;
+    }
+}
