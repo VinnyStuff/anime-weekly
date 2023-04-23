@@ -6,13 +6,12 @@ import AnimeCard from "./AnimeCard";
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function Today({ props }) {
+export default function Today({ props, AnimeCardClick }) {
   const [animes, setAnimes] = useState([]);
   const [today, setToday] = useState(props.today);
   useEffect(() => {
     setAnimes(props.data);
-    setToday(props.today);
-  }, [props]);
+  }, [props.data]);
 
   const [currentTab, setCurrentTab] = useState('All')
 
@@ -42,7 +41,7 @@ export default function Today({ props }) {
               <div className={styles.animeCardContainer}>
                 {animes.filter((anime) => anime.release.release_in_brazil_streamings.day === today)
                   .map((anime) => (
-                    <AnimeCard anime={anime} key={anime.title} />
+                    <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
                   ))}
               </div>
             ) : (

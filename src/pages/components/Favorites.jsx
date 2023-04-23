@@ -7,7 +7,7 @@ import EmptyStateCard from './EmptyStateCard'
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function Favorites({ props }) {
+export default function Favorites({ props, AnimeCardClick }) {
   const [animes, setAnimes] = useState([]);
   const [week, setWeek] = useState(props.weekDays);
   const [currentTab, setCurrentTab] = useState('All')
@@ -15,13 +15,14 @@ export default function Favorites({ props }) {
 
   useEffect(() => {
     setAnimes(props.data);
-    setWeek(props.weekDays)
-    setLocalStorageAnimes(props.data.filter((anime) => localStorage.getItem(anime.title)))
-  }, [props]);
+  }, [props.data]);
+  useEffect(() => {
+    setLocalStorageAnimes(props.localStorageAnimes)
+  }, [props.localStorageAnimes]);
 
   return (
     <>
-      <div className={styles.wrapper} onClick={() => setLocalStorageAnimes(animes.filter((anime) => localStorage.getItem(anime.title)))}>
+      <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
           {animes.length >= 1 ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
@@ -46,7 +47,7 @@ export default function Favorites({ props }) {
               <>
                  {localStorageAnimes.length >= 1 ? (
                     localStorageAnimes.map((anime) => (
-                      <AnimeCard anime={anime} key={anime.title}/>
+                      <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
                     ))
                   ) : (
                     <EmptyStateCard/>
@@ -56,7 +57,7 @@ export default function Favorites({ props }) {
               <>
                 {localStorageAnimes.filter((anime) => anime.release.release_in_brazil_streamings.day === currentTab).length >= 1 ? (
                   localStorageAnimes.filter((anime) => anime.release.release_in_brazil_streamings.day === currentTab).map((anime) => (
-                    <AnimeCard anime={anime} key={anime.title}/>
+                    <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
                   ))
                 ) : (
                   <EmptyStateCard/>

@@ -3,12 +3,11 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Skeleton from "@mui/material/Skeleton";
-
 import SaveButton from './SaveButton'
 
 import styles from "../../styles/AnimeCard.module.css";
 
-export default function AnimeCard({ anime }) {
+export default function AnimeCard({ anime, onClick }) {
   if (anime) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
@@ -17,7 +16,7 @@ export default function AnimeCard({ anime }) {
 
     return (
       <>
-        <Card className={styles.animeCard}>
+        <Card className={styles.animeCard} onClick={onClick}>
           <div className={styles.imageContainer}>
             <img
               className={styles.image}

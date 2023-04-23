@@ -24,6 +24,7 @@ export default function Index() {
   ];
   const today = weekDays[new Date().getDay()];
   const [data, setData] = useState([]);
+  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
   const [currentTab, setCurrentTab] = useState("Today");
 
   useEffect(() => {
@@ -38,12 +39,26 @@ export default function Index() {
       for (let i = 0; i < apiData.length; i++) {
         apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
       }
-      //console.log(apiData);
-      setData(apiData);
-    }
 
+      setData(apiData);
+      setLocalStorageAnimes(apiData.filter((anime) => localStorage.getItem(anime.title)))
+    }
     fetchData();
   }, []);
+
+  function getAnimeCardClick(e){
+    if (localStorageAnimes.length === data.filter((anime) => localStorage.getItem(anime.title)).length){ //it will only expand the card when the player does not press the save button, and when he presses the safe button one of these values changes, I did not put an issue for the parent component because it would have to go through 2 or more components
+      console.log('expand this anime ' + e.title); 
+    }
+    if(currentTab === 'Favorites'){
+      setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)))
+    }
+  }
+  useEffect(() => {
+    if(currentTab === 'Favorites'){
+      setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)))
+    }
+  }, [currentTab]);
 
   return (
     <>
@@ -60,12 +75,13 @@ export default function Index() {
           </div>
         </div>
 
+
         {currentTab === "Today" ? (
-          <Today props={{ data, today }} />
+          <Today props={{ data, today }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
         ) : currentTab === "All Week" ? (
-          <AllWeek props={{ data, weekDays }} />
+          <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
         ) : (
-          <Favorites props={{ data, weekDays }} />
+          <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
         )}
       </div>
     </>

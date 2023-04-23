@@ -1,7 +1,6 @@
 .animeCard{    
     max-width: 425px;
     width: 100vw;
-    z-index: 2;
     position: relative;
 }
 .overlay{
@@ -16,10 +15,11 @@
     border-radius: 5px;
     pointer-events: none;
 }
-
+.animeCard:hover{
+    cursor: pointer;
+}
 .animeCard:hover .overlay{    
     visibility: visible;
-    cursor: pointer;
 }
 .imageContainer{
     width: 100%;
