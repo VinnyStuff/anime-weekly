@@ -47,18 +47,13 @@ export default function Index() {
   }, []);
 
   function getAnimeCardClick(e){
-    if (localStorageAnimes.length === data.filter((anime) => localStorage.getItem(anime.title)).length){ //it will only expand the card when the player does not press the save button, and when he presses the safe button one of these values changes, I did not put an issue for the parent component because it would have to go through 2 or more components
+    if (localStorage.length === localStorageAnimes.length){ //if button save is clicked
       console.log('expand this anime ' + e.title); 
     }
-    if(currentTab === 'Favorites'){
+    else{
       setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)))
     }
   }
-  useEffect(() => {
-    if(currentTab === 'Favorites'){
-      setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)))
-    }
-  }, [currentTab]);
 
   return (
     <>
