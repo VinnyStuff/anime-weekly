@@ -79,7 +79,7 @@ export default function Index() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={styles.sideBarContainer}>
-          <SideBar props={{ data, currentTheme }} getCurrentTab={(e) => setCurrentTab(e)} changeThemeClick={changeTheme}/>
+          <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} changeThemeClick={changeTheme}/>
         </div>
 
         <div className={styles.pageContainer}>

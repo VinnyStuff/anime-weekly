@@ -104,7 +104,7 @@ export default function SideBar({props, getCurrentTab, changeThemeClick}) {
           </Menu>
           <img
             className={styles.logo}
-            src="/images/logo.fw.png"
+            src={props.currentTheme === 'light' ? '/images/logo-light-mode.png' : '/images/logo-dark-mode.png'}
             alt="Anime Week"
           />
         </div>
@@ -119,7 +119,7 @@ export default function SideBar({props, getCurrentTab, changeThemeClick}) {
             <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
           </Paper>
 
-          {animes.map((anime) =>(
+          {props.localStorageAnimes.map((anime) =>(
               <div className={styles.favoritedAnimeCard} key={anime.title}>
                 <img src={anime.images.jpg.large_image_url} alt="Anime Image" className={styles.favoritedAnimeCardImage}/>
                 <Typography variant="subtitle1" className={styles.favoritedAnimeCardTitle}>{anime.title}</Typography>
