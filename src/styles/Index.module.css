@@ -1,7 +1,8 @@
 .sideBarContainer{
-    z-index: 999;
     position: fixed;
     width: 240px;
+    left: 0;
+    top: 0;
 }
 
 .pageContainer{
@@ -13,12 +14,13 @@
 }
 
 .navbarContainer{
-    padding: 14px 0;
+    padding: 14px 10px;
     padding-bottom: 10px;
-    width: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-left: 240px;
+    flex-grow: 1;
 }
 
 .tabsContainer{
@@ -42,20 +44,19 @@
 
 @media only screen and (max-width: 745px) {
     .sideBarContainer{
-        display: none;
+        position: relative;
+        width: 100%;
     }
     .pageContainer{
         margin-left: 0;
-    }
-    .navbarContainer{
-        max-width: 475px;
     }
     .horizontalSideBarContainer{
         display: initial;
     }
     .navbarContainer{
+        margin-left: 0;
+        max-width: 445px;
         margin: 0 auto;
-        max-width: 425px;
     }
 }
 @media only screen and (max-width: 445px) {

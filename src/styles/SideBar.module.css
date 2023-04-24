@@ -1,4 +1,11 @@
-.sideBarContainer{
+.iconTab{
+    margin-left: 15px;
+}
+.textTab{
+    margin-left: 25px;
+}
+
+.sideBarDesktopContainer{
     display: flex;
     flex-direction: column;
 
@@ -9,6 +16,7 @@
     box-shadow: 3px 0px 23px -8px rgba(0,0,0,0.21);
     padding: 6px 12px;
 }
+
 .iconsContainer{
     display: flex;
     align-items: center;
@@ -22,6 +30,11 @@
 
 .buttonsContainer{
     margin-top: 15px;
+}
+.buttonsMobileContainer{
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 .tab{
     display: flex;
@@ -103,7 +116,6 @@
     -webkit-box-orient: vertical;
 }
 
-
 .favoritesQuickViewContainer::-webkit-scrollbar {
     width: 6px;
     overflow-y: overlay;
@@ -111,4 +123,36 @@
 .favoritesQuickViewContainer::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 8px;
+}
+
+@media only screen and (max-width: 745px) {
+    .sideBarDesktopContainer{
+        display: none;
+    }
+    .sideBarMobileContainer{
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .iconTab{
+        margin-left: 0;
+    }
+    .textTab{
+        margin-left: 5%;
+    }
+    .tab{
+        padding: 0;
+        margin-right: 4px;
+        width: 33%;
+        white-space: nowrap;
+        justify-content: center;
+    }
+    .tab:last-child{
+        margin-right: 0;
+    }
+}
+@media only screen and (max-width: 345px) {
+    .iconTab{
+        display: none;
+    }
 }

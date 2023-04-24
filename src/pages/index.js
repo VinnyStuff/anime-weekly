@@ -84,20 +84,14 @@ export default function Index() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className={styles.sideBarContainer}>
-          <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
-        </div>
-
-        <div className={styles.pageContainer}>
-          <div className={styles.navbarContainer}>
-            <SearchBar props={{ data }} />
-
-            <div className={styles.horizontalSideBarContainer}>
-              <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
-            </div>
+        <div className={styles.navbarContainer}>
+          <SearchBar props={{ data }} />
+          <div className={styles.sideBarContainer}>
+            <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
+          </div>
           </div>
 
-
+        <div className={styles.pageContainer}>
           {   currentTab === "Today" ? (
             <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (

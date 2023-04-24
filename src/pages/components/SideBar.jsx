@@ -40,8 +40,8 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
     return(
     <>
       <div className={`${styles.tab} ${currentTab === children ? styles.tabActive : ''}`} onClick={() => setCurrentTab(children)}>
-        <Icon component={currentTab === children ? iconActive : iconInactive} sx={{ml: '15px'}} />
-        <Typography variant="subtitle1" sx={{ml: '25px', fontWeight: currentTab === children ? 'bold' : ''}}>{children}</Typography>
+        <Icon className={styles.iconTab} component={currentTab === children ? iconActive : iconInactive}/>
+        <Typography className={styles.textTab} variant="subtitle1" sx={{mt: '2px', fontWeight: currentTab === children ? 'bold' : ''}}>{children}</Typography>
         <div className={styles.tabOverlay}></div>
       </div>
     </>
@@ -71,7 +71,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
 
   return (
     <>
-      <Paper className={styles.sideBarContainer}>
+      <Paper className={styles.sideBarDesktopContainer}>
         <div className={styles.iconsContainer}>
           <IconButton type="button" sx={{ p: "10px", ml: "5px", mt: '16px' }} onClick={handleClick}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
@@ -135,6 +135,14 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
 
         </div>
       </Paper>
+
+      <div className={styles.sideBarMobileContainer}>
+        <div className={styles.buttonsMobileContainer}>
+          <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
+          <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
+          <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
+        </div>
+      </div>
     </>
   );
 }
