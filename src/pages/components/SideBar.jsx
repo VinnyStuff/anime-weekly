@@ -119,13 +119,20 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
             <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
           </Paper>
 
-          {props.localStorageAnimes.map((anime) =>(
+          {props.localStorageAnimes.length >= 1 ? (
+            <>
+              {props.localStorageAnimes.map((anime) =>(
               <div className={styles.favoritedAnimeCard} key={anime.title}>
                 <img src={anime.images.jpg.large_image_url} alt="Anime Image" className={styles.favoritedAnimeCardImage}/>
                 <Typography variant="subtitle1" className={styles.favoritedAnimeCardTitle}>{anime.title}</Typography>
                 <div className={styles.overlay}></div>
               </div>
-            ))}
+              ))}
+            </>
+          ) :  (
+            <Typography variant="subtitle2" sx={{textAlign: 'center', pt: '10px'}}>No animes in Favorites</Typography>
+          )}
+
         </div>
       </Paper>
     </>
