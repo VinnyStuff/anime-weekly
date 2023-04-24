@@ -23,6 +23,9 @@ export default function AnimeCard({ anime, onClick }) {
               src={image}
               alt="current anime image"
             />
+            <div className={styles.saveButton} >
+              <SaveButton anime={anime}/>
+            </div>
           </div>
           <div className={styles.animeInformationsContainer}>
             <Typography color="text.primary" variant="h5" className={styles.title}>
@@ -38,7 +41,6 @@ export default function AnimeCard({ anime, onClick }) {
               ))}
             </Typography>
           </div>
-          <SaveButton props={{anime}}/>
 
           <div className={styles.overlay}></div>
         </Card>

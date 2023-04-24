@@ -14,8 +14,8 @@ import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 
-import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
-import GradeIcon from '@mui/icons-material/Grade';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -111,7 +111,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
         <div className={styles.buttonsContainer}>
           <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
           <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
-          <Tab iconInactive={GradeOutlinedIcon} iconActive={GradeIcon}>Favorites</Tab>
+          <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
         </div>
         <Divider sx={{mt: '10px'}}/>
         <div className={styles.favoritesQuickViewContainer}>

@@ -1,18 +1,92 @@
-import React, { useState, useEffect } from "react";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { IconButton, Paper } from '@mui/material'
+import { useState, forwardRef } from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
-export default function SaveButton({props}) {
+
+const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+export default function SaveButton({anime}) {
+    const [openSuccessMessage, setOpenSuccessMessage] = useState(false);
+    const [openInfoMessage, setOpenInfoMessage] = useState(false);
+    const [openErrorMessage, setOpenErrorMessage] = useState(false);
+
+    const handleClickSucess = () => {
+        setOpenSuccessMessage(true);
+    };
+    const handleClickInfo = () => {
+        setOpenInfoMessage(true);
+    };    
+    const handleClickError = () => {
+        setOpenErrorMessage(true);
+    };
+  
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+  
+      setOpenSuccessMessage(false);
+      setOpenInfoMessage(false)
+      setOpenErrorMessage(false);
+    };
+
+
+    const [animeSaved, setAnimeSaved] = useState(localStorage.getItem(anime.title));
+
     function saveAnime(){
-        if (localStorage.getItem(props.anime.title)){
-            localStorage.removeItem(props.anime.title);
+        try{
+            handleClose();
+
+            if (localStorage.getItem(anime.title)){
+                localStorage.removeItem(anime.title);
+                setAnimeSaved(false);
+                handleClickInfo();
+            }
+            else{
+                localStorage.setItem(anime.title, "Anime Title");
+                setAnimeSaved(true);
+                handleClickSucess();
+            }
         }
-        else{
-            localStorage.setItem(props.anime.title, "Anime Title");
+        catch{
+            handleClickError();
         }
     }
 
     return (
       <>
-      <button onClick={() => saveAnime()}>save</button>
+        <Paper sx={{borderRadius: '100%'}}>
+            <IconButton onClick={() => saveAnime()} color='#ED4956'>
+                {   animeSaved ? (
+                    <FavoriteIcon sx={{ color: '#ED4956' }}/>
+                ) : (
+                    <FavoriteBorderIcon/>
+                )}
+            </IconButton>
+        </Paper>
+
+        <Stack spacing={2} sx={{ width: '100%' }}>
+            <Snackbar open={openSuccessMessage} autoHideDuration={1500} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Anime has been added to favorites!
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={openInfoMessage} autoHideDuration={1500} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="info">Anime has been removed from favorites!</Alert>
+            </Snackbar>
+
+            <Snackbar open={openErrorMessage} autoHideDuration={1500} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">Oops! Something went wrong. Please try again later.</Alert>
+            </Snackbar>
+        </Stack>
       </>
     );
   }
