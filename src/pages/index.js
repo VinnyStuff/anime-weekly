@@ -72,7 +72,7 @@ export default function Index() {
 
 
         {currentTab === "Today" ? (
-          <Today props={{ data, today }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
         ) : currentTab === "All Week" ? (
           <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
         ) : (

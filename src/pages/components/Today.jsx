@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
+import EmptyStateCard from './EmptyStateCard'
 
 import AnimeCard from "./AnimeCard";
 
@@ -9,11 +10,16 @@ import styles from "../../styles/TabsPage.module.css";
 export default function Today({ props, AnimeCardClick }) {
   const [animes, setAnimes] = useState([]);
   const [today, setToday] = useState(props.today);
+  const [currentTab, setCurrentTab] = useState('All')
+  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
+
   useEffect(() => {
     setAnimes(props.data);
   }, [props.data]);
+  useEffect(() => {
+    setLocalStorageAnimes(props.localStorageAnimes)
+  }, [props.localStorageAnimes]);
 
-  const [currentTab, setCurrentTab] = useState('All')
 
   return (
     <>
@@ -36,7 +42,7 @@ export default function Today({ props, AnimeCardClick }) {
         </div>
 
         {currentTab === 'All' ? (
-          <div>
+          <>
             {animes.length >= 1 ? (
               <div className={styles.animeCardContainer}>
                 {animes.filter((anime) => anime.release.release_in_brazil_streamings.day === today)
@@ -51,11 +57,27 @@ export default function Today({ props, AnimeCardClick }) {
                 <AnimeCard />
               </div>
             )}
-          </div>
+          </>
         ) : currentTab === 'Favorites' ? (
-          <div>
-           
-          </div>
+          <>
+             {animes.length >= 1 ? (
+              <div className={styles.animeCardContainer}>
+                {localStorageAnimes.filter((anime) => anime.release.release_in_brazil_streamings.day === today).length >= 1 ? (
+                  localStorageAnimes.filter((anime) => anime.release.release_in_brazil_streamings.day === today).map((anime) => (
+                    <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
+                  ))
+                ) : (
+                  <EmptyStateCard/>
+                )}
+              </div>
+            ) : (
+              <div className={styles.animeCardContainer}>
+                <AnimeCard />
+                <AnimeCard />
+                <AnimeCard />
+              </div>
+            )}
+          </>
         ) : null}
       </div>
     </>
