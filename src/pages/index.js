@@ -57,7 +57,11 @@ export default function Index() {
     }
   }
 
-  const [currentTheme, setCurrentTheme] = useState('dark')
+  const [currentTheme, setCurrentTheme] = useState('light')
+  useEffect(() => {
+    const userPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+    setCurrentTheme(userPrefersLight ? 'light' : 'dark');
+  }, []);
 
   const changeTheme = () => {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
