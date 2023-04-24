@@ -17,6 +17,14 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import GradeIcon from '@mui/icons-material/Grade';
 
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ListItemText from '@mui/material/ListItemText';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+
 export default function SideBar({props , getCurrentTab}) {
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
@@ -49,13 +57,46 @@ export default function SideBar({props , getCurrentTab}) {
     getCurrentTab(currentTab)
   }, [currentTab]);
 
+  //MUI material
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  //--
+
   return (
     <>
       <Paper className={styles.sideBarContainer}>
         <div className={styles.iconsContainer}>
-          <IconButton type="button" sx={{ p: "10px", ml: "5px", mt: '16px' }}>
+          <IconButton type="button" sx={{ p: "10px", ml: "5px", mt: '16px' }} onClick={handleClick}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
           </IconButton>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem onClick={() => {localStorage.clear(); handleClose() }}>
+              <ListItemIcon>
+                <DeleteIcon fontSize="medium" />
+              </ListItemIcon>
+              <ListItemText>Clear Favorites</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <ListItemIcon>
+                <DarkModeIcon fontSize="medium" />
+              </ListItemIcon>
+              <ListItemText>Change to Dark Mode</ListItemText>
+            </MenuItem>
+          </Menu>
           <img
             className={styles.logo}
             src="/images/logo.fw.png"
