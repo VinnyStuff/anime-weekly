@@ -9,6 +9,8 @@ import Favorites from './components/Favorites.jsx'
 import SideBar from "./components/SideBar.jsx";
 import HorizontalSideBar from './components/HorizontalSideBar.jsx';
 import moment from "moment";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 import styles from "../styles/Index.module.css";
 
@@ -55,30 +57,46 @@ export default function Index() {
     }
   }
 
+  const [currentTheme, setCurrentTheme] = useState('dark')
+
+  const changeTheme = () => {
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setCurrentTheme(newTheme);
+  };
+
+  const theme = createTheme({
+    palette: {
+      mode: currentTheme
+    }
+  });
+
   return (
     <>
-      <div className={styles.sideBarContainer}>
-        <SideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)} />
-      </div>
-
-      <div className={styles.pageContainer}>
-        <div className={styles.navbarContainer}>
-          <SearchBar props={{ data }} />
-
-          <div className={styles.horizontalSideBarContainer}>
-            <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
-          </div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className={styles.sideBarContainer}>
+          <SideBar props={{ data, currentTheme }} getCurrentTab={(e) => setCurrentTab(e)} changeThemeClick={changeTheme}/>
         </div>
 
+        <div className={styles.pageContainer}>
+          <div className={styles.navbarContainer}>
+            <SearchBar props={{ data }} />
 
-        {currentTab === "Today" ? (
-          <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-        ) : currentTab === "All Week" ? (
-          <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-        ) : (
-          <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-        )}
-      </div>
+            <div className={styles.horizontalSideBarContainer}>
+              <HorizontalSideBar props={{ data }} getCurrentTab={(e) => setCurrentTab(e)}/>
+            </div>
+          </div>
+
+
+          {currentTab === "Today" ? (
+            <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          ) : currentTab === "All Week" ? (
+            <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          ) : (
+            <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          )}
+        </div>
+      </ThemeProvider>
     </>
   );
 }

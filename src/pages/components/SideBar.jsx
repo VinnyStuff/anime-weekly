@@ -24,8 +24,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function SideBar({props , getCurrentTab}) {
+export default function SideBar({props, getCurrentTab, changeThemeClick}) {
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
     setAnimes(props.data);
@@ -58,7 +59,7 @@ export default function SideBar({props , getCurrentTab}) {
   }, [currentTab]);
 
   //MUI material
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -90,11 +91,15 @@ export default function SideBar({props , getCurrentTab}) {
               </ListItemIcon>
               <ListItemText>Clear Favorites</ListItemText>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => {changeThemeClick(); handleClose() }}>
               <ListItemIcon>
-                <DarkModeIcon fontSize="medium" />
+                {props.currentTheme === 'light' ? (
+                  <DarkModeIcon fontSize="medium" />
+                ) :  (
+                  <LightModeIcon fontSize="medium" />
+                )}
               </ListItemIcon>
-              <ListItemText>Change to Dark Mode</ListItemText>
+              <ListItemText>Change to {props.currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</ListItemText>
             </MenuItem>
           </Menu>
           <img
