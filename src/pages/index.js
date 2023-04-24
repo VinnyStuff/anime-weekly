@@ -56,6 +56,10 @@ export default function Index() {
       setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)))
     }
   }
+  function clearFavorites(){
+    localStorage.clear();
+    setLocalStorageAnimes([]);
+  }
 
   const [currentTheme, setCurrentTheme] = useState('light')
   useEffect(() => {
@@ -66,6 +70,7 @@ export default function Index() {
   const changeTheme = () => {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setCurrentTheme(newTheme);
+    console.log(ThemeProvider);
   };
 
   const theme = createTheme({
@@ -79,7 +84,7 @@ export default function Index() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={styles.sideBarContainer}>
-          <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} changeThemeClick={changeTheme}/>
+          <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
         </div>
 
         <div className={styles.pageContainer}>
@@ -92,7 +97,7 @@ export default function Index() {
           </div>
 
 
-          {currentTab === "Today" ? (
+          {   currentTab === "Today" ? (
             <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
             <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>

@@ -26,7 +26,7 @@ import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function SideBar({props, getCurrentTab, changeThemeClick}) {
+export default function SideBar({props, getCurrentTab, onThemeChange, clearFavorites}) {
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
     setAnimes(props.data);
@@ -85,13 +85,13 @@ export default function SideBar({props, getCurrentTab, changeThemeClick}) {
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem onClick={() => {localStorage.clear(); handleClose() }}>
+            <MenuItem onClick={() => {clearFavorites(); handleClose() }}>
               <ListItemIcon>
                 <DeleteIcon fontSize="medium" />
               </ListItemIcon>
               <ListItemText>Clear Favorites</ListItemText>
             </MenuItem>
-            <MenuItem onClick={() => {changeThemeClick(); handleClose() }}>
+            <MenuItem onClick={() => {onThemeChange(); handleClose() }}>
               <ListItemIcon>
                 {props.currentTheme === 'light' ? (
                   <DarkModeIcon fontSize="medium" />
