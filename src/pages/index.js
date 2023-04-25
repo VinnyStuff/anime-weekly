@@ -49,8 +49,13 @@ export default function Index() {
   }, []);
 
   function getAnimeCardClick(e){
-    //contar se tem algo fora animes no localStorage
-    if (localStorage.length === localStorageAnimes.length){ //if button save is clicked
+    let notAnimes = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      if (!localStorage.getItem(e.title)){
+        notAnimes++;
+      }
+    }
+    if ((localStorage.length - notAnimes) === localStorageAnimes.length){ //if button save is clicked
       console.log('expand this anime ' + e.title); 
     }
     else{

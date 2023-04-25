@@ -57,4 +57,7 @@
     .imageContainer{
         height: max-content;
     }
+    .saveButton{
+        margin-bottom: 18px;
+    }
 }
