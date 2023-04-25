@@ -85,7 +85,7 @@ export default function Index() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={styles.navbarContainer}>
-          <SearchBar props={{ data }} />
+          {/* <SearchBar props={{ data }} /> */}
           <div className={styles.sideBarContainer}>
             <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>

@@ -35,13 +35,13 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
   const [currentTab, setCurrentTab] = useState("Today");
 
   function Tab(props){
-    const { children, onClick, iconInactive, iconActive,...other } = props;
+    const { children, onClick, iconInactive, iconActive, version,...other } = props;
 
     return(
     <>
       <div className={`${styles.tab} ${currentTab === children ? styles.tabActive : ''}`} onClick={() => setCurrentTab(children)}>
-        <Icon className={styles.iconTab} component={currentTab === children ? iconActive : iconInactive}/>
-        <Typography className={styles.textTab} variant="subtitle1" sx={{mt: '2px', fontWeight: currentTab === children ? 'bold' : ''}}>{children}</Typography>
+        <Icon className={styles.iconTab} component={currentTab === children ? iconActive : iconInactive} sx={{color: currentTab === children && version === 'mobile' ? 'background.paper': ''}}/>
+        <Typography className={styles.textTab} variant="subtitle1" sx={{mt: '2px', fontWeight: currentTab === children ? 'bold' : '', color: currentTab === children && version === 'mobile' ? 'background.paper': ''}}>{children}</Typography>
         <div className={styles.tabOverlay}></div>
       </div>
     </>
@@ -52,6 +52,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
     children: PropTypes.node,
     iconInactive: PropTypes.object,
     iconActive: PropTypes.object,
+    version: PropTypes.string,
   };
 
   useEffect(() => {
@@ -73,7 +74,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
     <>
       <Paper className={styles.sideBarDesktopContainer}>
         <div className={styles.iconsContainer}>
-          <IconButton type="button" sx={{ p: "10px", ml: "5px", mt: '16px' }} onClick={handleClick}>
+          <IconButton type="button" sx={{ p: "10px", ml: "5px" }} onClick={handleClick}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
           </IconButton>
           <Menu
@@ -125,7 +126,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
               <div className={styles.favoritedAnimeCard} key={anime.title}>
                 <img src={anime.images.jpg.large_image_url} alt="Anime Image" className={styles.favoritedAnimeCardImage}/>
                 <Typography variant="subtitle1" className={styles.favoritedAnimeCardTitle}>{anime.title}</Typography>
-                <div className={styles.overlay}></div>
+                <div className={styles.animeOverlay}></div>
               </div>
               ))}
             </>
@@ -137,10 +138,46 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
       </Paper>
 
       <div className={styles.sideBarMobileContainer}>
+          <div className={styles.iconsContainer}>
+            <IconButton type="button" sx={{ p: "10px", ml: "5px"}} onClick={handleClick}>
+              <MenuIcon sx={{ height: "26px", width: "26px" }} />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <MenuItem onClick={() => {clearFavorites(); handleClose() }}>
+                <ListItemIcon>
+                  <DeleteIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Clear Favorites</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={() => {onThemeChange(); handleClose() }}>
+                <ListItemIcon>
+                  {props.currentTheme === 'light' ? (
+                    <DarkModeIcon fontSize="medium" />
+                  ) :  (
+                    <LightModeIcon fontSize="medium" />
+                  )}
+                </ListItemIcon>
+                <ListItemText>Change to {props.currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</ListItemText>
+              </MenuItem>
+            </Menu>
+            <img
+              className={styles.logo}
+              src={props.currentTheme === 'light' ? '/images/logo-light-mode.png' : '/images/logo-dark-mode.png'}
+              alt="Anime Week"
+            />
+        </div>
         <div className={styles.buttonsMobileContainer}>
-          <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
-          <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
-          <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
+          <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon} version={'mobile'}>Today</Tab>
+          <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon} version={'mobile'}>All Week</Tab>
+          <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon} version={'mobile'}>Favorites</Tab>
         </div>
       </div>
     </>
