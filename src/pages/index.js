@@ -80,6 +80,11 @@ export default function Index() {
     }
   });
 
+  const [hidePage, setHidePage] = useState(false)
+  function handleSearchBar(e){
+    setHidePage(e)
+  }
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -88,10 +93,11 @@ export default function Index() {
           <div className={styles.sideBarContainer}>
             <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>
-          <SearchBar props={{ data }} />
+          <SearchBar props={{ data }} searchBarVisible={handleSearchBar}/>
         </div>
 
-        <div className={styles.pageContainer}>
+
+        <div className={`${styles.pageContainer} ${hidePage  ? styles.hidePageContainer : '' }`}>
           {   currentTab === "Today" ? (
             <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
