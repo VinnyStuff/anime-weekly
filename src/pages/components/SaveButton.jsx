@@ -73,17 +73,17 @@ export default function SaveButton({anime}) {
         </Paper>
 
         <Stack spacing={2} sx={{ width: '100%' }}>
-            <Snackbar open={openSuccessMessage} autoHideDuration={1500} onClose={handleClose}>
+            <Snackbar open={openSuccessMessage} autoHideDuration={1500} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                     Anime has been added to favorites!
                 </Alert>
             </Snackbar>
 
-            <Snackbar open={openInfoMessage} autoHideDuration={1500} onClose={handleClose}>
+            <Snackbar open={openInfoMessage} autoHideDuration={1500} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}>
                 <Alert onClose={handleClose} severity="info">Anime has been removed from favorites!</Alert>
             </Snackbar>
 
-            <Snackbar open={openErrorMessage} autoHideDuration={1500} onClose={handleClose}>
+            <Snackbar open={openErrorMessage} autoHideDuration={1500} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}>
                 <Alert onClose={handleClose} severity="error">Oops! Something went wrong. Please try again later.</Alert>
             </Snackbar>
         </Stack>

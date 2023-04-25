@@ -1,7 +1,7 @@
 import Skeleton from "@mui/material/Skeleton";
 import Button from "@mui/material/Button";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import AllWeek from "./components/AllWeek.jsx";
 import Today from "./components/Today.jsx";
@@ -12,9 +12,32 @@ import moment from "moment";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 import styles from "../styles/Index.module.css";
 
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function Index() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const weekDays = [
     "Sundays",
     "Mondays",
@@ -55,7 +78,7 @@ export default function Index() {
           setData(animes);
         }
       } catch (error) {
-        console.error(`Erro ao obter dados da página ${page}`, error);
+        handleClick()
       }
     }
 
@@ -123,6 +146,13 @@ export default function Index() {
             )}
           </div>
         </div>
+        <Stack spacing={2} sx={{ width: '100%' }}>
+          <Snackbar open={open} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              Unexpected error occurred. Please try again later.
+            </Alert>
+          </Snackbar>
+        </Stack>
       </ThemeProvider>
     </>
   );
