@@ -30,23 +30,38 @@ export default function Index() {
   const [currentTab, setCurrentTab] = useState("Today");
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        "https://api.jikan.moe/v4/seasons/now?limit=25&page=1"
-      );
-      const jsonData = await response.json();
-      const apiData = jsonData.data;
+    const delay = 1200;
+    let currentPage = 1;
+    const animes = [];
 
-      //putting my values
-      for (let i = 0; i < apiData.length; i++) {
-        apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
+    async function fetchSeasonData(page) {
+      try {
+        const response = await fetch(`https://api.jikan.moe/v4/seasons/now?page=${page}`);
+        const jsondata = await response.json();
+        const apiData = jsondata.data
+
+        for (let i = 0; i < apiData.length; i++) {
+          apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
+          animes.push(apiData[i]);
+        }
+
+        
+        if (jsondata.pagination.has_next_page) {
+          currentPage++;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          await fetchSeasonData(currentPage);
+        }
+        else {
+          setData(animes);
+        }
+      } catch (error) {
+        console.error(`Erro ao obter dados da página ${page}`, error);
       }
-
-      setData(apiData);
-      setLocalStorageAnimes(apiData.filter((anime) => localStorage.getItem(anime.title)))
     }
-    fetchData();
+
+    fetchSeasonData(currentPage);
   }, []);
+  
 
   function getAnimeCardClick(e){
     let notAnimes = 0;
