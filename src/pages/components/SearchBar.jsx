@@ -12,7 +12,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import styles from "../../styles/SearchBar.module.css";
 
-export default function SearchBar({ props, searchBarVisible }) {
+export default function SearchBar({ props }) {
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
     setAnimes(props.data);
@@ -94,8 +94,6 @@ export default function SearchBar({ props, searchBarVisible }) {
     };
   }, [searchBar]);
   useEffect(() => {
-    searchBarVisible(showAutocomplete);
-
     if(showAutocomplete){
       searchInput.current.focus();
     }

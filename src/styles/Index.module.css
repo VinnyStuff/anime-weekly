@@ -59,7 +59,7 @@
         margin: 0 auto;
         padding-top: 0;
     }
-    .hidePageContainer{
+    .indexContainer:focus-within .pageContainer{
         display: none;
     }
 }

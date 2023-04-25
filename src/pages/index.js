@@ -80,31 +80,28 @@ export default function Index() {
     }
   });
 
-  const [hidePage, setHidePage] = useState(false)
-  function handleSearchBar(e){
-    setHidePage(e)
-  }
-
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className={styles.navbarContainer}>
-          <div className={styles.sideBarContainer}>
-            <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
+        <div className={styles.indexContainer}>
+          <div className={styles.navbarContainer}>
+            <div className={styles.sideBarContainer}>
+              <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
+            </div>
+            <SearchBar props={{ data }}/>
           </div>
-          <SearchBar props={{ data }} searchBarVisible={handleSearchBar}/>
-        </div>
 
 
-        <div className={`${styles.pageContainer} ${hidePage  ? styles.hidePageContainer : '' }`}>
-          {   currentTab === "Today" ? (
-            <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-          ) : currentTab === "All Week" ? (
-            <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-          ) : (
-            <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-          )}
+          <div className={styles.pageContainer}>
+            {   currentTab === "Today" ? (
+              <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            ) : currentTab === "All Week" ? (
+              <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            ) : (
+              <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            )}
+          </div>
         </div>
       </ThemeProvider>
     </>
