@@ -93,15 +93,36 @@ export default function SearchBar({ props }) {
       document.removeEventListener("click", handleClickOutside);
     };
   }, [searchBar]);
+  useEffect(() => {
+    if(showAutocomplete){
+      searchInput.current.focus();
+    }
+    else if(showAutocomplete == false){
+      setText('');
+      setActiveGenres([]);
+    }
+  }, [showAutocomplete]);
 
   return (
     <>
+      <div className={styles.searchMobile}>
+        <IconButton
+            type="button"
+            sx={{ p: "10px"}}
+            aria-label="search"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowAutocomplete(true);
+            }}
+          >
+          <SearchIcon />
+        </IconButton>
+      </div>
       <div
-        className={styles.searchBarContainer}
+        className={`${styles.searchBarContainer} ${showAutocomplete  ? '' : styles.hideSearchBar }`}
         ref={searchBar}
         onClick={() => {
           setShowAutocomplete(true);
-          searchInput.current.focus();
         }}
       >
         <Paper className={styles.searchBar}>
@@ -127,7 +148,6 @@ export default function SearchBar({ props }) {
             onChange={(e) => setText(e.target.value)}
             disabled={animes.length === 0}
             className={styles.searchInput}
-            ref={searchInput}
             inputRef={searchInput}
           />
 
@@ -185,12 +205,13 @@ export default function SearchBar({ props }) {
                 onClick={() => genresControl(genre)}
               />
             ))}
+            <Divider variant="middle"/>
           </div>
 
-          {animesToShow.slice(0, 5).map((anime) => (
+          {animesToShow.map((anime) => (
             <div key={anime.title}>
-              <Divider variant="middle"/>
               <AnimeCardSearch anime={anime}/>
+              <Divider variant="middle"/>
             </div>
           ))}
 

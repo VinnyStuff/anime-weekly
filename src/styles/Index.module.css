@@ -62,7 +62,6 @@
 }
 @media only screen and (max-width: 445px) {
     .pageContainer{
-        align-items: normal;
         overflow: hidden;
     }
 }
