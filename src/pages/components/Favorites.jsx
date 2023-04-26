@@ -7,24 +7,14 @@ import EmptyStateCard from './EmptyStateCard'
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function Favorites({ props, AnimeCardClick }) {
-  const [animes, setAnimes] = useState([]);
-  const [week, setWeek] = useState(props.weekDays);
+export default function Favorites({ week, animes, localStorageAnimes, AnimeCardClick }) {
   const [currentTab, setCurrentTab] = useState('All')
-  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
-
-  useEffect(() => {
-    setAnimes(props.data);
-  }, [props.data]);
-  useEffect(() => {
-    setLocalStorageAnimes(props.localStorageAnimes)
-  }, [props.localStorageAnimes]);
 
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          {animes.length >= 1 ? (
+          {animes ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
               Favorites
             </Typography>
@@ -43,27 +33,37 @@ export default function Favorites({ props, AnimeCardClick }) {
           </div>
         
         <div className={styles.animeCardContainer}>
-            {currentTab === "All" ? (
-              <>
-                 {localStorageAnimes.length >= 1 ? (
-                    localStorageAnimes.map((anime) => (
+          {animes ? (
+            <>
+              {currentTab === "All" ? (
+                <>
+                  {localStorageAnimes.length > 0 ? (
+                      localStorageAnimes.map((anime) => (
+                        <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
+                      ))
+                    ) : (
+                      <EmptyStateCard/>
+                    )}
+                </>
+              ) : (
+                <>
+                  {localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).length >= 1 ? (
+                    localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).map((anime) => (
                       <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
                     ))
                   ) : (
                     <EmptyStateCard/>
                   )}
-              </>
-            ) : (
-              <>
-                {localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).length >= 1 ? (
-                  localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).map((anime) => (
-                    <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
-                  ))
-                ) : (
-                  <EmptyStateCard/>
-                )}
-              </>
-            )}
+                </>
+              )}
+            </>
+          ) : (
+            <>  
+              <AnimeCard/>
+              <AnimeCard/>
+              <AnimeCard/>
+            </>
+          )}
         </div>
       </div>
     </>

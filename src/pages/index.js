@@ -48,7 +48,7 @@ export default function Index() {
   ];
   const today = weekDays[new Date().getDay()];
   const [data, setData] = useState();
-  const [localStorageAnimes, setLocalStorageAnimes] = useState();
+  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
   const [currentTab, setCurrentTab] = useState("Today");
 
   useEffect(() => {
@@ -67,7 +67,6 @@ export default function Index() {
           animes.push(apiData[i]);
         }
 
-        
         if (jsondata.pagination.has_next_page) {
           currentPage++;
           await new Promise(resolve => setTimeout(resolve, delay));
@@ -83,6 +82,12 @@ export default function Index() {
 
     fetchSeasonData(currentPage);
   }, []);
+  useEffect(() => {
+    if(data){
+      setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)));
+      console.log(data.filter((anime) => localStorage.getItem(anime.title)));
+    }
+  }, [data]);
   
 
   function getAnimeCardClick(e){
@@ -158,7 +163,8 @@ export default function Index() {
         </Stack> */}
 
         {/* <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
-        <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
+       {/*  <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/> */}
+       <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
       </ThemeProvider>
     </>
   );
