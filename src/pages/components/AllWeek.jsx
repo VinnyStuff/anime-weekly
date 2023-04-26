@@ -24,9 +24,9 @@ export default function AllWeek({ animes, week, AnimeCardClick }) {
           )}
 
           <div className={styles.tabContainer}>
-            {week.map((day) => (
+           {/*  {week.map((day) => (
               <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
-            ))}
+            ))} */}
           </div>
         </div>
 

@@ -66,7 +66,7 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
 
   return (
     <>
-      <Paper className={styles.sideBarDesktopContainer}>
+      <div className={styles.sideBarDesktopContainer}>
         <div className={styles.iconsContainer}>
           <IconButton type="button" sx={{ p: "10px", ml: "5px" }} onClick={handleClick}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
@@ -106,9 +106,9 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
           <Divider sx={{mt: '10px'}}/>
         </div>
         <div className={styles.favoritesQuickViewContainer}>
-          <Paper sx={{position: 'sticky', top: '0', boxShadow: 'none', zIndex: '99'}}>
+          <div sx={{position: 'sticky', top: '0', boxShadow: 'none', zIndex: '99'}}>
             <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
-          </Paper>
+          </div>
 
           {localStorageAnimes ? (
             <>
@@ -125,7 +125,7 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
           )}
 
         </div>
-      </Paper>
+      </div>
 
       <div className={styles.sideBarMobileContainer}>
         <div className={styles.buttonsMobileContainer}>
