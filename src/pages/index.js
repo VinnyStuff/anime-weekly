@@ -123,19 +123,11 @@ export default function Index() {
     }
   });
 
-  const [searchInFocus, setSearchInFocus] = useState(false);
-  const handleSearchBarFocus = () => {
-    setSearchInFocus(true)
-  };
-  const handleSearchBarBlur = () => {
-    setSearchInFocus(false)
-  };
-
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className={styles.navbarContainer} onFocus={handleSearchBarFocus} onBlur={handleSearchBarBlur}>
+        <div className={styles.navbarContainer}>
           <div className={styles.sideBarContainer}>
             <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>
@@ -143,7 +135,7 @@ export default function Index() {
         </div>
 
 
-        <div className={styles.pageContainer} style={{display: searchInFocus ? 'none' : null}}>
+        <div className={styles.pageContainer}>
           {   currentTab === "Today" ? (
             <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
