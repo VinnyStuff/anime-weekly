@@ -14,7 +14,7 @@ export default function Today({ animes, today, localStorageAnimes, AnimeCardClic
     <>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          {animes.length >= 1 ? (
+          {animes ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
               {today}
             </Typography>
@@ -32,7 +32,7 @@ export default function Today({ animes, today, localStorageAnimes, AnimeCardClic
 
         {currentTab === 'All' ? (
           <>
-            {animes.length >= 1 ? (
+            {animes ? (
               <div className={styles.animeCardContainer}>
                 {animes.filter((anime) => anime.release.release_brazil_streamings.day === today)
                   .map((anime) => (
@@ -49,7 +49,7 @@ export default function Today({ animes, today, localStorageAnimes, AnimeCardClic
           </>
         ) : currentTab === 'Favorites' ? (
           <>
-             {animes.length >= 1 ? (
+             {animes ? (
               <div className={styles.animeCardContainer}>
                 {localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === today).length >= 1 ? (
                   localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === today).map((anime) => (
