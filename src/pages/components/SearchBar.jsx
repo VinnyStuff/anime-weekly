@@ -135,7 +135,7 @@ export default function SearchBar({ animes }) {
           setShowAutocomplete(true);
         }}
       >
-        <Paper className={styles.searchBar}>
+        <Paper className={styles.searchBar} sx={{borderRadius: '30px'}}>
           <IconButton
             onClick={(e) => {
               e.stopPropagation();
