@@ -27,7 +27,6 @@ export default function Favorites({ week, animes, localStorageAnimes, AnimeCardC
 
         <div className={styles.tabContainer}>
             <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
-
           </div>
         
         <div className={styles.animeCardContainer}>
@@ -49,7 +48,9 @@ export default function Favorites({ week, animes, localStorageAnimes, AnimeCardC
                 <>
                   {localStorageAnimes.length > 0 && localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).length > 0 ? (
                     <>
-                    
+                      {localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).map((anime) => (
+                      <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
+                      ))}
                     </>
                   ) : (
                     <EmptyStateCard/>
