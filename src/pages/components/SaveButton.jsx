@@ -37,14 +37,14 @@ export default function SaveButton({anime}) {
     };
 
 
-    const [animeSaved, setAnimeSaved] = useState(localStorage.getItem(anime.title));
+    /* const [animeSaved, setAnimeSaved] = useState(localStorage.getItem(anime.title)); */
 
     function saveAnime(){
         try{
             if (typeof window !== 'undefined' && window.localStorage) {
                 
                 handleClose();
-
+/* 
                 if (localStorage.getItem(anime.title)){
                     localStorage.removeItem(anime.title);
                     setAnimeSaved(false);
@@ -54,7 +54,7 @@ export default function SaveButton({anime}) {
                     localStorage.setItem(anime.title, "Anime Title");
                     setAnimeSaved(true);
                     handleClickSucess();
-                }
+                } */
             }
         }
         catch{
