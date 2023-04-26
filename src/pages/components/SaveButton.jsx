@@ -3,7 +3,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton, Paper } from '@mui/material'
 import { useState, forwardRef } from 'react';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
@@ -42,17 +41,20 @@ export default function SaveButton({anime}) {
 
     function saveAnime(){
         try{
-            handleClose();
+            if (typeof window !== 'undefined' && window.localStorage) {
+                
+                handleClose();
 
-            if (localStorage.getItem(anime.title)){
-                localStorage.removeItem(anime.title);
-                setAnimeSaved(false);
-                handleClickInfo();
-            }
-            else{
-                localStorage.setItem(anime.title, "Anime Title");
-                setAnimeSaved(true);
-                handleClickSucess();
+                if (localStorage.getItem(anime.title)){
+                    localStorage.removeItem(anime.title);
+                    setAnimeSaved(false);
+                    handleClickInfo();
+                }
+                else{
+                    localStorage.setItem(anime.title, "Anime Title");
+                    setAnimeSaved(true);
+                    handleClickSucess();
+                }
             }
         }
         catch{

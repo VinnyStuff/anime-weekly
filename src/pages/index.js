@@ -128,11 +128,11 @@ export default function Index() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <div className={styles.navbarContainer}>
+        <div className={styles.navbarContainer}>
           <div className={styles.sideBarContainer}>
-            <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
+            <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>
-          <SearchBar props={{ data }}/>
+          {/* <SearchBar props={{ data }}/> */}
         </div>
 
 
@@ -140,9 +140,9 @@ export default function Index() {
           {   currentTab === "Today" ? (
             <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
-            <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            <AllWeek animes={data} week={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : (
-            <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> 
           )}
         </div>
         <Stack spacing={2} sx={{ width: '100%' }}>
@@ -151,12 +151,7 @@ export default function Index() {
               Unexpected error occurred. Please try again later.
             </Alert>
           </Snackbar>
-        </Stack> */}
-
-        {/* <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
-       {/*  <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/> */}
-       {/* <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
-       <AllWeek animes={data} week={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+        </Stack> 
       </ThemeProvider>
     </>
   );
