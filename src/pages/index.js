@@ -123,12 +123,6 @@ export default function Index() {
     }
   });
 
-  //router
-  const router = useRouter()
-  useEffect(() => {
-    //router.push('/' + router.query.currentTab);
-  }, [currentTab]);
-
   return (
     <>
       <ThemeProvider theme={theme}>
