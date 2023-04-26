@@ -7,6 +7,7 @@ import AnimeCard from "./AnimeCard";
 import styles from "../../styles/TabsPage.module.css";
 
 export default function AllWeek({ animes, week, AnimeCardClick }) {
+  console.log(week);
   const [currentTab, setCurrentTab] = useState("Sundays") 
 
   return (
@@ -24,9 +25,9 @@ export default function AllWeek({ animes, week, AnimeCardClick }) {
           )}
 
           <div className={styles.tabContainer}>
-            {week.map((day) => (
+            {/* {week.map((day) => (
               <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
-            ))}
+            ))} dando pau*/}
           </div>
         </div>
 
