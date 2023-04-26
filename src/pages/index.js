@@ -14,8 +14,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import ReactDOM from 'react-dom';
-
 import styles from "../styles/Index.module.css";
 
 
@@ -125,6 +123,12 @@ export default function Index() {
     }
   });
 
+  //router
+  const router = useRouter()
+  useEffect(() => {
+    //router.push('/' + router.query.currentTab);
+  }, [currentTab]);
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -135,24 +139,24 @@ export default function Index() {
           </div>
           <SearchBar animes={data}/>
         </div>
-
-
+  
         <div className={styles.pageContainer}>
-          {   currentTab === "Today" ? (
-            <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          {currentTab === 'Today' ? (
+              <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
             <AllWeek week={weekDays} animes={data} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : (
             <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           )}
         </div>
+  
         <Stack spacing={2} sx={{ width: '100%' }}>
           <Snackbar open={open} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}>
             <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
               Unexpected error occurred. Please try again later.
             </Alert>
           </Snackbar>
-        </Stack> 
+        </Stack>
       </ThemeProvider>
     </>
   );
