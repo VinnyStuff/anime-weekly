@@ -95,7 +95,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
               <ListItemIcon>
                   <DarkModeIcon fontSize="medium" />
               </ListItemIcon>
-              <ListItemText>Appearance: {props.currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</ListItemText>
+              <ListItemText>Appearance: {props.currentTheme === 'light' ? 'Light Mode' : 'Dark Mode'}</ListItemText>
             </MenuItem>
           </Menu>
           <img
