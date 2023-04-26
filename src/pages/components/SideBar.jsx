@@ -66,7 +66,7 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
 
   return (
     <>
-      <div className={styles.sideBarDesktopContainer}>
+      <Paper className={styles.sideBarDesktopContainer}>
         <div className={styles.iconsContainer}>
           <IconButton type="button" sx={{ p: "10px", ml: "5px" }} onClick={handleClick}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
@@ -125,7 +125,7 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
           )}
 
         </div>
-      </div>
+      </Paper>
 
       <div className={styles.sideBarMobileContainer}>
         <div className={styles.buttonsMobileContainer}>

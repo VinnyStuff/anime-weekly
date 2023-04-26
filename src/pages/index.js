@@ -37,8 +37,27 @@ export default function Index() {
     setOpen(false);
   };
 
-  const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];
-  const today = weekDays[new Date().getDay()];
+  //----------------
+  /* const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];
+  const today = weekDays[new Date().getDay()]; não funciona no server side do next.js*/
+
+  const [weekDays, setWeekDays] = useState();
+  const [today, setToday] = useState();
+
+  useEffect(() => {
+    setWeekDays(["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"]);
+  }, []);
+  useEffect(() => {
+    if(weekDays){
+      setToday(weekDays[new Date().getDay()])
+    }
+  }, [weekDays]);
+  //-----------------
+
+
+
+
+
   const [data, setData] = useState();
   const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
   const [currentTab, setCurrentTab] = useState("Today");
