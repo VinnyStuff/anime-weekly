@@ -38,8 +38,8 @@ export default function Index() {
     setOpen(false);
   };
 
-  const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];
-  const today = weekDays[new Date().getDay()];
+  const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"]; //não funciona passando o week para os componentes Favorites e AllWeek
+  const today = weekDays[new Date().getDay()]; //mas isso funciona passando today para o Today componente
   const [data, setData] = useState();
   const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
   const [currentTab, setCurrentTab] = useState("Today");
@@ -143,7 +143,7 @@ export default function Index() {
           ) : currentTab === "All Week" ? (
             <AllWeek animes={data} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : (
-            <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            <Favorites animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           )}
         </div>
         <Stack spacing={2} sx={{ width: '100%' }}>

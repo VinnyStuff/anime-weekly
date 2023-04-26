@@ -7,7 +7,8 @@ import EmptyStateCard from './EmptyStateCard'
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function Favorites({ animes, week, localStorageAnimes, AnimeCardClick }) {
+export default function Favorites({ animes, localStorageAnimes, AnimeCardClick }) {
+  const week = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"]
   const [currentTab, setCurrentTab] = useState('All')
 
   return (
