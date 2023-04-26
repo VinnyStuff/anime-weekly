@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -6,8 +6,8 @@ import AnimeCard from "./AnimeCard";
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function AllWeek({ animes, week, AnimeCardClick }) {
-  const [currentTab, setCurrentTab] = useState(week[0]) 
+export default function AllWeek({ animes, weekDays, AnimeCardClick }) {
+  const [currentTab, setCurrentTab] = useState(weekDays[0]) 
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function AllWeek({ animes, week, AnimeCardClick }) {
           )}
 
           <div className={styles.tabContainer}>
-            {week.map((day) => (
+            {weekDays.map((day) => (
               <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
             ))}
           </div>

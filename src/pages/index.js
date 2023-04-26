@@ -37,15 +37,7 @@ export default function Index() {
     setOpen(false);
   };
 
-  const weekDays = [
-    "Sundays",
-    "Mondays",
-    "Tuesdays",
-    "Wednesdays",
-    "Thursdays",
-    "Fridays",
-    "Saturdays",
-  ];
+  const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];
   const today = weekDays[new Date().getDay()];
   const [data, setData] = useState();
   const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
@@ -63,7 +55,7 @@ export default function Index() {
         const apiData = jsondata.data
 
         for (let i = 0; i < apiData.length; i++) {
-          apiData[i].release = getAnimesReleaseDate(apiData[i], weekDays);
+          apiData[i].release = getAnimesReleaseDate(apiData[i]);
           animes.push(apiData[i]);
         }
 
@@ -164,7 +156,7 @@ export default function Index() {
         {/* <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
        {/*  <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/> */}
        {/* <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
-       <AllWeek animes={data} week={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+       <AllWeek animes={data} weekDays={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
       </ThemeProvider>
     </>
   );
