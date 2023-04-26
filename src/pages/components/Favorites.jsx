@@ -7,8 +7,8 @@ import EmptyStateCard from './EmptyStateCard'
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function Favorites({ animes, localStorageAnimes, AnimeCardClick }) {
-  const week = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"]
+export default function Favorites({ animes, week, localStorageAnimes, AnimeCardClick }) {
+  const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"]
   const [currentTab, setCurrentTab] = useState('All')
 
   return (
@@ -28,7 +28,7 @@ export default function Favorites({ animes, localStorageAnimes, AnimeCardClick }
 
         <div className={styles.tabContainer}>
             <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
-            {week.map((day) => (
+            {weekDays.map((day) => (
               <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
             ))}
           </div>
