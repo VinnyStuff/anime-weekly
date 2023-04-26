@@ -7,19 +7,8 @@ import AnimeCard from "./AnimeCard";
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function Today({ props, AnimeCardClick }) {
-  const [animes, setAnimes] = useState([]);
-  const [today, setToday] = useState(props.today);
+export default function Today({ animes, today, localStorageAnimes, AnimeCardClick }) {
   const [currentTab, setCurrentTab] = useState('All')
-  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
-
-  useEffect(() => {
-    setAnimes(props.data);
-  }, [props.data]);
-  useEffect(() => {
-    setLocalStorageAnimes(props.localStorageAnimes)
-  }, [props.localStorageAnimes]);
-
 
   return (
     <>
