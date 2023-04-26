@@ -107,8 +107,8 @@
     object-fit: cover;
 }
 .favoritedAnimeCardTitle{
-    line-height: 20px;
-    margin-left: 6px;
+    line-height: 20px !important;
+    margin-left: 6px !important;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 4; /* number of lines to show */
@@ -175,7 +175,7 @@
 }
 @media only screen and (max-width: 360px) {
     .iconTab{
-        display: none;
+        display: none !important;
     }
     .textTab{
         margin-left: 0 !important;

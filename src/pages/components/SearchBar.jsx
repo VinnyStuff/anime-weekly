@@ -12,21 +12,18 @@ import AddIcon from "@mui/icons-material/Add";
 
 import styles from "../../styles/SearchBar.module.css";
 
-export default function SearchBar({ props }) {
-  const [animes, setAnimes] = useState([]);
-  useEffect(() => {
-    setAnimes(props.data);
-  }, [props]);
-
+export default function SearchBar({ animes }) {
   const [animesToShow, setAnimesToShow] = useState([]);
   const [genres, setGenres] = useState([]);
   useEffect(() => {
-    setAnimesToShow(animes);
-    setGenres([
-      ...new Set(
-        animes.flatMap((anime) => anime.genres.map((genre) => genre.name))
-      ),
-    ]); //this get all genres presents in current animes
+    if(animes){
+      setAnimesToShow(animes);
+      setGenres([
+        ...new Set(
+          animes.flatMap((anime) => anime.genres.map((genre) => genre.name))
+        ),
+      ]); //this get all genres presents in current animes
+    }
   }, [animes]);
 
   const [activeGenres, setActiveGenres] = useState([]);
@@ -43,23 +40,25 @@ export default function SearchBar({ props }) {
     }
   };
   useEffect(() => {
-    let animesFiltered = animes;
-    for (let i = 0; i < activeGenres.length; i++) {
-      animesFiltered = animesFiltered.filter((anime) =>
-        anime.genres.some((genre) =>
-          genre.name.toLowerCase().includes(activeGenres[i].toLowerCase())
-        )
-      );
+    if(animes){
+      let animesFiltered = animes;
+      for (let i = 0; i < activeGenres.length; i++) {
+        animesFiltered = animesFiltered.filter((anime) =>
+          anime.genres.some((genre) =>
+            genre.name.toLowerCase().includes(activeGenres[i].toLowerCase())
+          )
+        );
+      }
+      setAnimesFilteredByTags(animesFiltered);
+      setAnimesToShow(animesFiltered);
     }
-    setAnimesFilteredByTags(animesFiltered);
-    setAnimesToShow(animesFiltered);
   }, [activeGenres]);
 
   const [text, setText] = useState("");
   useEffect(() => {
     setText(text);
 
-    if (activeGenres.length === 0) {
+    if (activeGenres.length === 0 && animes) {
       //search without tags
       setAnimesToShow(
         animes.filter((anime) =>
@@ -94,12 +93,17 @@ export default function SearchBar({ props }) {
     };
   }, [searchBar]);
   useEffect(() => {
-    if(showAutocomplete){
-      searchInput.current.focus();
+    if(animes){
+      if(showAutocomplete){
+        searchInput.current.focus();
+      }
+      else{
+        setText('');
+        setActiveGenres([]);
+      }
     }
     else{
-      setText('');
-      setActiveGenres([]);
+      setShowAutocomplete(false);
     }
   }, [showAutocomplete]);
   useEffect(() => {
@@ -115,7 +119,7 @@ export default function SearchBar({ props }) {
             type="button"
             sx={{ p: "10px"}}
             aria-label="search"
-            onClick={(e) => { if(animes.length >= 1){
+            onClick={(e) => { if(animes){
               e.stopPropagation();
               setShowAutocomplete(true);
             }
@@ -141,7 +145,7 @@ export default function SearchBar({ props }) {
             sx={{ ml: "8px", mr: "-15px" }}
             style={{
               display:
-                showAutocomplete && animes.length >= 1 ? "inherit" : "none",
+                showAutocomplete && animes ? "inherit" : "none",
             }}
           >
             <CloseIcon />
@@ -152,7 +156,7 @@ export default function SearchBar({ props }) {
             placeholder="Search Animes..."
             value={text}
             onChange={(e) => setText(e.target.value)}
-            disabled={animes.length === 0}
+            disabled={!animes}
             className={styles.searchInput}
             inputRef={searchInput}
           />
@@ -192,7 +196,7 @@ export default function SearchBar({ props }) {
           className={styles.autoCompleteContainer}
           style={{
             display:
-              showAutocomplete && animes.length >= 1 ? "inherit" : "none",
+              showAutocomplete && animes ? "inherit" : "none",
           }}
         >
           <div
@@ -214,14 +218,9 @@ export default function SearchBar({ props }) {
             <Divider variant="middle"/>
           </div>
 
-          {animesToShow.slice(0,7).map((anime) => (
-            <div key={anime.title}>
-              <AnimeCardSearch anime={anime}/>
-              <Divider variant="middle"/>
-            </div>
-          ))}
+       
 
-          {animesToShow <= 0 && animes.length >= 1 ? (
+          {animesToShow.length <= 0 && animes ? (
             <div>
               <Typography
                 color="text.secondary"

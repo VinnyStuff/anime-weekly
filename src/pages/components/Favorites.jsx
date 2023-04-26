@@ -27,9 +27,9 @@ export default function Favorites({ animes, week, localStorageAnimes, AnimeCardC
 
         <div className={styles.tabContainer}>
             <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
-           {/*  {week.map((day) => (
+            {week.map((day) => (
               <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
-            ))} */}
+            ))}
           </div>
         
         <div className={styles.animeCardContainer}>

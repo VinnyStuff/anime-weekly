@@ -14,6 +14,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import ReactDOM from 'react-dom';
 
 import styles from "../styles/Index.module.css";
 
@@ -92,7 +93,7 @@ export default function Index() {
       console.log('expand this anime ' + e.title); 
     }
     else{
-      setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)))
+      setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)));
     }
   }
   function clearFavorites(){
@@ -132,7 +133,7 @@ export default function Index() {
           <div className={styles.sideBarContainer}>
             <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>
-          {/* <SearchBar props={{ data }}/> */}
+          <SearchBar animes={data}/>
         </div>
 
 
@@ -140,9 +141,9 @@ export default function Index() {
           {   currentTab === "Today" ? (
             <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
-            <AllWeek animes={data} week={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+            <AllWeek animes={data} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : (
-            <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> 
+            <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           )}
         </div>
         <Stack spacing={2} sx={{ width: '100%' }}>
