@@ -3,8 +3,8 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Skeleton from "@mui/material/Skeleton";
-/* import SaveButton from './SaveButton'
- */
+import SaveButton from './SaveButton'
+
 import styles from "../../styles/AnimeCard.module.css";
 
 export default function AnimeCard({ anime, onClick }) {
@@ -22,9 +22,9 @@ export default function AnimeCard({ anime, onClick }) {
               src={image}
               alt="current anime image"
             />
-            {/* <div className={styles.saveButton} >
+            <div className={styles.saveButton} >
               <SaveButton anime={anime}/>
-            </div> */}
+            </div>
           </div>
           <div className={styles.animeInformationsContainer}>
             <Typography color="text.primary" variant="h5" className={styles.title}>

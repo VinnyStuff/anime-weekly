@@ -1,7 +1,7 @@
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton, Paper } from '@mui/material'
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -37,14 +37,20 @@ export default function SaveButton({anime}) {
     };
 
 
-    /* const [animeSaved, setAnimeSaved] = useState(localStorage.getItem(anime.title)); */
+    const [animeSaved, setAnimeSaved] = useState(); 
+
+    useEffect(() =>{
+        if (typeof window !== 'undefined' && window.localStorage) {
+            setAnimeSaved(localStorage.getItem(anime.title));
+        }
+    }, []);
 
     function saveAnime(){
         try{
             if (typeof window !== 'undefined' && window.localStorage) {
                 
                 handleClose();
-/* 
+
                 if (localStorage.getItem(anime.title)){
                     localStorage.removeItem(anime.title);
                     setAnimeSaved(false);
@@ -54,7 +60,7 @@ export default function SaveButton({anime}) {
                     localStorage.setItem(anime.title, "Anime Title");
                     setAnimeSaved(true);
                     handleClickSucess();
-                } */
+                }
             }
         }
         catch{
