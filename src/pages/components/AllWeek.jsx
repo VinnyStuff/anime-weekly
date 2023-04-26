@@ -6,8 +6,8 @@ import AnimeCard from "./AnimeCard";
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function AllWeek({ animes, weekDays, AnimeCardClick }) {
-  const [currentTab, setCurrentTab] = useState(weekDays[0]) 
+export default function AllWeek({ animes, week, AnimeCardClick }) {
+  const [currentTab, setCurrentTab] = useState("Sundays") 
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function AllWeek({ animes, weekDays, AnimeCardClick }) {
         <div className={styles.titleContainer}>
           {animes ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
-              {animes[0].season.charAt(0).toUpperCase() + animes[0].season.slice(1).toLowerCase()}
+              {animes[0].season.charAt(0).toUpperCase() + animes[0].season.slice(1).toLowerCase()} {/* getting current season and putting in uppercase */}
             </Typography>
           ) :  (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
@@ -24,7 +24,7 @@ export default function AllWeek({ animes, weekDays, AnimeCardClick }) {
           )}
 
           <div className={styles.tabContainer}>
-            {weekDays.map((day) => (
+            {week.map((day) => (
               <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
             ))}
           </div>

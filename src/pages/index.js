@@ -156,7 +156,7 @@ export default function Index() {
         {/* <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
        {/*  <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/> */}
        {/* <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
-       <AllWeek animes={data} weekDays={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+       <AllWeek animes={data} week={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
       </ThemeProvider>
     </>
   );
