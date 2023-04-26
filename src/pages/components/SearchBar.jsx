@@ -214,7 +214,7 @@ export default function SearchBar({ props }) {
             <Divider variant="middle"/>
           </div>
 
-          {animesToShow.map((anime) => (
+          {animesToShow.slice(0,7).map((anime) => (
             <div key={anime.title}>
               <AnimeCardSearch anime={anime}/>
               <Divider variant="middle"/>
