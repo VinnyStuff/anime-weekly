@@ -14,7 +14,7 @@
 
 .tab{
     cursor: pointer;
-    margin-right: 25px;
+    margin-right: 25px !important;
     padding-bottom: 10px;
     opacity: 0.66;
 }

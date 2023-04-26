@@ -2,7 +2,7 @@
     margin-left: 15px;
 }
 .textTab{
-    margin-left: 25px;
+    margin-left: 25px !important;
 }
 
 .sideBarDesktopContainer{
@@ -145,7 +145,7 @@
         margin-left: 0;
     }
     .textTab{
-        margin-left: 8px;
+        margin-left: 8px !important;
     }
     .tab{
         padding: 0;
@@ -178,6 +178,6 @@
         display: none;
     }
     .textTab{
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 }

@@ -27,8 +27,8 @@ export default function Today({ animes, today, localStorageAnimes, AnimeCardClic
           )}
 
           <div className={styles.tabContainer}>
-            <Typography className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`}  sx={{mr: '0'}} variant="h5" color="text.primary" onClick={() => setCurrentTab('All')}>All</Typography>
-            <Typography className={`${styles.tab} ${currentTab === 'Favorites' ? styles.tabActive : ''}`} sx={{mr: '0'}} variant="h5" color="text.primary" onClick={() => setCurrentTab('Favorites')}>Favorites</Typography>
+            <Typography className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} variant="h5" color="text.primary" onClick={() => setCurrentTab('All')}>All</Typography>
+            <Typography className={`${styles.tab} ${currentTab === 'Favorites' ? styles.tabActive : ''}`} variant="h5" color="text.primary" onClick={() => setCurrentTab('Favorites')}>Favorites</Typography>
           </div>
         </div>
 
