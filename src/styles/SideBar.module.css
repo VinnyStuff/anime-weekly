@@ -124,6 +124,9 @@
     background: #888;
     border-radius: 8px;
 }
+.sideBarMobileContainer{
+    display: none;
+}
 
 @media only screen and (max-width: 745px) {
     .buttonsContainer, .favoritesQuickViewContainer{

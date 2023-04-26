@@ -25,12 +25,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-export default function SideBar({props, getCurrentTab, onThemeChange, clearFavorites}) {
-  const [animes, setAnimes] = useState([]);
-  useEffect(() => {
-    setAnimes(props.data);
-  }, [props]);
-
+export default function SideBar({animes, currentTheme, localStorageAnimes, getCurrentTab, onThemeChange, clearFavorites}) {
   const [currentTab, setCurrentTab] = useState("Today");
 
   function Tab(props){
@@ -95,12 +90,12 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
               <ListItemIcon>
                   <DarkModeIcon fontSize="medium" />
               </ListItemIcon>
-              <ListItemText>Appearance: {props.currentTheme === 'light' ? 'Light Mode' : 'Dark Mode'}</ListItemText>
+              <ListItemText>Appearance: {currentTheme === 'light' ? 'Light Mode' : 'Dark Mode'}</ListItemText>
             </MenuItem>
           </Menu>
           <img
             className={styles.logo}
-            src={props.currentTheme === 'light' ? '/images/logo-light-mode.png' : '/images/logo-dark-mode.png'}
+            src={currentTheme === 'light' ? '/images/logo-light-mode.png' : '/images/logo-dark-mode.png'}
             alt="Anime Week"
           />
         </div>
@@ -115,9 +110,9 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
             <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
           </Paper>
 
-          {props.localStorageAnimes.length >= 1 ? (
+          {localStorageAnimes ? (
             <>
-              {props.localStorageAnimes.map((anime) =>(
+              {localStorageAnimes.map((anime) =>(
               <div className={styles.favoritedAnimeCard} key={anime.title}>
                 <img src={anime.images.jpg.large_image_url} alt="Anime Image" className={styles.favoritedAnimeCardImage}/>
                 <Typography variant="subtitle1" className={styles.favoritedAnimeCardTitle}>{anime.title}</Typography>
