@@ -47,7 +47,7 @@ export default function Favorites({ week, animes, localStorageAnimes, AnimeCardC
                 </>
               ) : (
                 <>
-                  {localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).length >= 1 ? (
+                  {localStorageAnimes.length > 0 && localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).length > 0 ? (
                     localStorageAnimes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab).map((anime) => (
                       <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
                     ))
