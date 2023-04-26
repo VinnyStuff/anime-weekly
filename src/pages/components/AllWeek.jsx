@@ -6,21 +6,14 @@ import AnimeCard from "./AnimeCard";
 
 import styles from "../../styles/TabsPage.module.css";
 
-export default function AllWeek({ props, AnimeCardClick }) {
-  const [animes, setAnimes] = useState([]);
-  const [week, setWeek] = useState(props.weekDays);
-
-  useEffect(() => {
-    setAnimes(props.data);
-  }, [props.data]);
-
-  const [currentTab, setCurrentTab] = useState(week[0])
+export default function AllWeek({ animes, week, AnimeCardClick }) {
+  const [currentTab, setCurrentTab] = useState(week[0]) 
 
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          {animes.length >= 1 ? (
+          {animes ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
               {animes[0].season.charAt(0).toUpperCase() + animes[0].season.slice(1).toLowerCase()}
             </Typography>
@@ -38,7 +31,7 @@ export default function AllWeek({ props, AnimeCardClick }) {
         </div>
 
 
-        {animes.length >= 1 ? (
+        {animes ? (
           <div className={styles.animeCardContainer}>
             {animes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab)
             .map((anime) => (

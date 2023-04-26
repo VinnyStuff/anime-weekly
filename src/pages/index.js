@@ -85,7 +85,6 @@ export default function Index() {
   useEffect(() => {
     if(data){
       setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)));
-      console.log(data.filter((anime) => localStorage.getItem(anime.title)));
     }
   }, [data]);
   
@@ -164,7 +163,8 @@ export default function Index() {
 
         {/* <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
        {/*  <SideBar animes={data} currentTheme={currentTheme} localStorageAnimes={localStorageAnimes} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/> */}
-       <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+       {/* <Favorites week={weekDays} animes={data} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/> */}
+       <AllWeek animes={data} week={weekDays} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
       </ThemeProvider>
     </>
   );
