@@ -23,7 +23,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 export default function Index() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(true);
@@ -47,8 +47,8 @@ export default function Index() {
     "Saturdays",
   ];
   const today = weekDays[new Date().getDay()];
-  const [data, setData] = useState([]);
-  const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
+  const [data, setData] = useState();
+  const [localStorageAnimes, setLocalStorageAnimes] = useState();
   const [currentTab, setCurrentTab] = useState("Today");
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export default function Index() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className={styles.navbarContainer}>
+        {/* <div className={styles.navbarContainer}>
           <div className={styles.sideBarContainer}>
             <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>
@@ -155,7 +155,8 @@ export default function Index() {
               Unexpected error occurred. Please try again later.
             </Alert>
           </Snackbar>
-        </Stack>
+        </Stack> */}
+        <Today animes={data} today={today} localStorageAnimes={localStorageAnimes} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
       </ThemeProvider>
     </>
   );

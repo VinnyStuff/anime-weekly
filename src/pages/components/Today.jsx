@@ -16,7 +16,7 @@ export default function Today({ animes, today, localStorageAnimes, AnimeCardClic
     <>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          {animes.length !== 0 ? (
+          {animes ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
               {today}
             </Typography>
