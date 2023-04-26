@@ -7,7 +7,6 @@ import AllWeek from "./components/AllWeek.jsx";
 import Today from "./components/Today.jsx";
 import Favorites from './components/Favorites.jsx'
 import SideBar from "./components/SideBar.jsx";
-import HorizontalSideBar from './components/HorizontalSideBar.jsx';
 import moment from "moment";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
