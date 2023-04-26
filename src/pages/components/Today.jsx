@@ -10,11 +10,13 @@ import styles from "../../styles/TabsPage.module.css";
 export default function Today({ animes, today, localStorageAnimes, AnimeCardClick }) {
   const [currentTab, setCurrentTab] = useState('All')
 
+
+
   return (
     <>
       <div className={styles.wrapper}>
         <div className={styles.titleContainer}>
-          {animes ? (
+          {animes.length !== 0 ? (
             <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>
               {today}
             </Typography>
