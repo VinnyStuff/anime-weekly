@@ -218,7 +218,12 @@ export default function SearchBar({ animes }) {
             <Divider variant="middle"/>
           </div>
 
-       
+          {animesToShow.slice(0,7).map((anime) => (
+            <div key={anime.title}>
+              <AnimeCardSearch anime={anime}/>
+              <Divider variant="middle"/>
+            </div>
+          ))}
 
           {animesToShow.length <= 0 && animes ? (
             <div>
