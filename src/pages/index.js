@@ -123,28 +123,34 @@ export default function Index() {
     }
   });
 
+  const [searchInFocus, setSearchInFocus] = useState(false);
+  const handleSearchBarFocus = () => {
+    setSearchInFocus(true)
+  };
+  const handleSearchBarBlur = () => {
+    setSearchInFocus(false)
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className={styles.indexContainer}>
-          <div className={styles.navbarContainer}>
-            <div className={styles.sideBarContainer}>
-              <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
-            </div>
-            <SearchBar props={{ data }}/>
+        <div className={styles.navbarContainer} onFocus={handleSearchBarFocus} onBlur={handleSearchBarBlur}>
+          <div className={styles.sideBarContainer}>
+            <SideBar props={{ data, currentTheme, localStorageAnimes }} getCurrentTab={(e) => setCurrentTab(e)} onThemeChange={changeTheme} clearFavorites={clearFavorites}/>
           </div>
+          <SearchBar props={{ data }}/>
+        </div>
 
 
-          <div className={styles.pageContainer}>
-            {   currentTab === "Today" ? (
-              <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-            ) : currentTab === "All Week" ? (
-              <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-            ) : (
-              <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
-            )}
-          </div>
+        <div className={styles.pageContainer} style={{display: searchInFocus ? 'none' : '' }}>
+          {   currentTab === "Today" ? (
+            <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          ) : currentTab === "All Week" ? (
+            <AllWeek props={{ data, weekDays }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          ) : (
+            <Favorites props={{ data, weekDays, localStorageAnimes}} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
+          )}
         </div>
         <Stack spacing={2} sx={{ width: '100%' }}>
           <Snackbar open={open} onClose={handleClose} anchorOrigin={{vertical: 'bottom', horizontal: 'center',}}>
@@ -158,71 +164,31 @@ export default function Index() {
   );
 }
 
-function getAnimesReleaseDate(anime, weekDays) {
-  const release = {};
+function getAnimesReleaseDate(anime) {
+    const weekday = anime.broadcast.day;
+    const time = anime.broadcast.time;
 
-  const endOfTheDay = moment("00:00", "HH:mm");
+    const releaseInTokyoTimeZone = moment(`${weekday} ${time}`, "dddd HH:mm"); 
+    const simulcastInTokyoTimeZone = releaseInTokyoTimeZone.clone().add({ hours: 1 })
+    const simulcastInBrazilTimeZone = simulcastInTokyoTimeZone.clone().subtract({ hours: 12 });
+    const releaseInBrazilStreamings = simulcastInBrazilTimeZone.clone().add({ hours: 2 });
 
-  release.release_in_tokyo_timezone = {
-    day: anime.broadcast.day,
-    hour: anime.broadcast.time,
-  };
-
-  //tokyo time zone
-  const releaseHourInTokyoTimeZone = moment(anime.broadcast.time, "HH:mm");
-  const releaseDayInInTokyoTimeZone = anime.broadcast.day;
-
-  const releaseHourSimulcastInTokyoTimeZone = releaseHourInTokyoTimeZone.add(
-    1,
-    "hour"
-  ); //simulcast in the rest of the world happens 1 hour after the episodes are released
-  let releaseDaySimulcastInTokyoTimeZone = "";
-
-  if (releaseHourSimulcastInTokyoTimeZone.isAfter(endOfTheDay)) {
-    const currentDayOfWeek = releaseDayInInTokyoTimeZone;
-    const currentDayIndex = weekDays.indexOf(currentDayOfWeek);
-
-    const nextDayIndex = (currentDayIndex + 1) % weekDays.length;
-    const nextDayOfWeek = weekDays[nextDayIndex];
-
-    releaseDaySimulcastInTokyoTimeZone = nextDayOfWeek;
-  } else {
-    releaseDaySimulcastInTokyoTimeZone = releaseDayInInTokyoTimeZone;
-  }
-
-  release.simulcast_tokyo_timezone = {
-    day: releaseDaySimulcastInTokyoTimeZone,
-    hour: releaseHourSimulcastInTokyoTimeZone.format("HH:mm"),
-  };
-
-  //Brazil time zone - use simulcast hour from tokyo
-  const releaseHourSimulcastInBrazilTimeZone =
-    releaseHourSimulcastInTokyoTimeZone.subtract(12, "hour").add(2, "hour"); //it takes 2 hours to reach the streamings
-  let releaseDaySimulcastInBrazilTimeZone = "";
-
-  if (releaseHourSimulcastInBrazilTimeZone.isBefore(endOfTheDay)) {
-    const currentDayOfWeek = releaseDayInInTokyoTimeZone;
-    const currentDayIndex = weekDays.indexOf(currentDayOfWeek);
-
-    const nextDayIndex = (currentDayIndex - 1) % weekDays.length;
-    const nextDayOfWeek = weekDays[nextDayIndex];
-
-    releaseDaySimulcastInBrazilTimeZone = nextDayOfWeek;
-  } else {
-    releaseDaySimulcastInBrazilTimeZone = releaseDayInInTokyoTimeZone;
-  }
-
-  //o simulcast acontece 1 hora depois de sair no japão, porem só chega 2 horas depois do simulcast nos streamings
-  release.release_in_brazil_streamings = {
-    day: releaseDaySimulcastInBrazilTimeZone,
-    hour: releaseHourSimulcastInTokyoTimeZone.format("HH:mm"),
-  };
-  release.simulcast_brazil_timezone = {
-    day: releaseDaySimulcastInBrazilTimeZone,
-    hour: releaseHourSimulcastInTokyoTimeZone
-      .subtract(2, "hour")
-      .format("HH:mm"),
-  };
-
-  return release;
+    return {
+      release_tokyo: {
+        day: releaseInTokyoTimeZone.format("dddd") + "s",
+        hour: releaseInTokyoTimeZone.format("HH:mm")
+      },
+      simulcast_tokyo: {
+        day: simulcastInTokyoTimeZone.format("dddd") + "s",
+        hour: simulcastInTokyoTimeZone.format("HH:mm")
+      },
+      simulcast_brazil: {
+        day: simulcastInBrazilTimeZone.format("dddd") + "s",
+        hour: simulcastInBrazilTimeZone.format("HH:mm")
+      },
+      release_brazil_streamings: {
+        day: releaseInBrazilStreamings.format("dddd") + "s",
+        hour: releaseInBrazilStreamings.format("HH:mm")
+      }
+    }
 }

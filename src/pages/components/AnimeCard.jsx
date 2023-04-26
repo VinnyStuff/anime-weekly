@@ -12,7 +12,6 @@ export default function AnimeCard({ anime, onClick }) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
     const genres = anime.genres;
-    const rating = anime.score;
 
     return (
       <>

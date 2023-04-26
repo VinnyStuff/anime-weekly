@@ -40,7 +40,7 @@ export default function AllWeek({ props, AnimeCardClick }) {
 
         {animes.length >= 1 ? (
           <div className={styles.animeCardContainer}>
-            {animes.filter((anime) => anime.release.release_in_brazil_streamings.day === currentTab)
+            {animes.filter((anime) => anime.release.release_brazil_streamings.day === currentTab)
             .map((anime) => (
               <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
             ))}

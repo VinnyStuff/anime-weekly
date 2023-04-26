@@ -236,8 +236,8 @@ function AnimeCardSearch({ anime }) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
     const genres = anime.genres;
-    //const score = anime.score.toFixed(2);
-    const release = anime.release.release_in_brazil_streamings.day;
+    const score =  anime.score ? anime.score.toFixed(2) : '';
+    const release = anime.release.release_brazil_streamings.day;
 
     return (
       <>
@@ -267,7 +267,7 @@ function AnimeCardSearch({ anime }) {
             </div>
 
             <Typography color="text.secondary" sx={{ mt: "-4px" }}>
-             {/*  Score: {score} */}
+              Score: {score}
             </Typography>
 
             <Typography color="text.secondary" sx={{ mt: "-4px" }}>
