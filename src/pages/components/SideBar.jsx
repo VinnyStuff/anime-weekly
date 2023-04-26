@@ -24,7 +24,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import LightModeIcon from '@mui/icons-material/LightMode';
 
 export default function SideBar({props, getCurrentTab, onThemeChange, clearFavorites}) {
   const [animes, setAnimes] = useState([]);
@@ -72,7 +71,7 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
 
   return (
     <>
-      <Paper className={styles.sideBarDesktopContainer}>
+      <div className={styles.sideBarDesktopContainer}>
         <div className={styles.iconsContainer}>
           <IconButton type="button" sx={{ p: "10px", ml: "5px" }} onClick={handleClick}>
             <MenuIcon sx={{ height: "26px", width: "26px" }} />
@@ -94,13 +93,9 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
             </MenuItem>
             <MenuItem onClick={() => {onThemeChange(); handleClose() }}>
               <ListItemIcon>
-                {props.currentTheme === 'light' ? (
                   <DarkModeIcon fontSize="medium" />
-                ) :  (
-                  <LightModeIcon fontSize="medium" />
-                )}
               </ListItemIcon>
-              <ListItemText>Change to {props.currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</ListItemText>
+              <ListItemText>Appearance: {props.currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</ListItemText>
             </MenuItem>
           </Menu>
           <img
@@ -113,8 +108,8 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
           <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
           <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
           <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
+          <Divider sx={{mt: '10px'}}/>
         </div>
-        <Divider sx={{mt: '10px'}}/>
         <div className={styles.favoritesQuickViewContainer}>
           <Paper sx={{position: 'sticky', top: '0', boxShadow: 'none', zIndex: '99'}}>
             <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
@@ -135,45 +130,9 @@ export default function SideBar({props, getCurrentTab, onThemeChange, clearFavor
           )}
 
         </div>
-      </Paper>
+      </div>
 
       <div className={styles.sideBarMobileContainer}>
-          <div className={styles.iconsContainer}>
-            <IconButton type="button" sx={{ p: "10px", ml: "5px"}} onClick={handleClick}>
-              <MenuIcon sx={{ height: "26px", width: "26px" }} />
-            </IconButton>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button',
-              }}
-            >
-              <MenuItem onClick={() => {clearFavorites(); handleClose() }}>
-                <ListItemIcon>
-                  <DeleteIcon fontSize="medium" />
-                </ListItemIcon>
-                <ListItemText>Clear Favorites</ListItemText>
-              </MenuItem>
-              <MenuItem onClick={() => {onThemeChange(); handleClose() }}>
-                <ListItemIcon>
-                  {props.currentTheme === 'light' ? (
-                    <DarkModeIcon fontSize="medium" />
-                  ) :  (
-                    <LightModeIcon fontSize="medium" />
-                  )}
-                </ListItemIcon>
-                <ListItemText>Change to {props.currentTheme === 'light' ? 'Dark Mode' : 'Light Mode'}</ListItemText>
-              </MenuItem>
-            </Menu>
-            <img
-              className={styles.logo}
-              src={props.currentTheme === 'light' ? '/images/logo-light-mode.png' : '/images/logo-dark-mode.png'}
-              alt="Anime Week"
-            />
-        </div>
         <div className={styles.buttonsMobileContainer}>
           <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon} version={'mobile'}>Today</Tab>
           <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon} version={'mobile'}>All Week</Tab>
