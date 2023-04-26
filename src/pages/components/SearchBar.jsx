@@ -102,6 +102,11 @@ export default function SearchBar({ props }) {
       setActiveGenres([]);
     }
   }, [showAutocomplete]);
+  useEffect(() => {
+    if(searchInput.current === document.activeElement){
+      setShowAutocomplete(true);
+    }
+  }, [searchInput]);
 
   return (
     <>
@@ -110,9 +115,10 @@ export default function SearchBar({ props }) {
             type="button"
             sx={{ p: "10px"}}
             aria-label="search"
-            onClick={(e) => {
+            onClick={(e) => { if(animes.length >= 1){
               e.stopPropagation();
               setShowAutocomplete(true);
+            }
             }}
           >
           <SearchIcon />

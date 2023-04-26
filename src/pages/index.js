@@ -143,7 +143,7 @@ export default function Index() {
         </div>
 
 
-        <div className={styles.pageContainer} style={{display: searchInFocus ? 'none' : '' }}>
+        <div className={styles.pageContainer} style={{display: searchInFocus ? 'none' : null}}>
           {   currentTab === "Today" ? (
             <Today props={{ data, today, localStorageAnimes }} AnimeCardClick={(e) => getAnimeCardClick(e)}/>
           ) : currentTab === "All Week" ? (
