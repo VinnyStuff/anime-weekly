@@ -42,7 +42,7 @@ export default function Index() {
   const [localStorageAnimes, setLocalStorageAnimes] = useState([]);
   const [currentTab, setCurrentTab] = useState("Today");
 
-  useEffect(() => {
+  /* useEffect(() => {
     const delay = 1200;
     let currentPage = 1;
     const animes = [];
@@ -72,7 +72,7 @@ export default function Index() {
     }
 
     fetchSeasonData(currentPage);
-  }, []);
+  }, []); */
   useEffect(() => {
     if(data){
       setLocalStorageAnimes(data.filter((anime) => localStorage.getItem(anime.title)));
@@ -125,7 +125,7 @@ export default function Index() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+    {/*   <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className={styles.navbarContainer}>
           <div className={styles.sideBarContainer}>
@@ -151,7 +151,7 @@ export default function Index() {
             </Alert>
           </Snackbar>
         </Stack>
-      </ThemeProvider>
+      </ThemeProvider> */}
     </>
   );
 }
