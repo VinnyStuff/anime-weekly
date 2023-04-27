@@ -7,17 +7,12 @@ import Typography from '@mui/material/Typography';
 import Icon from '@mui/material/Icon'
 import PropTypes from 'prop-types';
 import Divider from '@mui/material/Divider';
-
 import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
-
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -25,6 +20,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import animesPromise from '../api/animes'
+import { useRouter } from "next/router";
 
 export default function SideBar() {
   const localStorageAnimes = [];
@@ -42,20 +38,32 @@ export default function SideBar() {
   }, [animes])
 
 
-  const [currentTab, setCurrentTab] = useState('All')
+  const [currentTab, setCurrentTab] = useState('Today')
+  const router = useRouter()
+  useEffect(() =>{
+    if(currentTab === 'Today'){
+      router.push('/today');
+    }
+    else if(currentTab === 'All Week'){
+      router.push('/all-week');
+    }
+    else if(currentTab === 'Favorites'){
+      router.push('/favorites');
+    }
+  }, [currentTab])
 
   function Tab(props){
     const { children, onClick, iconInactive, iconActive, version,...other } = props;
 
     return(
     <>
-     <div className={styles.tab} onClick={() => setCurrentTab(children)}>
-        <div className={styles.iconContainer}>
-          <Icon component={currentTab === children ? iconActive : iconInactive}/>
+      <div className={styles.tab} onClick={() => setCurrentTab(children)}>
+          <div className={styles.iconContainer}>
+            <Icon component={currentTab === children ? iconActive : iconInactive}/>
+          </div>
+          <Typography sx={{mt: '2px', whiteSpace: 'nowrap', fontWeight: currentTab === children ? 'bold' : '400' }}>{children}</Typography>
+          <div className={styles.overlay} style={{ visibility: currentTab  === children ? 'visible' : 'normal'}}></div>
         </div>
-        <Typography sx={{mt: '2px', whiteSpace: 'nowrap'}}>{children}</Typography>
-        <div className={styles.overlay} style={{ visibility: currentTab  === children ? 'visible' : 'hidden'}}></div>
-      </div>
     </>
     );
   }

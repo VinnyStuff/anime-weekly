@@ -4,7 +4,6 @@ import SideBar from "./SideBar";
 import SearchBar from "./SearchBar";
 
 export default function Layout({ children }) {
-
     const [animes, setAnimes] = useState([]);
 
     useEffect(() => {

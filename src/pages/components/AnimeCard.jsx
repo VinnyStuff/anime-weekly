@@ -7,7 +7,7 @@ import SaveButton from './SaveButton'
 
 import styles from "../../styles/AnimeCard.module.css";
 
-export default function AnimeCard({ anime, onClick }) {
+export default function AnimeCard({ anime }) {
   if (anime) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
@@ -15,7 +15,7 @@ export default function AnimeCard({ anime, onClick }) {
 
     return (
       <>
-        <Card className={styles.animeCard} onClick={onClick}>
+        <Card className={styles.animeCard}>
           <div className={styles.imageContainer}>
             <img
               className={styles.image}

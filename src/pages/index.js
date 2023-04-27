@@ -3,8 +3,8 @@ import Button from "@mui/material/Button";
 
 import React, { useState, useEffect, forwardRef } from "react";
 import SearchBar from "./components/SearchBar.jsx";
-import AllWeek from "./components/AllWeek.jsx";
-import Today from "./components/Today.jsx";
+/* import AllWeek from "./AllWeek.jsx";
+import Today from "./components/Today.jsx"; */
 import Favorites from './components/Favorites.jsx'
 import SideBar from "./components/SideBar.jsx";
 import moment from "moment";
