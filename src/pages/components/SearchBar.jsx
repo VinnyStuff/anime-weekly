@@ -9,10 +9,23 @@ import Chip from "@mui/material/Chip";
 import CloseIcon from "@mui/icons-material/Close";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-
 import styles from "../../styles/SearchBar.module.css";
+import animesPromise from '../api/animes'
 
-export default function SearchBar({ animes }) {
+export default function SearchBar() {
+  const [animes, setAnimes] = useState([]);
+  useEffect(() => {
+    animesPromise.then(result => {
+      setAnimes(result);
+    });
+  }, []);
+
+  useEffect(() =>{
+    if (animes.length > 0) {
+      console.log(animes);
+    }
+  }, [animes])
+
   const [animesToShow, setAnimesToShow] = useState([]);
   const [genres, setGenres] = useState([]);
   useEffect(() => {

@@ -40,18 +40,21 @@ export default function SideBar() {
       console.log(animes);
     }
   }, [animes])
-  const [currentTab, setCurrentTab] = useState('All')
 
+
+  const [currentTab, setCurrentTab] = useState('All')
 
   function Tab(props){
     const { children, onClick, iconInactive, iconActive, version,...other } = props;
 
     return(
     <>
-      <div className={`${styles.tab} ${currentTab === children ? styles.tabActive : ''}`} onClick={() => setCurrentTab(children)}>
-        <Icon className={styles.iconTab} component={currentTab === children ? iconActive : iconInactive} sx={{color: currentTab === children && version === 'mobile' ? 'background.paper': ''}}/>
-        <Typography className={styles.textTab} variant="subtitle1" sx={{mt: '2px', fontWeight: currentTab === children ? 'bold' : '', color: currentTab === children && version === 'mobile' ? 'background.paper': ''}}>{children}</Typography>
-        <div className={styles.tabOverlay}></div>
+     <div className={styles.tab} onClick={() => setCurrentTab(children)}>
+        <div className={styles.iconContainer}>
+          <Icon component={currentTab === children ? iconActive : iconInactive}/>
+        </div>
+        <Typography sx={{mt: '2px', whiteSpace: 'nowrap'}}>{children}</Typography>
+        <div className={styles.overlay} style={{ visibility: currentTab  === children ? 'visible' : 'hidden'}}></div>
       </div>
     </>
     );
@@ -77,73 +80,80 @@ export default function SideBar() {
 
   return (
     <>
-      <div className={styles.sideBarDesktopContainer}>
-        <div className={styles.iconsContainer}>
-          <IconButton type="button" sx={{ p: "10px", ml: "5px" }} onClick={handleClick}>
-            <MenuIcon sx={{ height: "26px", width: "26px" }} />
-          </IconButton>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-            }}
-          >
-            <MenuItem onClick={() => {handleClose()}}>
-              <ListItemIcon>
-                <DeleteIcon fontSize="medium" />
-              </ListItemIcon>
-              <ListItemText>Clear Favorites</ListItemText>
-            </MenuItem>
-            <MenuItem onClick={() => {handleClose()}}>
-              <ListItemIcon>
-                  <DarkModeIcon fontSize="medium" />
-              </ListItemIcon>
-              <ListItemText>Appearance: </ListItemText>
-            </MenuItem>
-          </Menu>
-          <img
-            className={styles.logo}
-            src='/images/logo-light-mode.png'
-            alt="Anime Week"
-          />
-        </div>
-        <div className={styles.buttonsContainer}>
-          <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
-          <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
-          <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
-          <Divider sx={{mt: '10px'}}/>
-        </div>
-        <div className={styles.favoritesQuickViewContainer}>
-          <div sx={{position: 'sticky', top: '0', boxShadow: 'none', zIndex: '99'}}>
-            <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
+      <div className={styles.sideBarContainer}>
+        <div className={styles.menuContainer}>
+            <IconButton type="button" sx={{ p: "10px", ml: "20px" }} onClick={handleClick}>
+              <MenuIcon sx={{ height: "26px", width: "26px" }} />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              <MenuItem onClick={() => {handleClose()}}>
+                <ListItemIcon>
+                  <DeleteIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Clear Favorites</ListItemText>
+              </MenuItem>
+              <MenuItem onClick={() => {handleClose()}}>
+                <ListItemIcon>
+                    <DarkModeIcon fontSize="medium" />
+                </ListItemIcon>
+                <ListItemText>Appearance: </ListItemText>
+              </MenuItem>
+            </Menu>
+            <img
+              src='/images/logo-light-mode.png'
+              alt="Anime Week"
+            />
           </div>
 
-          {localStorageAnimes ? (
-            <>
-              {localStorageAnimes.map((anime) =>(
-              <div className={styles.favoritedAnimeCard} key={anime.title}>
-                <img src={anime.images.jpg.large_image_url} alt="Anime Image" className={styles.favoritedAnimeCardImage}/>
-                <Typography variant="subtitle1" className={styles.favoritedAnimeCardTitle}>{anime.title}</Typography>
-                <div className={styles.animeOverlay}></div>
-              </div>
-              ))}
-            </>
-          ) :  (
-            <Typography variant="subtitle2" sx={{textAlign: 'center', pt: '10px'}}>No animes in Favorites</Typography>
-          )}
+          <div className={styles.buttons}>
+            <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
+            <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
+            <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
+            <Divider sx={{mt: '10px'}}/>
+          </div>
+            
+          <div className={styles.favoritesQuickViewTextContainer}> 
+            <Paper sx={{position: 'sticky', top: '0', boxShadow: 'none', zIndex: '99', pt: '8px', pb: '3px', pl: '10px', borderRadius: '0'}}>
+              <Typography variant="subtitle1" sx={{ml: '12px'}}>Favorites quick view</Typography>
+            </Paper>
+          </div>
 
-        </div>
+          <div className={styles.favoritedAnimeCardContainer}>
+            {localStorageAnimes ? (
+              <>
+                {animes.map((anime) =>(
+                  <FavoritedAnimeCard anime={anime} key={anime.title}/>
+                ))}
+              </>
+            ) :  (
+              <Typography variant="subtitle2" sx={{textAlign: 'center', pt: '10px'}}>No animes in Favorites</Typography>
+            )}
+          </div>
       </div>
+    </>
+  );
+}
 
-      <div className={styles.sideBarMobileContainer}>
-        <div className={styles.buttonsMobileContainer}>
-          <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon} version={'mobile'}>Today</Tab>
-          <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon} version={'mobile'}>All Week</Tab>
-          <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon} version={'mobile'}>Favorites</Tab>
-        </div>
+
+function FavoritedAnimeCard({anime}){
+
+  const title = anime.title
+  const image = anime.images.jpg.large_image_url;
+
+  return (
+    <>
+      <div className={styles.favoritedAnimeCard}>
+        <img src={image} alt="Anime Image"/>
+        <Typography sx={{ml: '8px', mr: '8px', lineHeight: '20px', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: '4', lineClamp: '4', WebkitBoxOrient: 'vertical'}} className={styles.favoritedAnimeCardTitle}>{title} bla bla bla</Typography>
+        <div className={styles.overlay}></div>
       </div>
     </>
   );

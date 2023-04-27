@@ -1,89 +1,67 @@
-.iconTab{
-    margin-left: 15px;
-}
-.textTab{
-    margin-left: 25px !important;
-}
-
-.sideBarDesktopContainer{
+.sideBarContainer{
+    width: 240px;
+    box-shadow: 3px 0px 23px -8px rgba(0,0,0,0.21);
+    height: 100vh;
+    position: relative;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
-
-    z-index: 999;
-
-    height: 100vh;
-    width: 260px;
-    box-shadow: 3px 0px 23px -8px rgba(0,0,0,0.21);
-    padding: 6px 12px;
 }
-
-.iconsContainer{
+.menuContainer{
+    height: 50px;
     display: flex;
     align-items: center;
-    margin-bottom: -8px;
+    padding: 8px 0;
 }
-.logo{
-    height: 32px;
+.menuContainer img{
+    height: 36px;
     margin-left: 18px;
-}
-
-.buttonsContainer{
-    margin-top: 15px;
-}
-.buttonsMobileContainer{
-    display: flex;
-    justify-content: center;
-    position: relative;
 }
 .tab{
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 90%;
     height: 40px;
     border-radius: 10px;
-    margin-bottom: 2px;
     position: relative;
-}
-.tabActive .tabOverlay{
-    visibility: visible;
-}
-.tabOverlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    visibility: hidden;
-    background-color: currentColor;
-    opacity: 0.075;
-    border-radius: 5px;
-}
-.tab:hover .tabOverlay{    
-    visibility: visible;
+    margin: 0 auto;
+    margin-bottom: 2px;
     cursor: pointer;
 }
-.favoritesQuickViewContainer{
-    margin-top: 10px;
-    overflow-y: auto;
-
-    width: 100%;
-    margin-left: -12px;
-    
-    padding: 0 12px;
-    padding-bottom: 10px;
+.tab:hover .overlay{
+    visibility: visible;
+}
+.favoritedAnimeCardContainer{
+    flex-grow: 1;
+    overflow-y: overlay;
+}
+.favoritedAnimeCardContainer::-webkit-scrollbar {
+    width: 6px;
+}
+.favoritedAnimeCardContainer::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 8px;
 }
 .favoritedAnimeCard{
+    position: relative;
     display: flex;
+    margin: 0 auto;
     margin-top: 4px;
-    padding: 10px;
+    padding: 8px 0;
     border-radius: 10px;
     align-items: center;
-    position: relative;
-}
-.favoritedAnimeCard:hover{
+    width: 90%;
     cursor: pointer;
+}       
+.favoritedAnimeCard img{
+    height: 82px;
+    max-width: 58px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-left: 9px;
 }
-.animeOverlay{
+.overlay{
     position: absolute;
     top: 0;
     left: 0;
@@ -95,88 +73,53 @@
     border-radius: 8px;
     pointer-events: none;
 }
-
-.favoritedAnimeCard:hover .animeOverlay{    
+.overlayActive{
     visibility: visible;
 }
-.favoritedAnimeCardImage{
-    height: 80px;
-    max-width: 58px;
-    border-radius: 5px;
-    object-fit: cover;
+.favoritedAnimeCard:hover .overlay{
+    visibility: visible;
 }
-.favoritedAnimeCardTitle{
-    line-height: 20px !important;
-    margin-left: 6px !important;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* number of lines to show */
-    line-clamp: 4; 
-    -webkit-box-orient: vertical;
-}
-
-.favoritesQuickViewContainer::-webkit-scrollbar {
-    width: 6px;
-    overflow-y: overlay;
-}
-.favoritesQuickViewContainer::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 8px;
-}
-.sideBarMobileContainer{
-    display: none;
+.iconContainer{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 2px;
 }
 
 @media only screen and (max-width: 745px) {
-    .buttonsContainer, .favoritesQuickViewContainer{
+    .favoritedAnimeCardContainer, .favoritesQuickViewTextContainer{
         display: none;
     }
-    .sideBarDesktopContainer{
+    .sideBarContainer{
         height: auto;
+        max-width: 425px;
+        width: 100vw;
         box-shadow: none;
-        padding: 0;
+        margin: 0 auto;
     }
-    .sideBarMobileContainer{
-        display: block;
+    .menuContainer{
+        height: 30px;
+        margin-top: 4px;
+    }
+    .menuContainer img{
+        height: 31px;
+    }
+    .buttons{
+        display: flex;
         width: 100%;
     }
-    .iconTab{
-        margin-left: 0;
-    }
-    .textTab{
-        margin-left: 8px !important;
-    }
     .tab{
-        padding: 0;
-        margin-right: 6px;
-        width: 33%;
-        white-space: nowrap;
+        margin-bottom: 0;
         justify-content: center;
+        align-items: center;
+        margin: 0.5vw;
     }
-    .tab:hover{
-        cursor: pointer;
-    }
-    .tab:last-child{
-        margin-right: 0;
-    }
-    .tabOverlay{
-        visibility: visible;
-        opacity: 0.1;
-        z-index: -5;
-    }
-    .tabActive .tabOverlay{
-        opacity: 0.9;
-    }
-    .iconsContainer{
-        margin-top: 8px;
-        margin-bottom: 8px;
+    .iconContainer{
+        margin-left: 0px;
+        margin-right: 2vw;
     }
 }
-@media only screen and (max-width: 360px) {
-    .iconTab{
-        display: none !important;
+@media only screen and (max-width: 330px) {
+    .iconContainer{
+        display: none;
     }
-    .textTab{
-        margin-left: 0 !important;
-    }
-}
+} 
