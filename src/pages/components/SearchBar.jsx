@@ -143,7 +143,7 @@ export default function SearchBar() {
             setShowAutocomplete(true);
           }}
         >
-          <Paper className={styles.searchBar} sx={{borderRadius: '30px'}}
+          <Paper className={styles.searchBar} sx={{borderRadius: '30px', boxShadow: 'none'}}
             onClick={(e) => {
               e.stopPropagation();
               searchInput.current.focus();

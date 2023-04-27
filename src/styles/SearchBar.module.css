@@ -15,7 +15,6 @@
 .searchBar{
     display: flex;
     width: 100%;
-    box-shadow: none;
     border: 1px solid rgba(0,0,0, 0.2);
 }
 .searchBar:focus-within{
