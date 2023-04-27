@@ -1,6 +1,15 @@
+.wrapper{
+    position: absolute;
+    width: 60vw;
+    max-width: 650px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 120px;
+    padding-top: 12px;
+    z-index: 9999;
+}
 .searchBarContainer{
     position: relative;
-    max-width: 650px;
     width: 100%;
 }
 .searchBar{
@@ -86,31 +95,33 @@
     display: none;
 }
 @media only screen and (max-width: 745px) {
-    .searchBarContainer{
-        width: 100%;
-        position: absolute;
-        padding-top: 15px;
-        z-index: 10;
+    .wrapper{
+        margin-left: 0;
+        position: fixed;
+        width: 100vw;
     }
     .searchMobile{
-        margin-top: 10px;
-        z-index: 9;
-        position: absolute;
-        margin-left: 380px;
         display: block;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-left: 188px;
+        margin-top: -8px;
+    }
+    .hideSearchBar{
+        display: none;
     }
     .searchBar{
         width: 95%;
         margin: 0 auto;
     }
-    .hideSearchBar{
-        display: none;
-    }
 }
-@media only screen and (max-width: 445px) {
+@media only screen and (max-width: 425px) {
     .searchMobile{
-        right: 0;
+        left: auto;
+        transform: none;
         margin-left: 0;
+        right: 0;
         margin-right: 10px;
     }
 }

@@ -92,9 +92,10 @@ export default function SearchBar() {
   const [showTags, setShowTags] = useState(true);
   const searchBar = useRef(null);
   const searchInput = useRef(null);
+  const wrapper = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchBar.current && !searchBar.current.contains(event.target)) {
+      if (wrapper.current && !wrapper.current.contains(event.target)) {
         setShowAutocomplete(false);
       }
     };
@@ -127,128 +128,134 @@ export default function SearchBar() {
 
   return (
     <>
-      <div className={styles.searchMobile}>
-        <IconButton
-            type="button"
-            sx={{ p: "10px"}}
-            aria-label="search"
-            onClick={(e) => { if(animes){
-              e.stopPropagation();
-              setShowAutocomplete(true);
-            }
-            }}
-          >
-          <SearchIcon />
-        </IconButton>
-      </div>
-      <div
-        className={`${styles.searchBarContainer} ${showAutocomplete  ? '' : styles.hideSearchBar }`}
-        ref={searchBar}
-        onClick={() => {
-          setShowAutocomplete(true);
-        }}
-      >
-        <Paper className={styles.searchBar} sx={{borderRadius: '30px'}}>
+      <div className={styles.wrapper} ref={wrapper}>
+        <div className={styles.searchMobile}>
           <IconButton
+              type="button"
+              sx={{ p: "10px"}}
+              aria-label="search"
+              onClick={(e) => { if(animes){
+                e.stopPropagation();
+                setShowAutocomplete(true);
+              }
+              }}
+            >
+            <SearchIcon />
+          </IconButton>
+        </div>
+        <div
+          className={`${styles.searchBarContainer} ${showAutocomplete  ? '' : styles.hideSearchBar }`}
+          onClick={() => {
+            setShowAutocomplete(true);
+          }}
+        >
+          <Paper className={styles.searchBar} sx={{borderRadius: '30px'}}
             onClick={(e) => {
               e.stopPropagation();
-              setShowAutocomplete(false);
-            }}
-            type="button"
-            sx={{ ml: "8px", mr: "-15px" }}
+              searchInput.current.focus();
+              setShowAutocomplete(true);
+            }}>
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowAutocomplete(false);
+              }}
+              type="button"
+              sx={{ ml: "8px", mr: "-15px" }}
+              style={{
+                display:
+                  showAutocomplete && animes ? "inherit" : "none",
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+
+            <InputBase
+              sx={{ ml: "8px", flex: 1, pl: 2 }}
+              placeholder="Search Animes..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              disabled={!animes}
+              className={styles.searchInput}
+              inputRef={searchInput}
+            />
+
+            <IconButton
+              style={{
+                display: showAutocomplete ? "inherit" : "none",
+              }}
+              type="button"
+              sx={{ p: "10px", mr: "6px" }}
+              aria-label="search"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowTags(!showTags);
+                setActiveGenres([]);
+              }}
+            >
+              {showTags ? <RemoveIcon /> : <AddIcon />}
+            </IconButton>
+
+            <Divider
+              sx={{ height: 25, mt: 1.1, mr: 0.5 }}
+              orientation="vertical"
+            />
+
+            <IconButton
+              type="button"
+              sx={{ p: "10px", pr: "18px" }}
+              aria-label="search"
+              disabled
+            >
+              <SearchIcon />
+            </IconButton>
+          </Paper>
+
+          <Paper
+            className={styles.autoCompleteContainer}
             style={{
               display:
                 showAutocomplete && animes ? "inherit" : "none",
             }}
           >
-            <CloseIcon />
-          </IconButton>
-
-          <InputBase
-            sx={{ ml: "8px", flex: 1, pl: 2 }}
-            placeholder="Search Animes..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            disabled={!animes}
-            className={styles.searchInput}
-            inputRef={searchInput}
-          />
-
-          <IconButton
-            style={{
-              display: showAutocomplete ? "inherit" : "none",
-            }}
-            type="button"
-            sx={{ p: "10px", mr: "6px" }}
-            aria-label="search"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowTags(!showTags);
-              setActiveGenres([]);
-            }}
-          >
-            {showTags ? <RemoveIcon /> : <AddIcon />}
-          </IconButton>
-
-          <Divider
-            sx={{ height: 25, mt: 1.1, mr: 0.5 }}
-            orientation="vertical"
-          />
-
-          <IconButton
-            type="button"
-            sx={{ p: "10px", pr: "18px" }}
-            aria-label="search"
-            disabled
-          >
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-
-        <Paper
-          className={styles.autoCompleteContainer}
-          style={{
-            display:
-              showAutocomplete && animes ? "inherit" : "none",
-          }}
-        >
-          <div
-            className={styles.chipsContainer}
-            style={{
-              display:
-              showTags ? "inherit" : "none",
-            }}
-          >
-            {genres.map((genre) => (
-              <Chip
-                label={genre}
-                key={genre}
-                sx={{ mx: 0.3, mb: 0.8 }}
-                color={activeGenres.includes(genre) ? "primary" : "default"}
-                onClick={() => genresControl(genre)}
-              />
-            ))}
-            <Divider variant="middle"/>
-          </div>
-
-          {animesToShow.slice(0,7).map((anime) => (
-            <div key={anime.title}>
-              <AnimeCardSearch anime={anime}/>
+            <div
+              className={styles.chipsContainer}
+              style={{
+                display:
+                showTags ? "inherit" : "none",
+              }}
+            >
+              {genres.map((genre) => (
+                <Chip
+                  label={genre}
+                  key={genre}
+                  sx={{ mx: 0.3, mb: 0.8 }}
+                  color={activeGenres.includes(genre) ? "primary" : "default"}
+                  onClick={() => genresControl(genre)}
+                />
+              ))}
               <Divider variant="middle"/>
             </div>
-          ))}
 
-          {animesToShow.length <= 0 && animes ? (
-            <div>
-              <Typography
-                color="text.secondary"
-                sx={{ textAlign: "center", p: "10px", py: "20px" }}
-              >
-                No options
-              </Typography>
-            </div>
-          ) : null}
-        </Paper>
+            {animesToShow.slice(0,7).map((anime) => (
+              <div key={anime.title}>
+                <AnimeCardSearch anime={anime}/>
+                <Divider variant="middle"/>
+              </div>
+            ))}
+
+            {animesToShow.length <= 0 && animes ? (
+              <div>
+                <Typography
+                  color="text.secondary"
+                  sx={{ textAlign: "center", p: "10px", py: "20px" }}
+                >
+                  No options
+                </Typography>
+              </div>
+            ) : null}
+          </Paper>
+        </div>
       </div>
     </>
   );
