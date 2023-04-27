@@ -17,12 +17,6 @@ export default function Favorites() {
     });
   }, []);
 
-  useEffect(() =>{
-    if (animes && animes.length > 0) {
-      console.log(animes);
-    }
-  }, [animes])
-
   return (
     <>
       <div className={styles.wrapper}>

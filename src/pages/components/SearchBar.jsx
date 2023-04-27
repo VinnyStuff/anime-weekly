@@ -20,12 +20,6 @@ export default function SearchBar() {
     });
   }, []);
 
-  useEffect(() =>{
-    if (animes.length > 0) {
-      console.log(animes);
-    }
-  }, [animes])
-
   const [animesToShow, setAnimesToShow] = useState([]);
   const [genres, setGenres] = useState([]);
   useEffect(() => {

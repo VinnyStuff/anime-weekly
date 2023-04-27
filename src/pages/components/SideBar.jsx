@@ -31,20 +31,31 @@ export default function SideBar() {
     });
   }, []);
 
-  useEffect(() =>{
-    if (animes.length > 0) {
-      console.log(animes);
-    }
-  }, [animes])
-
-
   const [currentTab, setCurrentTab] = useState('Today')
+
   const router = useRouter()
+  useEffect(() =>{
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
   
+      if(path === '/today'){
+        router.push('/'); 
+        setCurrentTab('Today')
+      }
+      else if(path === '/all-week'){
+        router.push('/all-week');
+        setCurrentTab('All Week')
+      }
+      else if(path === '/favorites'){
+        router.push('/favorites');
+        setCurrentTab('Favorites')
+      }
+    }  
+  }, [])
   function handleRouter(tab){
     setCurrentTab(tab)
     if(tab === 'Today'){
-      router.push('/today');
+      router.push('/');
     }
     else if(tab === 'All Week'){
       router.push('/all-week');

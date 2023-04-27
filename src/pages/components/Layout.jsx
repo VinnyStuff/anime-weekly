@@ -12,12 +12,6 @@ export default function Layout({ children }) {
         });
     }, []);
 
-    useEffect(() =>{
-        if (animes.length > 0) {
-        console.log(animes);
-        }
-    }, [animes])
-
   return (
     <>
         <SearchBar/>

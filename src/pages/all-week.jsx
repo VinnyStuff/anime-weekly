@@ -14,12 +14,6 @@ export default function AllWeek() {
       setAnimes(result);
     });
   }, []);
-
-  useEffect(() =>{
-    if (animes && animes.length > 0) {
-      console.log(animes);
-    }
-  }, [animes])
   
   return (
     <>

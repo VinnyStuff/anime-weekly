@@ -18,14 +18,7 @@ export default function Today() {
     });
   }, []);
 
-  useEffect(() =>{
-    if (animes && animes.length > 0) {
-      console.log(animes);
-    }
-  }, [animes])
   const [currentTab, setCurrentTab] = useState('All')
-
-
 
   return (
     <>
