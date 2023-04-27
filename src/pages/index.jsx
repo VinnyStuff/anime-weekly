@@ -6,7 +6,7 @@ import AnimeCard from "./components/AnimeCard";
 import styles from "../styles/TabsPage.module.css";
 import animesPromise from './api/animes'
 
-export default function Today() {
+export default function Home() {
   const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];
   const today = weekDays[new Date().getDay()]
   const localStorageAnimes = [];
