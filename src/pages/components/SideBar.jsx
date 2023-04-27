@@ -24,9 +24,24 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import animesPromise from '../api/animes'
 
-export default function SideBar({animes, currentTheme, localStorageAnimes, getCurrentTab, onThemeChange, clearFavorites}) {
-  const [currentTab, setCurrentTab] = useState("Today");
+export default function SideBar() {
+  const localStorageAnimes = [];
+  const [animes, setAnimes] = useState([]);
+  useEffect(() => {
+    animesPromise.then(result => {
+      setAnimes(result);
+    });
+  }, []);
+
+  useEffect(() =>{
+    if (animes.length > 0) {
+      console.log(animes);
+    }
+  }, [animes])
+  const [currentTab, setCurrentTab] = useState('All')
+
 
   function Tab(props){
     const { children, onClick, iconInactive, iconActive, version,...other } = props;
@@ -48,10 +63,6 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
     iconActive: PropTypes.object,
     version: PropTypes.string,
   };
-
-  useEffect(() => {
-    getCurrentTab(currentTab)
-  }, [currentTab]);
 
   //MUI material
   const [anchorEl, setAnchorEl] = useState(null);
@@ -80,22 +91,22 @@ export default function SideBar({animes, currentTheme, localStorageAnimes, getCu
               'aria-labelledby': 'basic-button',
             }}
           >
-            <MenuItem onClick={() => {clearFavorites(); handleClose() }}>
+            <MenuItem onClick={() => {handleClose()}}>
               <ListItemIcon>
                 <DeleteIcon fontSize="medium" />
               </ListItemIcon>
               <ListItemText>Clear Favorites</ListItemText>
             </MenuItem>
-            <MenuItem onClick={() => {onThemeChange(); handleClose() }}>
+            <MenuItem onClick={() => {handleClose()}}>
               <ListItemIcon>
                   <DarkModeIcon fontSize="medium" />
               </ListItemIcon>
-              <ListItemText>Appearance: {currentTheme === 'light' ? 'Light Mode' : 'Dark Mode'}</ListItemText>
+              <ListItemText>Appearance: </ListItemText>
             </MenuItem>
           </Menu>
           <img
             className={styles.logo}
-            src={currentTheme === 'light' ? '/images/logo-light-mode.png' : '/images/logo-dark-mode.png'}
+            src='/images/logo-light-mode.png'
             alt="Anime Week"
           />
         </div>

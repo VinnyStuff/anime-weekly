@@ -57,7 +57,7 @@ export default function Today() {
               <div className={styles.animeCardContainer}>
                 {animes.filter((anime) => anime.release.release_brazil_streamings.day === today)
                   .map((anime) => (
-                    <AnimeCard anime={anime} key={anime.title} onClick={() => AnimeCardClick(anime)}/>
+                    <AnimeCard anime={anime} key={anime.title}/>
                   ))}
               </div>
             ) : (
