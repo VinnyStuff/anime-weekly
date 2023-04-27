@@ -40,24 +40,26 @@ export default function SideBar() {
 
   const [currentTab, setCurrentTab] = useState('Today')
   const router = useRouter()
-  useEffect(() =>{
-    if(currentTab === 'Today'){
+  
+  function handleRouter(tab){
+    setCurrentTab(tab)
+    if(tab === 'Today'){
       router.push('/today');
     }
-    else if(currentTab === 'All Week'){
+    else if(tab === 'All Week'){
       router.push('/all-week');
     }
-    else if(currentTab === 'Favorites'){
+    else if(tab === 'Favorites'){
       router.push('/favorites');
     }
-  }, [currentTab])
+  }
 
   function Tab(props){
-    const { children, onClick, iconInactive, iconActive, version,...other } = props;
+    const { children, onClick, iconInactive, iconActive,...other } = props;
 
     return(
     <>
-      <div className={styles.tab} onClick={() => setCurrentTab(children)}>
+      <div className={styles.tab} onClick={() => handleRouter(children)}>
           <div className={styles.iconContainer}>
             <Icon component={currentTab === children ? iconActive : iconInactive}/>
           </div>
@@ -72,7 +74,6 @@ export default function SideBar() {
     children: PropTypes.node,
     iconInactive: PropTypes.object,
     iconActive: PropTypes.object,
-    version: PropTypes.string,
   };
 
   //MUI material

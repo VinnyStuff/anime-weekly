@@ -33,30 +33,30 @@ async function fetchAnimes() {
 export default fetchAnimes();
 
 function getAnimesReleaseDate(anime) {
-    const weekday = anime.broadcast.day;
-    const time = anime.broadcast.time;
+  const weekday = anime.broadcast.day;
+  const time = anime.broadcast.time;
 
-    const releaseInTokyoTimeZone = moment(`${weekday} ${time}`, "dddd HH:mm"); 
-    const simulcastInTokyoTimeZone = releaseInTokyoTimeZone.clone().add({ hours: 1 })
-    const simulcastInBrazilTimeZone = simulcastInTokyoTimeZone.clone().subtract({ hours: 12 });
-    const releaseInBrazilStreamings = simulcastInBrazilTimeZone.clone().add({ hours: 2 });
+  const releaseInTokyoTimeZone = moment(`${weekday} ${time}`, "dddd HH:mm"); 
+  const simulcastInTokyoTimeZone = releaseInTokyoTimeZone.clone().add({ hours: 1 })
+  const simulcastInBrazilTimeZone = simulcastInTokyoTimeZone.clone().subtract({ hours: 12 });
+  const releaseInBrazilStreamings = simulcastInBrazilTimeZone.clone().add({ hours: 2 });
 
-    return {
-      release_tokyo: {
-        day: releaseInTokyoTimeZone.format("dddd") + "s",
-        hour: releaseInTokyoTimeZone.format("HH:mm")
-      },
-      simulcast_tokyo: {
-        day: simulcastInTokyoTimeZone.format("dddd") + "s",
-        hour: simulcastInTokyoTimeZone.format("HH:mm")
-      },
-      simulcast_brazil: {
-        day: simulcastInBrazilTimeZone.format("dddd") + "s",
-        hour: simulcastInBrazilTimeZone.format("HH:mm")
-      },
-      release_brazil_streamings: {
-        day: releaseInBrazilStreamings.format("dddd") + "s",
-        hour: releaseInBrazilStreamings.format("HH:mm")
-      }
+  return {
+    release_tokyo: {
+      day: releaseInTokyoTimeZone.format("dddd") + "s",
+      hour: releaseInTokyoTimeZone.format("HH:mm")
+    },
+    simulcast_tokyo: {
+      day: simulcastInTokyoTimeZone.format("dddd") + "s",
+      hour: simulcastInTokyoTimeZone.format("HH:mm")
+    },
+    simulcast_brazil: {
+      day: simulcastInBrazilTimeZone.format("dddd") + "s",
+      hour: simulcastInBrazilTimeZone.format("HH:mm")
+    },
+    release_brazil_streamings: {
+      day: releaseInBrazilStreamings.format("dddd") + "s",
+      hour: releaseInBrazilStreamings.format("HH:mm")
     }
+  }
 }
