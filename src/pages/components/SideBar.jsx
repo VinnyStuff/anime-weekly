@@ -46,30 +46,32 @@ export default function SideBar() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       handleRouteChange();
-      function handleRouteChange() {
-        const path = window.location.pathname;
-    
-        if (path === '/') {
-          setCurrentTab('Today');
-        } 
-        else if(path === '/today'){
-          setCurrentTab('Today');
-        }
-        else if (path === '/all-week') {
-          setCurrentTab('All Week');
-        } 
-        else if (path === '/favorites') {
-          setCurrentTab('Favorites');
-        }
-      };
-
-      window.addEventListener('popstate', handleRouteChange);
-
-      return () => {
-        window.removeEventListener('popstate', handleRouteChange);
-      };
     } 
   }, [])
+
+  function handleRouteChange() {
+    const path = window.location.pathname;
+
+    if (path === '/') {
+      setCurrentTab('Today');
+    } 
+    else if(path === '/today'){
+      setCurrentTab('Today');
+    }
+    else if (path === '/all-week') {
+      setCurrentTab('All Week');
+    } 
+    else if (path === '/favorites') {
+      setCurrentTab('Favorites');
+    }
+
+    window.addEventListener('popstate', handleRouteChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  };
+
   function handleRouter(tab){
 
     setCurrentTab(tab)
