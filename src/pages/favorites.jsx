@@ -31,14 +31,14 @@ export default function Favorites() {
                 <Skeleton animation="wave" width={'30%'}/>
               </Typography>
             )}
-          </div>
 
-          <div className={styles.tabContainer}>
+            <div className={styles.tabContainer}>
               <Typography variant="h5" color="text.primary" className={`${styles.tab} ${currentTab === 'All' ? styles.tabActive : ''}`} onClick={() => setCurrentTab('All')}>All</Typography>
               {weekDays.map((day) => (
                 <Typography variant="h5" key={day} color="text.primary" className={`${styles.tab} ${currentTab === day ? styles.tabActive : ''}`} onClick={() => setCurrentTab(day)}>{day}</Typography>
               ))}
             </div>
+          </div>
           
           <div className={styles.animeCardContainer}>
             {animes ? (
