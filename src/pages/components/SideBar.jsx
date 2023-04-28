@@ -43,26 +43,36 @@ export default function SideBar() {
   const [currentTab, setCurrentTab] = useState('Today')
 
   const router = useRouter()
-  useEffect(() =>{
+  useEffect(() => {
     if (typeof window !== 'undefined') {
-      const path = window.location.pathname;
-  
-      if(path === '/today'){
-        router.push('/'); 
-        setCurrentTab('Today')
-      }
-      else if(path === '/all-week'){
-        router.push('/all-week');
-        setCurrentTab('All Week')
-      }
-      else if(path === '/favorites'){
-        router.push('/favorites');
-        setCurrentTab('Favorites')
-      }
-    }  
+      const handleRouteChange = () => {
+        const path = window.location.pathname;
+    
+        if (path === '/') {
+          setCurrentTab('Today');
+        } 
+        else if(path === '/today'){
+          setCurrentTab('Today');
+        }
+        else if (path === '/all-week') {
+          setCurrentTab('All Week');
+        } 
+        else if (path === '/favorites') {
+          setCurrentTab('Favorites');
+        }
+      };
+
+      window.addEventListener('popstate', handleRouteChange);
+
+      return () => {
+        window.removeEventListener('popstate', handleRouteChange);
+      };
+    } 
   }, [])
   function handleRouter(tab){
+
     setCurrentTab(tab)
+    
     if(tab === 'Today'){
       router.push('/');
     }
