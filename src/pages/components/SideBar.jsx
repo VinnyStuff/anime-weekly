@@ -22,7 +22,16 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import animesPromise from '../api/animes'
 import { useRouter } from "next/router";
 
+
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  themeSelect,
+  changeTheme,
+} from '../../features/theme/themeSlice';
+
 export default function SideBar() {
+  const dispatch = useDispatch();
+
   const localStorageAnimes = [];
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
@@ -120,11 +129,11 @@ export default function SideBar() {
                 </ListItemIcon>
                 <ListItemText>Clear Favorites</ListItemText>
               </MenuItem>
-              <MenuItem onClick={() => {handleClose()}}>
+              <MenuItem onClick={() => {dispatch(changeTheme()); handleClose()}}>
                 <ListItemIcon>
                     <DarkModeIcon fontSize="medium" />
                 </ListItemIcon>
-                <ListItemText>Appearance: </ListItemText>
+                <ListItemText>Appearance: {useSelector(themeSelect) === 'dark' ?  'Dark mode': 'Light mode' }</ListItemText>
               </MenuItem>
             </Menu>
             <img

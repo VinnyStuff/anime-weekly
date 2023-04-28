@@ -41,7 +41,7 @@ export default function SaveButton({anime}) {
 
     useEffect(() =>{
         if (typeof window !== 'undefined' && window.localStorage) {
-            setAnimeSaved(localStorage.getItem(anime.title));
+            setAnimeSaved(localStorage.getItem(anime.title)); //if anime is in localstorage change the style to saved when loads
         }
     }, []);
 
