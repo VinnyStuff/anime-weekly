@@ -45,7 +45,8 @@ export default function SideBar() {
   const router = useRouter()
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const handleRouteChange = () => {
+      handleRouteChange();
+      function handleRouteChange() {
         const path = window.location.pathname;
     
         if (path === '/') {
@@ -72,7 +73,7 @@ export default function SideBar() {
   function handleRouter(tab){
 
     setCurrentTab(tab)
-    
+
     if(tab === 'Today'){
       router.push('/');
     }
@@ -191,7 +192,7 @@ function FavoritedAnimeCard({anime}){
     <>
       <div className={styles.favoritedAnimeCard}>
         <img src={image} alt="Anime Image"/>
-        <Typography sx={{ml: '8px', mr: '8px', lineHeight: '20px', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: '4', lineClamp: '4', WebkitBoxOrient: 'vertical'}} className={styles.favoritedAnimeCardTitle}>{title} bla bla bla</Typography>
+        <Typography sx={{ml: '8px', mr: '8px', lineHeight: '20px', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: '4', lineClamp: '4', WebkitBoxOrient: 'vertical'}} className={styles.favoritedAnimeCardTitle}>{title}</Typography>
         <div className={styles.overlay}></div>
       </div>
     </>

@@ -41,7 +41,7 @@ export default function SaveButton({anime}) {
 
     useEffect(() =>{
         if (typeof window !== 'undefined' && window.localStorage) {
-            setAnimeSaved(localStorage.getItem(anime.title)); //if anime is in localstorage change the style to saved when loads
+            setAnimeSaved(localStorage.getItem(anime.title)); //if anime is in localstorage change the style to saved when
         }
     }, []);
 
@@ -51,13 +51,13 @@ export default function SaveButton({anime}) {
                 
                 handleClose();
 
-                if (localStorage.getItem(anime.title)){
-                    localStorage.removeItem(anime.title);
+                if(localStorage.getItem(anime.title.toString(), JSON.stringify(anime))){
+                    localStorage.removeItem(anime.title.toString());
                     setAnimeSaved(false);
                     handleClickInfo();
                 }
                 else{
-                    localStorage.setItem(anime.title, "Anime Title");
+                    localStorage.setItem(anime.title.toString(), JSON.stringify(anime))
                     setAnimeSaved(true);
                     handleClickSucess();
                 }
@@ -65,6 +65,10 @@ export default function SaveButton({anime}) {
         }
         catch{
             handleClickError();
+        }
+        finally{
+            const data = localStorage.getItem(anime.title.toString());
+            console.log(JSON.parse(data));
         }
     }
 

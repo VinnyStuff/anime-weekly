@@ -20,8 +20,6 @@ const initialState = {
     theme: getInitialTheme(),
 }
 
-
-
 export const themeSlice = createSlice({
   name: 'theme',
   initialState, 
