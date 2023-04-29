@@ -5,11 +5,15 @@ import EmptyStateCard from './components/EmptyStateCard'
 import AnimeCard from "./components/AnimeCard";
 import styles from "../styles/TabsPage.module.css";
 import animesPromise from './api/animes'
+import { useSelector } from 'react-redux';
+import {
+  favoritesAnimes,
+} from '../features/favorites/favoritesSlice'
 
 export default function Home() {
   const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];
   const today = weekDays[new Date().getDay()]
-  const localStorageAnimes = [];
+  const localStorageAnimes = useSelector(favoritesAnimes);
   const [animes, setAnimes] = useState();
 
   useEffect(() => {

@@ -25,6 +25,10 @@ import { useRouter } from "next/router";
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  favoritesAnimes,
+  updateFavorites,
+} from '../../features/favorites/favoritesSlice'
+import {
   themeSelect,
   changeTheme,
 } from '../../features/theme/themeSlice';
@@ -32,12 +36,13 @@ import {
 export default function SideBar() {
   const dispatch = useDispatch();
 
-  const localStorageAnimes = [];
+  const localStorageAnimes = useSelector(favoritesAnimes);
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
     animesPromise.then(result => {
       setAnimes(result);
     });
+    dispatch(updateFavorites());
   }, []);
 
   const [currentTab, setCurrentTab] = useState('Today')
@@ -136,7 +141,7 @@ export default function SideBar() {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={() => {handleClose()}}>
+              <MenuItem onClick={() => {handleClose();}}>
                 <ListItemIcon>
                   <DeleteIcon fontSize="medium" />
                 </ListItemIcon>
@@ -169,9 +174,9 @@ export default function SideBar() {
           </div>
 
           <div className={styles.favoritedAnimeCardContainer}>
-            {localStorageAnimes ? (
+            {animes ? (
               <>
-                {animes.map((anime) =>(
+                {localStorageAnimes.map((anime) =>(
                   <FavoritedAnimeCard anime={anime} key={anime.title}/>
                 ))}
               </>

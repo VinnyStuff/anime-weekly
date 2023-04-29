@@ -4,6 +4,10 @@ import Skeleton from "@mui/material/Skeleton";
 import AnimeCard from "./components/AnimeCard";
 import animesPromise from './api/animes'
 import styles from "../styles/TabsPage.module.css";
+import { useSelector } from 'react-redux';
+import {
+  favoritesAnimes,
+} from '../features/favorites/favoritesSlice'
 
 export default function AllWeek() {
   const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"];

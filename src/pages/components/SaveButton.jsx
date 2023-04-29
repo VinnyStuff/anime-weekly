@@ -5,6 +5,11 @@ import { useState, forwardRef, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  favoritesAnimes,
+  updateFavorites,
+} from '../../features/favorites/favoritesSlice'
 
 
 const Alert = forwardRef(function Alert(props, ref) {
@@ -12,6 +17,8 @@ const Alert = forwardRef(function Alert(props, ref) {
 });
 
 export default function SaveButton({anime}) {
+    const dispatch = useDispatch();
+
     const [openSuccessMessage, setOpenSuccessMessage] = useState(false);
     const [openInfoMessage, setOpenInfoMessage] = useState(false);
     const [openErrorMessage, setOpenErrorMessage] = useState(false);
@@ -67,8 +74,7 @@ export default function SaveButton({anime}) {
             handleClickError();
         }
         finally{
-            const data = localStorage.getItem(anime.title.toString());
-            console.log(JSON.parse(data));
+            dispatch(updateFavorites());
         }
     }
 

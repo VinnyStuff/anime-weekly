@@ -5,11 +5,17 @@ import AnimeCard from "./components/AnimeCard";
 import EmptyStateCard from './components/EmptyStateCard'
 import animesPromise from './api/animes'
 import styles from "../styles/TabsPage.module.css";
+import { useSelector } from 'react-redux';
+import {
+  favoritesAnimes,
+} from '../features/favorites/favoritesSlice'
+
+
 
 export default function Favorites() {
   const weekDays = ["Sundays", "Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays", "Saturdays"]
   const [currentTab, setCurrentTab] = useState('All')
-  const localStorageAnimes = [];
+  const localStorageAnimes = useSelector(favoritesAnimes);
   const [animes, setAnimes] = useState();
   useEffect(() => {
     animesPromise.then(result => {
