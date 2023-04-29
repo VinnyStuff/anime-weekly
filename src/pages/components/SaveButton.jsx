@@ -45,12 +45,13 @@ export default function SaveButton({anime}) {
 
 
     const [animeSaved, setAnimeSaved] = useState(); 
+    const localStorageAnimes = useSelector(favoritesAnimes);
 
-    useEffect(() =>{
+    useEffect(() =>{ //check can change the style
         if (typeof window !== 'undefined' && window.localStorage) {
-            setAnimeSaved(localStorage.getItem(anime.title)); //if anime is in localstorage change the style to saved when
+            setAnimeSaved(localStorage.getItem(anime.title)); 
         }
-    }, []);
+    }, [localStorageAnimes]);
 
     function saveAnime(){
         try{
@@ -59,14 +60,12 @@ export default function SaveButton({anime}) {
                 handleClose();
 
                 if(localStorage.getItem(anime.title.toString(), JSON.stringify(anime))){
-                    localStorage.removeItem(anime.title.toString());
-                    setAnimeSaved(false);
                     handleClickInfo();
+                    localStorage.removeItem(anime.title.toString());
                 }
                 else{
-                    localStorage.setItem(anime.title.toString(), JSON.stringify(anime))
-                    setAnimeSaved(true);
                     handleClickSucess();
+                    localStorage.setItem(anime.title.toString(), JSON.stringify(anime))
                 }
             }
         }

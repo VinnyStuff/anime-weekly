@@ -27,6 +27,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   favoritesAnimes,
   updateFavorites,
+  clearFavorites,
 } from '../../features/favorites/favoritesSlice'
 import {
   themeSelect,
@@ -141,7 +142,7 @@ export default function SideBar() {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              <MenuItem onClick={() => {handleClose();}}>
+              <MenuItem onClick={() => {handleClose(); dispatch(clearFavorites());}}>
                 <ListItemIcon>
                   <DeleteIcon fontSize="medium" />
                 </ListItemIcon>
