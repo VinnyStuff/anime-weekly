@@ -51,27 +51,24 @@ export default function SideBar() {
   const router = useRouter()
 
   if(typeof window !== 'undefined'){
-    console.log('inside');
-
+    
     const path = window.location.pathname;
-    console.log(path);
 
     useEffect(() => { 
-      if (path === '/') {
-        console.log('index');
+      if (path === '/' || path === '/anime-weekly') {
+        console.log('today')
         setCurrentTab('Today');
-
       } 
-      else if(path === '/today'){
-        console.log('index');
+      else if(path === '/' || path === '/anime-weekly'){
+        console.log('today')
         setCurrentTab('Today');
       }
-      else if (path === '/all-week') {
-        console.log('all week');
+      else if (path === '/all-week' || path === '/anime-weekly/all-week') {
+        console.log('all week')
         setCurrentTab('All Week');
       } 
-      else if (path === '/favorites') {
-        console.log('favorites');
+      else if (path === '/favorites' || path === '/anime-weekly/favorites') {
+        console.log('favorites')
         setCurrentTab('Favorites');
       }
     }, [path]);
