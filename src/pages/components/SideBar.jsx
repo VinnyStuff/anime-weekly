@@ -51,20 +51,26 @@ export default function SideBar() {
   const router = useRouter()
 
   if(typeof window !== 'undefined'){
+    console.log('inside');
 
     const path = window.location.pathname;
 
     useEffect(() => { 
       if (path === '/') {
+        console.log('index');
         setCurrentTab('Today');
+
       } 
       else if(path === '/today'){
+        console.log('index');
         setCurrentTab('Today');
       }
       else if (path === '/all-week') {
+        console.log('all week');
         setCurrentTab('All Week');
       } 
       else if (path === '/favorites') {
+        console.log('favorites');
         setCurrentTab('Favorites');
       }
     }, [path]);
@@ -125,9 +131,6 @@ export default function SideBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  console.log('a');
-
   //--
 
   return (
