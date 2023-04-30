@@ -56,19 +56,15 @@ export default function SideBar() {
 
     useEffect(() => { 
       if (path === '/' || path === '/anime-weekly') {
-        console.log('today')
         setCurrentTab('Today');
       } 
       else if(path === '/' || path === '/anime-weekly'){
-        console.log('today')
         setCurrentTab('Today');
       }
       else if (path === '/all-week' || path === '/anime-weekly/all-week') {
-        console.log('all week')
         setCurrentTab('All Week');
       } 
       else if (path === '/favorites' || path === '/anime-weekly/favorites') {
-        console.log('favorites')
         setCurrentTab('Favorites');
       }
     }, [path]);
