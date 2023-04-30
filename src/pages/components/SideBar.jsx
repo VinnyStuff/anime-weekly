@@ -54,6 +54,7 @@ export default function SideBar() {
     console.log('inside');
 
     const path = window.location.pathname;
+    console.log(path);
 
     useEffect(() => { 
       if (path === '/') {
