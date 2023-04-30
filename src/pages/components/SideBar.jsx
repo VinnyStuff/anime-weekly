@@ -90,13 +90,22 @@ export default function SideBar() {
 
     return(
     <>
-      <div className={styles.tab} onClick={() => handleRouter(children)}>
+      <div className={`${styles.tab} ${currentTab === children ? styles.tabActive : ''}`} onClick={() => handleRouter(children)}>
+        <div className={`${styles.tab} ${styles.mobileButtonsContainer}`}>
+          <div className={styles.iconContainer}>
+            <Icon component={currentTab === children ? iconActive : iconInactive} sx={{color: currentTab === children ? 'background.paper' : 'currentColor'}}/>
+          </div>
+          <Typography sx={{whiteSpace: 'nowrap', fontWeight: currentTab === children ? 'bold' : '400', color: currentTab === children ? 'background.paper' : 'currentColor'}}>{children}</Typography>
+        </div>
+
+        <div className={`${styles.tab} ${styles.desktopButtonsContainer}`}>
           <div className={styles.iconContainer}>
             <Icon component={currentTab === children ? iconActive : iconInactive}/>
           </div>
-          <Typography sx={{mt: '2px', whiteSpace: 'nowrap', fontWeight: currentTab === children ? 'bold' : '400' }}>{children}</Typography>
-          <div className={styles.overlay} style={{ visibility: currentTab  === children ? 'visible' : 'normal'}}></div>
+          <Typography sx={{whiteSpace: 'nowrap', fontWeight: currentTab === children ? 'bold' : '400'}}>{children}</Typography>
         </div>
+        <div className={styles.overlay}></div>
+      </div>
     </>
     );
   }
@@ -116,11 +125,14 @@ export default function SideBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  console.log('a');
+
   //--
 
   return (
     <>
-      <div className={styles.sideBarContainer}>
+      <Paper className={styles.sideBarContainer} sx={{pb: '10px'}}>
         <div className={styles.menuContainer}>
             <IconButton type="button" sx={{ p: "10px", ml: "20px" }} onClick={handleClick}>
               <MenuIcon sx={{ height: "26px", width: "26px" }} />
@@ -177,7 +189,7 @@ export default function SideBar() {
               <Typography variant="subtitle2" sx={{textAlign: 'center', pt: '10px'}}>No animes in Favorites</Typography>
             )}
           </div>
-      </div>
+      </Paper>
     </>
   );
 }

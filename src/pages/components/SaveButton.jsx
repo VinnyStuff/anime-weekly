@@ -80,9 +80,9 @@ export default function SaveButton({anime}) {
     return (
       <>
         <Paper sx={{borderRadius: '100%'}}>
-            <IconButton onClick={() => saveAnime()} color='#ED4956'>
+            <IconButton onClick={() => saveAnime()} color='#ED4956' sx={{height: '50px', width: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                 {   animeSaved ? (
-                    <FavoriteIcon sx={{ color: '#ED4956' }}/>
+                    <FavoriteIcon sx={{ color: '#ED4956'}}/>
                 ) : (
                     <FavoriteBorderIcon/>
                 )}

@@ -70,11 +70,12 @@
     height: 100%;
     visibility: hidden;
     background-color: currentColor;
-    opacity: 0.1;
+    opacity: 0.09;
     border-radius: 8px;
     pointer-events: none;
+    z-index: -1;
 }
-.overlayActive{
+.tabActive .overlay{
     visibility: visible;
 }
 .favoritedAnimeCard:hover .overlay{
@@ -85,7 +86,12 @@
     margin-right: 20px;
     margin-top: 2px;
 }
-
+.mobileButtonsContainer{
+    display: none;
+}
+.desktopButtonsContainer{
+    display: inherit;
+}
 @media only screen and (max-width: 745px) {
     .favoritedAnimeCardContainer, .favoritesQuickViewTextContainer{
         display: none;
@@ -124,6 +130,19 @@
     }
     .menuContainer{
         margin-left: -10px;
+    }
+    .overlay{
+        visibility: visible;
+        opacity: 0.066;
+    }
+    .tabActive .overlay{
+        opacity: 0.9;
+    }
+    .mobileButtonsContainer{
+        display: inherit;
+    }
+    .desktopButtonsContainer{
+        display: none;
     }
 }
 @media only screen and (max-width: 350px) {

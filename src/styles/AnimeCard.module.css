@@ -11,7 +11,7 @@
     height: 100%;
     visibility: hidden;
     background-color: currentColor;
-    opacity: 0.1;
+    opacity: 0.075;
     border-radius: 5px;
     pointer-events: none;
 }
@@ -49,7 +49,9 @@
     bottom: 0;
     margin-left: 10px;
     margin-bottom: 10px;
+    z-index: 99;
 }
+
 @media only screen and (max-width: 445px) {
     .image{
         object-fit: scale-down;
@@ -59,5 +61,10 @@
     }
     .saveButton{
         margin-bottom: 18px;
+    }
+}
+@media only screen and (max-width: 745px) {
+    .overlay{
+        display: none;
     }
 }
