@@ -22,18 +22,18 @@ export default function AnimeCard({ anime }) {
 
     return (
       <>
-        <Card className={styles.animeCard} onClick={handleClick}>
-          <div className={styles.imageContainer}>
+        <Card className={styles.animeCard}>
+          <div className={styles.imageContainer} onClick={handleClick}>
             <img
               className={styles.image}
               src={image}
               alt="current anime image"
             />
-            <div className={styles.saveButton} >
-              <SaveButton anime={anime}/>
-            </div>
           </div>
-          <div className={styles.animeInformationsContainer}>
+          <div className={styles.saveButton} >
+            <SaveButton anime={anime}/>
+          </div>
+          <div className={styles.animeInformationsContainer} onClick={handleClick}>
             <Typography color="text.primary" variant="h5" className={styles.title}>
               {title}
             </Typography>

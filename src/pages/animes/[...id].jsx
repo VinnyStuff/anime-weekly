@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import React, { useState, useEffect } from "react";
 import animesPromise from '../api/animes'
+import styles from '../../styles/anime.module.css'
+import { Typography } from '@mui/material';
 
 export default function Anime() {
   const router = useRouter();
@@ -14,11 +16,24 @@ export default function Anime() {
     }
   }, [router.query.id]);
 
+  console.log(anime);
+
   return (
     <>
+
       {anime ? (
         <>
-          <h1>{anime.title}</h1>
+          <div className={styles.wrapper}>
+            <div className={styles.animeContainer}>
+
+              <Typography variant="h3" color="text.primary" sx={{ pb: '10px'}}>{anime.title}</Typography>
+
+              <div className={styles.audioVisualContent}>
+                
+              </div>
+            </div>
+          </div>
+         
         </>
       ) :  (
         <>

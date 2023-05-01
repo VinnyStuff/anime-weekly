@@ -98,9 +98,7 @@
     }
     .sideBarContainer{
         height: auto;
-        max-width: 425px;
         width: 100vw;
-        box-shadow: none;
         left: 50%;
         transform: translateX(-50%);
         position: relative;

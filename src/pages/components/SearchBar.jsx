@@ -11,6 +11,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import styles from "../../styles/SearchBar.module.css";
 import animesPromise from '../api/animes'
+import { useRouter } from 'next/router';
 
 export default function SearchBar() {
   const [animes, setAnimes] = useState([]);
@@ -119,6 +120,11 @@ export default function SearchBar() {
       setShowAutocomplete(true);
     }
   }, [searchInput]);
+
+  const router = useRouter()
+  function handleClick(anime){
+    router.push(`/animes/${anime.mal_id}/${anime.title.replace(/\s+/g, "_")}`);
+  }
 
   return (
     <>
@@ -231,12 +237,14 @@ export default function SearchBar() {
               <Divider variant="middle"/>
             </div>
 
-            {animesToShow.slice(0,7).map((anime) => (
-              <div key={anime.title}>
-                <AnimeCardSearch anime={anime}/>
-                <Divider variant="middle"/>
-              </div>
-            ))}
+            <div className={styles.animesContainer}>
+              {animesToShow.map((anime) => ( //se tiver com lag tira o estilo e só coloca um slice
+                <div key={anime.title} onClick={(e) => {handleClick(anime);  e.stopPropagation(); setShowAutocomplete(false);}}>
+                  <AnimeCardSearch anime={anime}/>
+                  <Divider variant="middle"/>
+                </div>
+              ))}
+            </div>
 
             {animesToShow.length <= 0 && animes ? (
               <div>

@@ -74,7 +74,6 @@ export default function SideBar() {
   }
 
   function handleRouter(tab){
-
     setCurrentTab(tab)
 
     if(tab === 'Today'){
@@ -196,13 +195,18 @@ export default function SideBar() {
 
 
 function FavoritedAnimeCard({anime}){
+  const router = useRouter();
 
   const title = anime.title
   const image = anime.images.jpg.large_image_url;
 
+  const handleClick= () =>{
+    router.push(`/animes/${anime.mal_id}/${anime.title.replace(/\s+/g, "_")}`);
+  }
+
   return (
     <>
-      <div className={styles.favoritedAnimeCard}>
+      <div className={styles.favoritedAnimeCard} onClick={handleClick}>
         <img src={image} alt="Anime Image"/>
         <Typography sx={{ml: '8px', mr: '8px', lineHeight: '20px', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: '4', lineClamp: '4', WebkitBoxOrient: 'vertical'}} className={styles.favoritedAnimeCardTitle}>{title}</Typography>
         <div className={styles.overlay}></div>

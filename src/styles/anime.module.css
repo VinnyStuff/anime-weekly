@@ -1,0 +1,15 @@
+.wrapper{
+    margin: 0 auto;
+    max-width: max-content;
+}
+.animeContainer{
+    margin-left: 240px;
+    padding: 0 20px;
+    padding-top: 70px;
+}
+@media only screen and (max-width: 745px) {
+    .animeContainer{
+        margin-left: 0;
+        padding-top: 10px;
+    }
+}

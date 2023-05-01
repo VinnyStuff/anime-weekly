@@ -46,10 +46,9 @@
 }
 .saveButton{
     position: absolute;
-    bottom: 0;
-    margin-left: 10px;
-    margin-bottom: 10px;
     z-index: 99;
+    margin-top: -60px;
+    margin-left: 10px;
 }
 
 @media only screen and (max-width: 445px) {
@@ -60,7 +59,7 @@
         height: max-content;
     }
     .saveButton{
-        margin-bottom: 18px;
+        margin-top: -68px;
     }
 }
 @media only screen and (max-width: 745px) {

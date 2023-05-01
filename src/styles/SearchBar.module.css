@@ -91,21 +91,19 @@
    margin-left: 6px;
 }
 .searchMobile{
-    display: none;
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
 }
 @media only screen and (max-width: 745px) {
     .wrapper{
         margin-left: 0;
         position: absolute;
-        width: 100vw;
+        min-width: 100vw;
     }
     .searchMobile{
-        display: block;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-left: 170px;
-        margin-top: -4px;
+        visibility: visible;
     }
     .hideSearchBar{
         display: none;
@@ -115,12 +113,21 @@
         margin: 0 auto;
     }
 }
-@media only screen and (max-width: 425px) {
-    .searchMobile{
-        left: auto;
-        transform: none;
-        margin-left: 0;
-        right: 0;
-        margin-right: 20px;
-    }
+
+
+.animesContainer{
+    overflow-y: overlay;
+    max-height: 72vh;
+}
+.animesContainer::-webkit-scrollbar{
+    width: 6px;
+    margin-bottom: 50px;
+}
+.animesContainer::-webkit-scrollbar-track {
+    margin-bottom: 10px;
+}
+ 
+.animesContainer::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 15px;
 }
