@@ -238,7 +238,7 @@ export default function SearchBar() {
             </div>
 
             <div className={styles.animesContainer}>
-              {animesToShow.map((anime) => ( //se tiver com lag tira o estilo e só coloca um slice
+              {animesToShow.slice(0,6).map((anime) => (
                 <div key={anime.title} onClick={(e) => {handleClick(anime);  e.stopPropagation(); setShowAutocomplete(false);}}>
                   <AnimeCardSearch anime={anime}/>
                   <Divider variant="middle"/>

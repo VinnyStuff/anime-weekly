@@ -113,21 +113,3 @@
         margin: 0 auto;
     }
 }
-
-
-.animesContainer{
-    overflow-y: overlay;
-    max-height: 72vh;
-}
-.animesContainer::-webkit-scrollbar{
-    width: 6px;
-    margin-bottom: 50px;
-}
-.animesContainer::-webkit-scrollbar-track {
-    margin-bottom: 10px;
-}
- 
-.animesContainer::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 15px;
-}
