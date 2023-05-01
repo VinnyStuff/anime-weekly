@@ -4,18 +4,25 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import Skeleton from "@mui/material/Skeleton";
 import SaveButton from './SaveButton'
+import { useRouter } from 'next/router';
 
 import styles from "../../styles/AnimeCard.module.css";
 
 export default function AnimeCard({ anime }) {
+
   if (anime) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
     const genres = anime.genres;
 
+    const router = useRouter()
+    const handleClick= () =>{
+      router.push(`/animes/${anime.mal_id}`);
+    }
+
     return (
       <>
-        <Card className={styles.animeCard}>
+        <Card className={styles.animeCard} onClick={handleClick}>
           <div className={styles.imageContainer}>
             <img
               className={styles.image}

@@ -67,6 +67,9 @@ export default function SideBar() {
       else if (path === '/favorites' || path === '/anime-weekly/favorites') {
         setCurrentTab('Favorites');
       }
+      else{
+        setCurrentTab('');
+      }
     }, [path]);
   }
 

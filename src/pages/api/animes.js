@@ -30,6 +30,7 @@ async function fetchAnimes() {
   await fetchSeasonData(currentPage);
   //sideBar update favorites animes
   //side bar is a controller about everything in page
+  //console.log(animes);
   return animes;
 }
 
