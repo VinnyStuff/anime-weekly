@@ -9,7 +9,7 @@ export default function Anime() {
   useEffect(() => {
     if (router.query.id) {
       animesPromise.then(result => {
-        setAnime(result.find(anime => anime.mal_id === Number(router.query.id)));
+        setAnime(result.find(anime => anime.mal_id === Number(router.query.id[0])));
       });
     }
   }, [router.query.id]);
