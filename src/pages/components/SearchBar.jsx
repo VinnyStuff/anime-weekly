@@ -13,7 +13,7 @@ import styles from "../../styles/SearchBar.module.css";
 import animesPromise from '../api/animes'
 import { useRouter } from 'next/router';
 
-export default function SearchBar() {
+export default function SearchBar({}) {
   const [animes, setAnimes] = useState([]);
   useEffect(() => {
     animesPromise.then(result => {

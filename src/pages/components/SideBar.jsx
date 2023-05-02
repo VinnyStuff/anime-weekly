@@ -159,7 +159,7 @@ export default function SideBar() {
               </MenuItem>
             </Menu>
             <img
-              src='/images/logo-light-mode.png'
+              src={useSelector(themeSelect) === 'dark' ?  '/images/logo-dark-mode.png': '/images/logo-light-mode.png'}
               alt="Anime Week"
             />
           </div>

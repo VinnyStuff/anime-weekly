@@ -34,6 +34,7 @@ async function fetchAnimes() {
   return animes;
 }
 
+
 export default fetchAnimes();
 
 function getAnimesReleaseDate(anime) {
