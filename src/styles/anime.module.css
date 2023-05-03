@@ -13,3 +13,18 @@
         padding-top: 10px;
     }
 }
+.trailerContainer{
+    width: 500px;
+    height: 400px;
+    position: relative;
+}
+.trailerImage{
+    height: 100%;
+    z-index: -10;
+}
+.trailerText{
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
