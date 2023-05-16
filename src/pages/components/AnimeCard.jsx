@@ -17,7 +17,8 @@ export default function AnimeCard({ anime }) {
 
     const router = useRouter()
     const handleClick= () =>{
-      router.push(`/animes/${anime.mal_id}/${anime.title.replace(/\s+/g, "_")}`);
+      router.push(`/animes/${anime.mal_id}`);
+      //router.push(`/animes/${anime.mal_id}/${anime.title.replace(/\s+/g, "_")}`);
     }
 
     return (
