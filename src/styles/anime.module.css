@@ -28,3 +28,28 @@
     bottom: 0;
     left: 0;
 }
+
+
+
+.charactersListContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-width: 605px;
+    justify-content: center;
+}
+
+.characterCardContainer{
+    display: flex;
+    cursor: pointer;
+    width: 300px;
+    max-width: 300px;
+    flex-grow: 1;
+}
+.CharacterCardImage{
+    height: 100px;
+    width: max-content;
+}
+.characterCardText{
+    padding: 6px 10px;
+}
