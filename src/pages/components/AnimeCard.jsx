@@ -14,11 +14,11 @@ export default function AnimeCard({ anime }) {
     const image = anime.images.jpg.large_image_url;
     const title = anime.title;
     const genres = anime.genres;
+    const url = anime.url;
 
     const router = useRouter()
     const handleClick= () =>{
-      router.push(`/animes/${anime.mal_id}`);
-      //router.push(`/animes/${anime.mal_id}/${anime.title.replace(/\s+/g, "_")}`);
+      window.open(url, '_blank')
     }
 
     return (

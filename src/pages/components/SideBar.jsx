@@ -19,6 +19,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ListItemText from '@mui/material/ListItemText';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined';
 import animesPromise from '../api/animes'
 import { useRouter } from "next/router";
 
@@ -67,8 +69,12 @@ export default function SideBar() {
       else if (path === '/favorites' || path === '/anime-weekly/favorites') {
         setCurrentTab('Favorites');
       }
+      else if (path === '/ranking' || path === '/anime-weekly/ranking') {
+        setCurrentTab('Ranking');
+      }
       else{
-        setCurrentTab('');
+        setCurrentTab('Today');
+        router.push('/');
       }
     }, [path]);
   }
@@ -84,6 +90,9 @@ export default function SideBar() {
     }
     else if(tab === 'Favorites'){
       router.push('/favorites');
+    }
+    else if(tab === 'Ranking'){
+      router.push('/ranking');
     }
   }
 
@@ -168,6 +177,7 @@ export default function SideBar() {
             <Tab iconInactive={WatchLaterOutlinedIcon} iconActive={WatchLaterIcon}>Today</Tab>
             <Tab iconInactive={DateRangeOutlinedIcon} iconActive={DateRangeIcon}>All Week</Tab>
             <Tab iconInactive={FavoriteBorderIcon} iconActive={FavoriteIcon}>Favorites</Tab>
+            <Tab iconInactive={LeaderboardOutlinedIcon} iconActive={LeaderboardIcon}>Ranking</Tab>
             <Divider sx={{mt: '10px'}}/>
           </div>
             
@@ -199,9 +209,10 @@ function FavoritedAnimeCard({anime}){
 
   const title = anime.title
   const image = anime.images.jpg.large_image_url;
+  const url = anime.url;
 
   const handleClick= () =>{
-    router.push(`/animes/${anime.mal_id}/${anime.title.replace(/\s+/g, "_")}`);
+    window.open(url, '_blank')
   }
 
   return (
